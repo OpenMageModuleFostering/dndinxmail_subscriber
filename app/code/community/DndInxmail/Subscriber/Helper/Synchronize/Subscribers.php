@@ -32,7 +32,11 @@ class DndInxmail_Subscriber_Helper_Synchronize_Subscribers extends DndInxmail_Su
         $resource        = Mage::getSingleton('core/resource');
         $read            = $resource->getConnection('core_read');
         $subscriberTable = $resource->getTableName('newsletter/subscriber');
-        $query           = "SELECT `$subscriberTable`.`subscriber_status` as `status`, `$subscriberTable`.`subscriber_email` as `email`  FROM `$subscriberTable` WHERE `$subscriberTable`.`store_id` = $storeId";
+        $query           = "
+            SELECT `$subscriberTable`.`subscriber_email` as `email`
+            FROM `$subscriberTable`
+            WHERE `$subscriberTable`.`store_id` = $storeId
+        ";
 
         try {
             if (!$result = $read->query($query)) {
@@ -44,10 +48,7 @@ class DndInxmail_Subscriber_Helper_Synchronize_Subscribers extends DndInxmail_Su
 
             foreach ($subscribers as $subscriber) {
 
-                $pass[$currentPass][] = array(
-                    'email'  => $subscriber['email'],
-                    'status' => $subscriber['status']
-                );
+                $pass[$currentPass][] = $subscriber['email'];
 
                 if ($i % $subscribersPerPass == $subscribersPerPass - 1) {
                     $currentPass++;

@@ -47,8 +47,10 @@ class DndInxmail_Subscriber_Adminhtml_InxmailcolumnsController extends Mage_Admi
     {
         $synchronize = Mage::helper('dndinxmail_subscriber/synchronize');
 
-        if (!$session = $synchronize->openInxmailSession()) {
-            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('dndinxmail_subscriber')->__('Inxmail session does not exist'));
+        try {
+            $session = $synchronize->openInxmailSession(false);
+        } catch (Exception $e) {
+            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             $this->_redirect('*/*/new');
 
             return false;

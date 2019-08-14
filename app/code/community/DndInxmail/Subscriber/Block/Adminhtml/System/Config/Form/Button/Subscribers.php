@@ -56,11 +56,22 @@ class DndInxmail_Subscriber_Block_Adminhtml_System_Config_Form_Button_Subscriber
     {
         $button = $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
             'id'      => 'dndinxmail_subscriber_button',
-            'label'   => $this->helper('adminhtml')->__('Synchronize now'),
-            'onclick' => 'javascript:DndInxmailSynchronizeSubscribers(); return false;'
+            'label'   => $this->helper('adminhtml')->__('Perform migration now'),
+            'onclick' => 'javascript:DndInxmailSynchronizeSubscribers(); return false;',
+            'disabled' => $this->isSynchronized(),
         ));
 
         return $button->toHtml();
     }
 
+    /**
+     * @return bool
+     */
+    public function isSynchronized()
+    {
+        $storeCode = Mage::getSingleton('adminhtml/config_data')->getStore();
+        $store = Mage::app()->getStore($storeCode);
+
+        return Mage::helper('dndinxmail_subscriber/config')->isSynchronized($store);
+    }
 }

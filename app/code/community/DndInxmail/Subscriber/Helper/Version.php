@@ -26,4 +26,12 @@ class DndInxmail_Subscriber_Helper_Version extends Mage_Core_Helper_Abstract
     {
         return Mage::getConfig()->getModuleConfig('DndInxmail_Subscriber')->version;
     }
+
+    /**
+     * @return string
+     */
+    public function getApiVersion()
+    {
+        return Inx_Apiimpl_SoapSession::API_ID;
+    }
 }

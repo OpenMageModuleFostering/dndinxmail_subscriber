@@ -4,7 +4,7 @@
  * @category               Module Helper
  * @package                DndInxmail_Subscriber
  * @dev                    Merlin
- * @last_modified          13/03/2013
+ * @last_modified          16/10/2013
  * @copyright              Copyright (c) 2012 Agence Dn'D
  * @author                 Agence Dn'D - Conseil en creation de site e-Commerce Magento : http://www.dnd.fr/
  * @license                http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -39,6 +39,21 @@ class DndInxmail_Subscriber_Helper_Log extends DndInxmail_Subscriber_Helper_Abst
         $this->_checkLogDir();
         $file = ($methodName == null) ? $this->_logFilename : $methodName . '.log';
         Mage::log($message, null, self::DNDINXMAIL_LOG_FOLDER . DS . $file);
+    }
+
+    /**
+     * @param Exception $e
+     * @param string|null $methodName
+     */
+    public function logExceptionMessage(Exception $e, $methodName = null)
+    {
+        $message = $e->getMessage();
+
+        if ($e instanceof Inx_Api_LoginException) {
+            $message .= sprintf(' (Code: %s)', $e->getCode());
+        }
+
+        $this->logExceptionData($message, $methodName);
     }
 
     /**

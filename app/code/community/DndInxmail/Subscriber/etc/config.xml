@@ -13,7 +13,7 @@
 <config>
     <modules>
         <DndInxmail_Subscriber>
-            <version>3.1.0.6</version>
+            <version>3.2.0.1</version>
         </DndInxmail_Subscriber>
     </modules>
     <global>
@@ -123,7 +123,7 @@
     <default>
         <dndinxmail_subscriber_general>
             <syncrhonize_subscribers>
-                <subscribers_per_pass>50</subscribers_per_pass>
+                <subscribers_per_pass>500</subscribers_per_pass>
             </syncrhonize_subscribers>
         </dndinxmail_subscriber_general>
         <dndinxmail_subscriber_crons>

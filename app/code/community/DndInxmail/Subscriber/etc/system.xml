@@ -34,6 +34,22 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>0</show_in_store>
                     <fields>
+                        <module_version translate="label">
+                            <label>Module Version</label>
+                            <frontend_model>dndinxmail_subscriber/adminhtml_system_config_moduleVersion</frontend_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </module_version>
+                        <api_version translate="label">
+                            <label>API Version</label>
+                            <frontend_model>dndinxmail_subscriber/adminhtml_system_config_apiVersion</frontend_model>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </api_version>
                         <url translate="label">
                             <label>API Url</label>
                             <frontend_type>text</frontend_type>
@@ -89,25 +105,25 @@
                     </fields>
                 </general>
                 <syncrhonize_subscribers translate="label">
-                    <label>Subscribers synchronization</label>
+                    <label>Migration of the newsletter recipients to Inxmail</label>
                     <sort_order>30</sort_order>
                     <show_in_default>0</show_in_default>
                     <show_in_website>0</show_in_website>
                     <show_in_store>1</show_in_store>
-                    <comment>Subscribers synchronization is only available on the store view configuration of your website.</comment>
+                    <comment><![CDATA[The newsletter recipients should be migrated manually to Inxmail once per store view configuration. All recipients who are currently managed in Magento will thereby be merged with the recipients on the corresponding list in Inxmail according to the following rules:<ul style='list-style-type: circle; padding-left: 2em;'><li>If a recipient’s email address already exists on the Inxmail list, the recipient’s subscription status will not be changed in Inxmail. In this case, the status from Inxmail will be used in Magento (Inxmail has control over subscription status).</li><li>If a subscribed recipient in Magento does not exist in Inxmail (there are different reasons for this), then the recipient will be subscribed in Inxmail without the opt-in procedure (Magento has control over subscription status).</li><li>A recipient who does not have the "subscribed" status following an existence check in Inxmail will not be transferred.</li></ul>]]></comment>
                     <fields>
                         <synchronize_all translate="label comment">
-                            <label>Synchronize All Subscribers</label>
+                            <label>Migration</label>
                             <frontend_type>button</frontend_type>
                             <frontend_model>dndinxmail_subscriber/adminhtml_system_config_form_button_subscribers</frontend_model>
-                            <comment>Synchronize all Magento subscribers to Inxmail</comment>
+                            <comment>Merges all recipients of the selected store view from Magento with the corresponding Inxmail list</comment>
                             <sort_order>10</sort_order>
                             <show_in_default>0</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>1</show_in_store>
                         </synchronize_all>
                         <subscribers_per_pass translate="label comment">
-                            <label>Subscribers per pass</label>
+                            <label>Subscribers per transfer</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
