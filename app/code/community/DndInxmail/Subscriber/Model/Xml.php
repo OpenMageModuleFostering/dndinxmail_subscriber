@@ -27,7 +27,13 @@ class DndInxmail_Subscriber_Model_Xml extends Mage_Core_Model_Abstract
         $ih  = Mage::getStoreConfig("dndinxmail_subscriber_datasource/feed_$type/img_height");
 
         $categoryIds = $product->getCategoryIds();
-        $category    = Mage::getModel("catalog/category")->load($categoryIds[0]);
+        $categoryId = null;
+        if (isset($categoryIds[0])) {
+            $categoryId = $categoryIds[0];
+        }
+        $category    = Mage::getModel("catalog/category")->load($categoryId);
+
+        $imagePath = $this->_getProductImagePath($product, $iw, $ih);
 
         $xml = str_replace('{{product_category}}', htmlspecialchars($category->getName()), $xml);
         $xml = str_replace('{{product_id}}', htmlspecialchars($product->getId()), $xml);
@@ -36,7 +42,7 @@ class DndInxmail_Subscriber_Model_Xml extends Mage_Core_Model_Abstract
         $xml = str_replace('{{product_description}}', htmlspecialchars($product->getShortDescription()), $xml);
         $xml = str_replace('{{product_url}}', htmlspecialchars($product->getProductUrl()), $xml);
         $xml = str_replace('{{product_sku}}', htmlspecialchars($product->getSku()), $xml);
-        $xml = str_replace('{{product_image}}', htmlspecialchars(Mage::helper('catalog/image')->init($product, 'image')->resize($iw, $ih)->__toString()), $xml);
+        $xml = str_replace('{{product_image}}', htmlspecialchars($imagePath), $xml);
         $xml = str_replace('{{product_price}}', htmlspecialchars(Mage::helper('tax')->getPrice($product, $product->getFinalPrice(), true)), $xml);
         $xml = str_replace('{{product_currency}}', htmlspecialchars(Mage::getStoreConfig('currency/options/default')), $xml);
 
@@ -57,6 +63,72 @@ class DndInxmail_Subscriber_Model_Xml extends Mage_Core_Model_Abstract
         $xml = str_replace('{{specificAttribute}}', $xmlAttr, $xml);
 
         return $xml;
+    }
+
+    /**
+     * @param $product
+     * @param $width
+     * @param $height
+     *
+     * @return string
+     */
+    protected function _getProductImagePath($product, $width, $height)
+    {
+        $imagePath = Mage::helper('catalog/image')->init($product, 'image')->resize($width, $height)->__toString();
+        $inxmailImagesFolder = trim(Mage::helper('dndinxmail_subscriber/config')->getInxmailImagesFolder(), ' /');
+
+        $mediaConfigHelper = Mage::getSingleton('catalog/product_media_config');
+        $unrequiredPath    = $mediaConfigHelper->getBaseMediaUrl() . '/cache';
+        $cleanUri          = ltrim(str_ireplace($unrequiredPath, '', $imagePath), '/');
+
+        $inxmailUri      = $inxmailImagesFolder . '/' . $this->_transformToUrl($cleanUri);
+        $inxmailUrl      = Mage::getBaseUrl('media') . $inxmailUri;
+        $inxmailUriPath  = $inxmailImagesFolder . DS . $this->_transformToPath($cleanUri);
+        $inxmailFilePath = Mage::getBaseDir('media') . DS . $inxmailUriPath;
+        if (file_exists($inxmailFilePath)) {
+            return $inxmailUrl;
+        }
+
+        $magentoFilePath = $mediaConfigHelper->getBaseMediaPath() . DS . 'cache' . DS . $cleanUri;
+
+        try {
+            if (file_exists($magentoFilePath)) {
+                $info = pathinfo($inxmailFilePath);
+                $dir = $info['dirname'];
+                if(!is_writable($dir) ) {
+                    $io = new Varien_Io_File();
+                    $io->mkdir($dir);
+                }
+                copy($magentoFilePath, $inxmailFilePath);
+                Mage::helper('core/file_storage_database')->saveFile($inxmailUri);
+                return $inxmailUrl;
+            }
+        } catch (Exception $e) {
+            Mage::helper('dndinxmail_subscriber/log')->logExceptionData($e);
+            Mage::logException($e);
+        }
+
+        return $imagePath;
+    }
+
+    /**
+     * @param $url
+     *
+     * @return mixed
+     */
+    protected function _transformToPath($url)
+    {
+        return str_replace('/', DS, $url);
+    }
+
+    /**
+     * @param $path
+     *
+     * @return mixed
+     */
+    protected function _transformToUrl($path)
+    {
+        return str_replace(DS, '/', $path);
     }
 
     /**

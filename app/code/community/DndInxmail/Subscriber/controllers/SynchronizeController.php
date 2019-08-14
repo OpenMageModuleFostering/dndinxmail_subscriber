@@ -59,6 +59,7 @@ class DndInxmail_Subscriber_SynchronizeController extends Mage_Core_Controller_F
             Mage::getSingleton('core/session')->addError($message);
             $this->_redirect('dndinxmail_subscriber_front/messages/error/');
         }
+        $pass['sync_start_time'] = time();
 
         $pass = Zend_Json::encode($pass);
 
@@ -115,6 +116,14 @@ class DndInxmail_Subscriber_SynchronizeController extends Mage_Core_Controller_F
                 $data['failed'] = 'true';
                 $data['msg']    = $e->getMessage();
             }
+        }
+        $lastPass = $this->getRequest()->getParam('last_pass');
+        if ($lastPass) {
+            $time = $this->getRequest()->getParam('sync_start_time');
+            if (!$time) {
+                $time = time();
+            }
+            Mage::helper('dndinxmail_subscriber/flag')->saveUnsubscribedTimeFlag($time , $store->getStoreId());
         }
 
         $synchronize->closeInxmailSession();
@@ -174,6 +183,7 @@ class DndInxmail_Subscriber_SynchronizeController extends Mage_Core_Controller_F
             Mage::getSingleton('core/session')->addError($message);
             $this->_redirect('dndinxmail_subscriber_front/messages/error/');
         }
+        $pass['sync_start_time'] = time();
 
         $pass = Zend_Json::encode($pass);
         $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
@@ -213,7 +223,7 @@ class DndInxmail_Subscriber_SynchronizeController extends Mage_Core_Controller_F
         if ($data['failed'] == 'false') {
 
             try {
-
+                $synchronize->doMappingCheck();
                 $contextListManager = $session->getListContextManager();
                 $listName           = $this->getRequest()->getParam('list');
                 if (!$list = $contextListManager->findByName($listName)) {
@@ -232,6 +242,15 @@ class DndInxmail_Subscriber_SynchronizeController extends Mage_Core_Controller_F
                 $data['msg']    = $e->getMessage();
             }
 
+        }
+
+        $lastPass = $this->getRequest()->getParam('last_pass');
+        if ($lastPass) {
+            $time = $this->getRequest()->getParam('sync_start_time');
+            if (!$time) {
+                $time = time();
+            }
+            Mage::helper('dndinxmail_subscriber/flag')->saveGroupUnsubscribedTimeFlag($time);
         }
 
         $synchronize->closeInxmailSession();

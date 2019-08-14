@@ -9,7 +9,7 @@ class DndInxmail_Subscriber_Block_Adminhtml_Notifications extends Mage_Core_Bloc
      */
     public function getMessages()
     {
-        $errorsJson = Mage::getStoreConfig(DndInxmail_Subscriber_Helper_Synchronize::DND_INXMAIL_ADMIN_NOTIFICATION);
+        $errorsJson = Mage::helper('dndinxmail_subscriber/flag')->getAdminNotifications();
         try {
             $errors = Mage::helper('core')->jsonDecode($errorsJson);
         } catch (Exception $e) {

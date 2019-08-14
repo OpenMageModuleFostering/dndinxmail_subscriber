@@ -13,7 +13,7 @@
 <config>
     <modules>
         <DndInxmail_Subscriber>
-            <version>3.2.0.1</version>
+            <version>3.3.0.0</version>
         </DndInxmail_Subscriber>
     </modules>
     <global>
@@ -48,6 +48,22 @@
             </dndinxmail_subscriber>
         </helpers>
         <events>
+            <controller_action_predispatch>
+                <observers>
+                    <dndinxmail_subscriber_set_email_trigger>
+                        <class>dndinxmail_subscriber/observer</class>
+                        <method>setEmailTrigger</method>
+                    </dndinxmail_subscriber_set_email_trigger>
+                </observers>
+            </controller_action_predispatch>
+            <newsletter_subscriber_load_after>
+                <observers>
+                    <dndinxmail_subscriber_disable_emails>
+                        <class>dndinxmail_subscriber/observer</class>
+                        <method>disableEmails</method>
+                    </dndinxmail_subscriber_disable_emails>
+                </observers>
+            </newsletter_subscriber_load_after>
             <newsletter_subscriber_delete_before>
                 <observers>
                     <dndinxmail_subscriber_synchronize_subscriber>
@@ -56,6 +72,14 @@
                     </dndinxmail_subscriber_synchronize_subscriber>
                 </observers>
             </newsletter_subscriber_delete_before>
+            <newsletter_subscriber_save_after>
+                <observers>
+                    <dndinxmail_subscriber_synchronize_subscriber>
+                        <class>dndinxmail_subscriber/observer</class>
+                        <method>disableEmails</method>
+                    </dndinxmail_subscriber_synchronize_subscriber>
+                </observers>
+            </newsletter_subscriber_save_after>
             <newsletter_subscriber_save_commit_after>
                 <observers>
                     <dndinxmail_subscriber_synchronize_subscriber>
@@ -122,6 +146,9 @@
     </admin>
     <default>
         <dndinxmail_subscriber_general>
+            <general>
+                <optin_control>2</optin_control>
+            </general>
             <syncrhonize_subscribers>
                 <subscribers_per_pass>500</subscribers_per_pass>
             </syncrhonize_subscribers>
@@ -132,6 +159,9 @@
             </crons_synchronize_groups>
         </dndinxmail_subscriber_crons>
         <dndinxmail_subscriber_datasource>
+            <general>
+                <images_folder>inxmail</images_folder>
+            </general>
             <feed_oneproduct>
                 <img_width>100</img_width>
                 <img_height>100</img_height>

@@ -27,10 +27,8 @@ class DndInxmail_Subscriber_Adminhtml_InxmailNotificationController extends Mage
      */
     public function removeNotificationAction()
     {
-        $config    = new Mage_Core_Model_Config();
         $emptyJson = Mage::helper('core')->jsonEncode(array());
-        $config->saveConfig(DndInxmail_Subscriber_Helper_Synchronize::DND_INXMAIL_ADMIN_NOTIFICATION, $emptyJson);
-        $config->cleanCache();
+        Mage::helper('dndinxmail_subscriber/flag')->saveAdminNotifications($emptyJson);
 
         $this->_redirectReferer();
     }

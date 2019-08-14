@@ -92,6 +92,16 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </active>
+                        <optin_control translate="label comment">
+                            <label>Opt-in control</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>dndinxmail_subscriber/adminhtml_system_config_source_inxmail_optinControl</source_model>
+                            <comment><![CDATA[If opt-in control is managed by ‘Inxmail Professional’, the settings in Magento for newsletter management (System -> Configuration -> Customers -> Newsletter) are ignored. In this case, Magento will not send any emails for the newsletter registration process. This is the recommended setting. If, however, you want ‘Magento’ to be the managing system, please follow the instructions in the user manual.]]></comment>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </optin_control>
                         <inxmail_list translate="label comment">
                             <label>Inxmail List</label>
                             <frontend_type>select</frontend_type>
@@ -135,7 +145,7 @@
             </groups>
         </dndinxmail_subscriber_general>
         <dndinxmail_subscriber_mapping module="dndinxmail_subscriber">
-            <label>Mapping</label>
+            <label>Customer data mapping</label>
             <tab>dndinxmail</tab>
             <frontend_type>text</frontend_type>
             <sort_order>20</sort_order>
@@ -153,7 +163,7 @@
                         <mapping>
                             <label>Mapping</label>
                             <frontend_model>dndinxmail_subscriber/adminhtml_system_config_form_field_payment</frontend_model>
-                            <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
+                            <backend_model>dndinxmail_subscriber/adminhtml_system_config_backend_mapping</backend_model>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -164,13 +174,13 @@
                                     <fields>
                                         <attribute_code>
                                             <type>select</type>
-                                            <label>Customer Attribute</label>
+                                            <label>Magento customer attribute</label>
                                             <source_model>dndinxmail_subscriber/adminhtml_system_config_source_customer_attributes</source_model>
                                             <style>width:240px</style>
                                         </attribute_code>
                                         <inxmail_column>
                                             <type>select</type>
-                                            <label>Inxmail Column</label>
+                                            <label>Inxmail Professional recipient attribute</label>
                                             <source_model>dndinxmail_subscriber/adminhtml_system_config_source_inxmail_groupedColumns</source_model>
                                             <style>width:240px</style>
                                         </inxmail_column>
@@ -341,7 +351,7 @@
             </groups>
         </dndinxmail_subscriber_mapping>
         <dndinxmail_subscriber_datasource module="dndinxmail_subscriber">
-            <label>Datasource</label>
+            <label>Product data source</label>
             <tab>dndinxmail</tab>
             <frontend_type>text</frontend_type>
             <sort_order>30</sort_order>
@@ -680,7 +690,7 @@
             </groups>
         </dndinxmail_subscriber_datasource>
         <dndinxmail_subscriber_crons module="dndinxmail_subscriber">
-            <label>Crons</label>
+            <label>Synchronisation settings</label>
             <tab>dndinxmail</tab>
             <frontend_type>text</frontend_type>
             <sort_order>40</sort_order>
@@ -689,7 +699,7 @@
             <show_in_store>1</show_in_store>
             <groups>
                 <crons_synchronize_unsubscribed>
-                    <label>Unsubscribed synchronization</label>
+                    <label>Synchronise unsubscriptions</label>
                     <sort_order>10</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>

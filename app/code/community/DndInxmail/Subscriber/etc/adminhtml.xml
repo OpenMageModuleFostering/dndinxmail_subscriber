@@ -62,17 +62,17 @@
                             <action>adminhtml/system_config/edit/section/dndinxmail_subscriber_general/</action>
                         </dndinxmail_subscriber_general>
                         <dndinxmail_subscriber_mapping>
-                            <title>Mapping</title>
+                            <title>Customer data mapping</title>
                             <sort_order>20</sort_order>
                             <action>adminhtml/system_config/edit/section/dndinxmail_subscriber_mapping/</action>
                         </dndinxmail_subscriber_mapping>
                         <dndinxmail_subscriber_datasource>
-                            <title>Datasource</title>
+                            <title>Product data source</title>
                             <sort_order>30</sort_order>
                             <action>adminhtml/system_config/edit/section/dndinxmail_subscriber_datasource/</action>
                         </dndinxmail_subscriber_datasource>
                         <dndinxmail_subscriber_crons>
-                            <title>Crons</title>
+                            <title>Synchronisation settings</title>
                             <sort_order>40</sort_order>
                             <action>adminhtml/system_config/edit/section/dndinxmail_subscriber_crons/</action>
                         </dndinxmail_subscriber_crons>

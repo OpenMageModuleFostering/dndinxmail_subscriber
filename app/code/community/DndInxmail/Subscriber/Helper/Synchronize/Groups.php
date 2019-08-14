@@ -105,4 +105,107 @@ class DndInxmail_Subscriber_Helper_Synchronize_Groups extends DndInxmail_Subscri
         return ($config != '' && $config != null) ? $config : 50;
     }
 
+    /**
+     * @param $time
+     *
+     * @return array|bool
+     */
+    public function unsubscribeCustomersFromGroups($time = null)
+    {
+        $synchronizeHelper = Mage::helper('dndinxmail_subscriber/synchronize');
+        try {
+            $synchronizeHelper->openInxmailSession(false);
+        } catch (Exception $e) {
+            Mage::helper('dndinxmail_subscriber/log')->logExceptionMessage($e, __FUNCTION__);
+
+            return false;
+        }
+
+        if (!is_null($time)) {
+            return $this->unsubscribeCustomersFromGroupsAfterTime($time);
+        }
+        $groupHelper = Mage::helper('dndinxmail_subscriber/group');
+
+        $groupsConfig = $groupHelper->getCustomerGroupsConfig();
+        if (count($groupsConfig) <= 0) return array();
+
+        try {
+            $contextListManager = $synchronizeHelper->getListContextManager();
+            $recipientContext   = $synchronizeHelper->getRecipientContext();
+            $recipientMetaData  = $recipientContext->getMetaData();
+            $emailAttribute     = $recipientMetaData->getEmailAttribute();
+            $unsubscribed       = array();
+
+            foreach ($groupsConfig as $groupId) {
+
+                $listName = $groupHelper->formatInxmailListName($groupId);
+
+                if ($inxmailList = $contextListManager->findByName($listName)) {
+                    $recipientRowSet = $recipientContext->selectUnsubscriber($inxmailList, null, null, $emailAttribute, Inx_Api_Order::ASC);
+                    while ($recipientRowSet->next()) {
+                        $unsubscribed[] = $recipientRowSet->getString($emailAttribute);
+                    }
+                }
+
+            }
+            $recipientContext->close();
+
+        }
+        catch (Exception $e) {
+            return false;
+        }
+
+        $synchronizeHelper->closeInxmailSession();
+
+        $synchronizeHelper->unsubscribeCustomersFromMagentoByEmails($unsubscribed);
+
+        return true;
+    }
+
+    /**
+     * @param $time
+     *
+     * @return bool
+     */
+    public function unsubscribeCustomersFromGroupsAfterTime($time)
+    {
+        $synchronizeHelper = Mage::helper('dndinxmail_subscriber/synchronize');
+        try {
+            $synchronizeHelper->openInxmailSession(false);
+        } catch (Exception $e) {
+            Mage::helper('dndinxmail_subscriber/log')->logExceptionMessage($e, __FUNCTION__);
+
+            return false;
+        }
+
+        $groupHelper = Mage::helper('dndinxmail_subscriber/group');
+        $groupsConfig = $groupHelper->getCustomerGroupsConfig();
+        if (!is_array($groupsConfig) || count($groupsConfig) <= 0) {
+            return array();
+        }
+
+        try {
+            $contextListManager = $synchronizeHelper->getListContextManager();
+            $unsubscribed       = array();
+
+            foreach ($groupsConfig as $groupId) {
+                $listName = $groupHelper->formatInxmailListName($groupId);
+                if ($inxmailList = $contextListManager->findByName($listName)) {
+                    $unsubscribed = array_merge(
+                        $unsubscribed,
+                        $synchronizeHelper->getUnsubscribedEmailsForListAfterTime($inxmailList, $time)
+                    );
+                }
+
+            }
+        } catch (Exception $e) {
+            return false;
+        }
+
+        $synchronizeHelper->closeInxmailSession();
+
+        $synchronizeHelper->unsubscribeCustomersFromMagentoByEmails($unsubscribed);
+
+        return true;
+    }
 }
