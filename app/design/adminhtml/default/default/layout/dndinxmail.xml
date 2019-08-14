@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <adminhtml_inxmailcolumns_new>
+        <reference name="content">
+            <block type="adminhtml/template" name="dndinxmail_form" template="dndinxmail/subscriber/system/inxmail/columns.phtml" />
+        </reference>
+    </adminhtml_inxmailcolumns_new>
+
+    <default>
+        <reference name="notifications">
+            <block type="dndinxmail_subscriber/adminhtml_notifications" name="dndinxmail_notifications" template="dndinxmail/subscriber/notifications.phtml" />
+        </reference>
+    </default>
+</layout>

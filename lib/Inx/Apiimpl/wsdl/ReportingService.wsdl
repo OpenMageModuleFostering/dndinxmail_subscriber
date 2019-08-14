@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://reporting.apiservice.xpro.inxmail.com" xmlns:impl="http://reporting.apiservice.xpro.inxmail.com" xmlns:inx="http://apiservice.xpro.inxmail.com" xmlns:intf="http://reporting.apiservice.xpro.inxmail.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+ <wsdl:types>
+  <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://apiservice.xpro.inxmail.com">
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+
+    <complexType name="ArrayOf_xsd_string">
+     <complexContent>
+        <restriction base="soapenc:Array">
+         <attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:string[]"/>
+        </restriction>
+     </complexContent>
+    </complexType>
+
+    <complexType name="SessionCxt">
+     <sequence>
+      <element name="sid" type="xsd:string"/>
+      <element name="relRefIds" nillable="true" type="inx:ArrayOf_xsd_string"/>
+     </sequence>
+    </complexType>
+   
+   <complexType name="TString">
+    <sequence>
+     <element name="value" type="xsd:string"/>
+    </sequence>
+   </complexType>
+
+   <complexType name="TBoolean">
+    <sequence>
+     <element name="value" type="xsd:boolean"/>
+    </sequence>
+   </complexType>
+   
+   <complexType name="TInteger">
+    <sequence>
+     <element name="value" type="xsd:int"/>
+    </sequence>
+   </complexType>
+  
+   <complexType name="TDouble">
+      <sequence>
+       <element name="value" type="xsd:double"/>
+      </sequence>
+   </complexType>
+   
+   <complexType name="TDatetime">
+         <sequence>
+          <element name="value" type="xsd:dateTime"/>
+         </sequence>
+   </complexType>
+   
+   <complexType name="TDate">
+         <sequence>
+          <element name="value" type="xsd:date"/>
+         </sequence>
+   </complexType>
+   
+   <complexType name="TTime">
+            <sequence>
+             <element name="value" type="xsd:time"/>
+            </sequence>
+   </complexType>
+ 
+   <complexType name="ArrayOf_TString">
+      <complexContent>
+       <restriction base="soapenc:Array">
+        <attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TString[]"/>
+       </restriction>
+      </complexContent>
+   </complexType>
+
+   <complexType name="ArrayOf_TBoolean">
+      <complexContent>
+       <restriction base="soapenc:Array">
+        <attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TBoolean[]"/>
+       </restriction>
+      </complexContent>
+   </complexType>
+   
+   <complexType name="ArrayOf_TInteger">
+      <complexContent>
+       <restriction base="soapenc:Array">
+        <attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TInteger[]"/>
+       </restriction>
+      </complexContent>
+   </complexType>
+   
+   <complexType name="ArrayOf_TDouble">
+      <complexContent>
+       <restriction base="soapenc:Array">
+        <attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TDouble[]"/>
+       </restriction>
+      </complexContent>
+   </complexType>
+   
+   <complexType name="ArrayOf_TDatetime">
+      <complexContent>
+       <restriction base="soapenc:Array">
+        <attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TDatetime[]"/>
+       </restriction>
+      </complexContent>
+   </complexType>
+
+   <complexType name="ArrayOf_TDate">
+      <complexContent>
+       <restriction base="soapenc:Array">
+        <attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TDate[]"/>
+       </restriction>
+      </complexContent>
+   </complexType>
+
+   <complexType name="ArrayOf_TTime">
+      <complexContent>
+       <restriction base="soapenc:Array">
+        <attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TTime[]"/>
+       </restriction>
+      </complexContent>
+   </complexType>
+   
+   <complexType name="TMapData">
+     <sequence>
+       <element name="strKeys" nillable="true" type="inx:ArrayOf_xsd_string"/>
+       <element name="strValues" nillable="true" type="inx:ArrayOf_TString"/>
+       <element name="boolKeys" nillable="true" type="inx:ArrayOf_xsd_string"/>
+       <element name="boolValues" nillable="true" type="inx:ArrayOf_TBoolean"/>
+       <element name="intKeys" nillable="true" type="inx:ArrayOf_xsd_string"/>
+       <element name="intValues" nillable="true" type="inx:ArrayOf_TInteger"/>
+       <element name="doubleKeys" nillable="true" type="inx:ArrayOf_xsd_string"/>
+       <element name="doubleValues" nillable="true" type="inx:ArrayOf_TDouble"/>
+       <element name="datetimeKeys" nillable="true" type="inx:ArrayOf_xsd_string"/>
+       <element name="datetimeValues" nillable="true" type="inx:ArrayOf_TDatetime"/>
+       <element name="dateKeys" nillable="true" type="inx:ArrayOf_xsd_string"/>
+       <element name="dateValues" nillable="true" type="inx:ArrayOf_TDate"/>
+       <element name="timeKeys" nillable="true" type="inx:ArrayOf_xsd_string"/>
+       <element name="timeValues" nillable="true" type="inx:ArrayOf_TTime"/>    
+     </sequence>
+   </complexType>
+   
+  </schema>
+
+  <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://reporting.apiservice.xpro.inxmail.com">
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   
+   <complexType name="ReportExcDesc">
+     <sequence>
+       <element name="type" type="xsd:int"/>
+       <element name="msg" nillable="true" type="xsd:string"/>
+     </sequence>
+   </complexType>
+ 
+   <complexType name="DownloadableResultData">
+     <sequence>
+       <element name="formatType" nillable="true" type="xsd:string"/>
+       <element name="creationDate" nillable="true" type="inx:TDatetime"/>
+     </sequence>
+   </complexType>
+
+   <complexType name="FetchData">
+     <sequence>
+       <element name="reportExcDesc" nillable="true" type="impl:ReportExcDesc"/>
+       <element name="reportResult" nillable="true" type="impl:DownloadableResultData"/>
+     </sequence>
+   </complexType>
+ 
+   <complexType name="TicketData">
+     <sequence>
+       <element name="remoteRefId" type="xsd:string"/>
+       <element name="fetchData" nillable="true" type="impl:FetchData"/>
+     </sequence>
+   </complexType>
+
+   <complexType name="ConfigDescData">
+     <sequence>
+       <element name="displayName" nillable="true" type="xsd:string"/>
+       <element name="controlUnits" nillable="true" type="impl:ArrayOf_ControlUnitData"/>
+     </sequence>
+   </complexType>
+   
+   <complexType name="ControlUnitData">
+     <sequence>
+       <element name="title" nillable="true" type="xsd:string"/>
+       <element name="controls" nillable="true" type="impl:ArrayOf_ControlData"/>
+     </sequence>
+   </complexType>
+   
+   <complexType name="ArrayOf_ControlUnitData">
+      <complexContent>
+       <restriction base="soapenc:Array">
+        <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:ControlUnitData[]"/>
+       </restriction>
+      </complexContent>
+   </complexType>
+   
+   <complexType name="ControlData">
+     <sequence>
+       <element name="type" nillable="true" type="xsd:string"/>
+       <element name="propKeys" nillable="true" type="inx:ArrayOf_xsd_string"/>
+       <element name="propValues" nillable="true" type="inx:ArrayOf_xsd_string"/>
+     </sequence>
+   </complexType>
+   
+   <complexType name="ArrayOf_ControlData">
+      <complexContent>
+       <restriction base="soapenc:Array">
+        <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:ControlData[]"/>
+       </restriction>
+      </complexContent>
+   </complexType>
+   
+  </schema>
+
+  </wsdl:types>
+
+   <wsdl:message name="generateRequest">
+      <wsdl:part name="sc" type="inx:SessionCxt"/>
+      <wsdl:part name="reportName" type="xsd:string"/>
+      <wsdl:part name="params" type="inx:TMapData"/>
+      <wsdl:part name="outputFormat" type="xsd:int"/>
+      <wsdl:part name="locale" type="xsd:string"/>
+      <wsdl:part name="timeZone" type="xsd:string"/>
+      <wsdl:part name="ignoreCache" type="xsd:boolean"/>
+   </wsdl:message>
+   <wsdl:message name="generateResponse">
+      <wsdl:part name="generateReturn" type="impl:TicketData"/>
+   </wsdl:message>
+
+   <wsdl:message name="getReportNamesRequest">
+       <wsdl:part name="sc" type="inx:SessionCxt"/>
+   </wsdl:message>
+   <wsdl:message name="getReportNamesResponse">
+       <wsdl:part name="getReportNamesReturn" type="inx:ArrayOf_xsd_string"/>
+   </wsdl:message>
+
+   <wsdl:message name="getSupportedTimeZonesRequest">
+       <wsdl:part name="sc" type="inx:SessionCxt"/>
+   </wsdl:message>
+   <wsdl:message name="getSupportedTimeZonesResponse">
+       <wsdl:part name="getSupportedTimeZonesReturn" type="inx:ArrayOf_xsd_string"/>
+   </wsdl:message>
+
+   <wsdl:message name="getDescriptorRequest">
+       <wsdl:part name="sc" type="inx:SessionCxt"/>
+       <wsdl:part name="reportName" type="xsd:string"/>
+       <wsdl:part name="locale" type="xsd:string"/>
+    </wsdl:message>
+    <wsdl:message name="getDescriptorResponse">
+       <wsdl:part name="getDescriptorReturn" type="impl:ConfigDescData"/>
+   </wsdl:message>
+    
+   <wsdl:message name="fetchRequest">
+       <wsdl:part name="sc" type="inx:SessionCxt"/>
+       <wsdl:part name="ticketRefId" type="xsd:string"/>
+    </wsdl:message>
+    <wsdl:message name="fetchResponse">
+       <wsdl:part name="fetchReturn" type="impl:FetchData"/>
+   </wsdl:message>
+   
+   <wsdl:message name="createStreamRequest">
+       <wsdl:part name="sc" type="inx:SessionCxt"/>
+       <wsdl:part name="ticketRefId" type="xsd:string"/>
+   </wsdl:message>
+   <wsdl:message name="createStreamResponse">
+       <wsdl:part name="createStreamReturn" type="xsd:string"/>
+   </wsdl:message>
+   
+   <wsdl:portType name="ReportingService">
+
+      <wsdl:operation name="generate" parameterOrder="sc reportName params outputFormat locale timeZone ignoreCache">
+         <wsdl:input name="generateRequest" message="impl:generateRequest"/>
+         <wsdl:output name="generateResponse" message="impl:generateResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="getReportNames" parameterOrder="sc">
+         <wsdl:input name="getReportNamesRequest" message="impl:getReportNamesRequest"/>
+         <wsdl:output name="getReportNamesResponse" message="impl:getReportNamesResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="getSupportedTimeZones" parameterOrder="sc">
+         <wsdl:input name="getSupportedTimeZonesRequest" message="impl:getSupportedTimeZonesRequest"/>
+         <wsdl:output name="getSupportedTimeZonesResponse" message="impl:getSupportedTimeZonesResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="getDescriptor" parameterOrder="sc reportName locale">
+         <wsdl:input name="getDescriptorRequest" message="impl:getDescriptorRequest"/>
+         <wsdl:output name="getDescriptorResponse" message="impl:getDescriptorResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="fetch" parameterOrder="sc ticketRefId">
+         <wsdl:input name="fetchRequest" message="impl:fetchRequest"/>
+         <wsdl:output name="fetchResponse" message="impl:fetchResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="createStream" parameterOrder="sc ticketRefId">
+         <wsdl:input name="createStreamRequest" message="impl:createStreamRequest"/>
+         <wsdl:output name="createStreamResponse" message="impl:createStreamResponse"/>
+      </wsdl:operation>
+      
+   </wsdl:portType>
+
+   <wsdl:binding name="ReportingServiceSoapBinding" type="impl:ReportingService">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="generate">    
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="generateRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://reporting.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+         <wsdl:output name="generateResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://reporting.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+      </wsdl:operation>
+      
+      <wsdl:operation name="getReportNames">    
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="getReportNamesRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://reporting.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+         <wsdl:output name="getReportNamesResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://reporting.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+      </wsdl:operation>
+      
+      <wsdl:operation name="getSupportedTimeZones">    
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="getSupportedTimeZonesRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://reporting.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+         <wsdl:output name="getSupportedTimeZonesResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://reporting.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+      </wsdl:operation>
+
+      <wsdl:operation name="getDescriptor">    
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="getDescriptorRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://reporting.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+         <wsdl:output name="getDescriptorResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://reporting.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+      </wsdl:operation>
+      
+      <wsdl:operation name="fetch">    
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="fetchRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://reporting.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+         <wsdl:output name="fetchResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://reporting.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+      </wsdl:operation>
+
+      <wsdl:operation name="createStream">    
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="createStreamRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://reporting.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+         <wsdl:output name="createStreamResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://reporting.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="ReportingServiceSoap">
+
+      <wsdl:port name="ReportingService" binding="impl:ReportingServiceSoapBinding">
+
+         <wsdlsoap:address location="http://localhost:80/inxmail/api/ReportingService"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+   
+</wsdl:definitions>

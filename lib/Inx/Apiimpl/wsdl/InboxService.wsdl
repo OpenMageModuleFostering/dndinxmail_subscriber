@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://inbox.apiservice.xpro.inxmail.com" 
+	xmlns:impl="http://inbox.apiservice.xpro.inxmail.com" 
+	xmlns:inx="http://apiservice.xpro.inxmail.com" 
+	xmlns:intf="http://inbox.apiservice.xpro.inxmail.com" 
+	xmlns:apachesoap="http://xml.apache.org/xml-soap" 
+	xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" 
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns="http://schemas.xmlsoap.org/wsdl/">
+ <wsdl:types>
+  <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://apiservice.xpro.inxmail.com">
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+
+    <complexType name="ArrayOf_xsd_string">
+     <complexContent>
+        <restriction base="soapenc:Array">
+         <attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:string[]"/>
+        </restriction>
+     </complexContent>
+    </complexType>
+	
+	<complexType name="ArrayOf_xsd_int">
+		<complexContent>
+			<restriction base="soapenc:Array">
+				<attribute ref="soapenc:arrayType"
+						wsdl:arrayType="xsd:int[]" />
+			</restriction>
+		</complexContent>
+	</complexType>
+
+    <complexType name="SessionCxt">
+     <sequence>
+      <element name="sid" type="xsd:string"/>
+      <element name="relRefIds" nillable="true" type="inx:ArrayOf_xsd_string"/>
+     </sequence>
+    </complexType>
+  
+			<complexType name="TString">
+				<sequence>
+					<element name="value" type="xsd:string" />
+				</sequence>
+			</complexType>
+
+			<complexType name="TBoolean">
+				<sequence>
+					<element name="value" type="xsd:boolean" />
+				</sequence>
+			</complexType>
+
+			<complexType name="TInteger">
+				<sequence>
+					<element name="value" type="xsd:int" />
+				</sequence>
+			</complexType>
+
+			<complexType name="TDouble">
+				<sequence>
+					<element name="value" type="xsd:double" />
+				</sequence>
+			</complexType>
+
+			<complexType name="TDatetime">
+				<sequence>
+					<element name="value" type="xsd:dateTime" />
+				</sequence>
+			</complexType>
+
+			<complexType name="TDate">
+				<sequence>
+					<element name="value" type="xsd:date" />
+				</sequence>
+			</complexType>
+
+			<complexType name="TTime">
+				<sequence>
+					<element name="value" type="xsd:time" />
+				</sequence>
+			</complexType>
+
+			<complexType name="ArrayOf_TString">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType"
+							wsdl:arrayType="inx:TString[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="ArrayOf_TBoolean">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType"
+							wsdl:arrayType="inx:TBoolean[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="ArrayOf_TInteger">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType"
+							wsdl:arrayType="inx:TInteger[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="ArrayOf_TDouble">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType"
+							wsdl:arrayType="inx:TDouble[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="ArrayOf_TDatetime">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType"
+							wsdl:arrayType="inx:TDatetime[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="ArrayOf_TDate">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType"
+							wsdl:arrayType="inx:TDate[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="ArrayOf_TTime">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType"
+							wsdl:arrayType="inx:TTime[]" />
+					</restriction>
+				</complexContent>
+			</complexType>  
+  </schema>
+  
+  <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://inbox.apiservice.xpro.inxmail.com">
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   
+   <complexType name="ResultSetData">
+    <sequence>
+     <element name="remoteRefId" type="xsd:string"/>
+     <element name="size" type="xsd:int"/>
+     <element name="data" nillable="true" type="impl:ArrayOfInboxMessageData"/>
+     <element name="typedIndices" nillable="true" type="inx:ArrayOf_xsd_int" />
+    </sequence>
+   </complexType>
+   
+   <complexType name="InboxMessageData">
+    <sequence>
+     <element name="id" type="xsd:int"/>  
+     <element name="category" type="xsd:int"/>
+     <element name="recipientId" type="xsd:int"/>
+     <element name="receptionDate" type="inx:TDatetime"/>
+     <element name="sender" type="xsd:string"/>
+     <element name="matchedEmail" type="xsd:string"/>
+     <element name="recipientState" type="xsd:int" />
+	 <element name="stringData" nillable="true" type="inx:ArrayOf_TString" />
+	 <element name="booleanData" nillable="true" type="inx:ArrayOf_TBoolean" />
+	 <element name="integerData" nillable="true" type="inx:ArrayOf_TInteger" />
+	 <element name="doubleData" nillable="true" type="inx:ArrayOf_TDouble" />
+	 <element name="dateData" nillable="true" type="inx:ArrayOf_TDate" />
+	 <element name="timeData" nillable="true" type="inx:ArrayOf_TTime" />
+	 <element name="datetimeData" nillable="true" type="inx:ArrayOf_TDatetime" />
+    </sequence>
+   </complexType>
+   
+   
+   <complexType name="ArrayOfInboxMessageData">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:InboxMessageData[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>  
+      
+   <complexType name="ExceptionDesc">
+    <sequence>
+     <element name="type" type="xsd:int"/>
+     <element name="source" type="xsd:int"/>
+     <element name="msg" type="xsd:string"/>
+    </sequence>
+   </complexType>
+
+   <complexType name="InboxMessageDataHolder">
+    <sequence>
+     <element name="value" nillable="true" type="impl:InboxMessageData"/>  
+     <element name="excDesc" nillable="true" type="impl:ExceptionDesc"/>
+    </sequence>
+   </complexType>
+   
+  </schema>
+</wsdl:types>
+
+   <wsdl:message name="getRequest">
+      <wsdl:part name="sc" type="inx:SessionCxt"/>
+      <wsdl:part name="id" type="xsd:int"/>
+   </wsdl:message>
+   <wsdl:message name="getResponse">
+      <wsdl:part name="getReturn" type="impl:InboxMessageData"/>
+   </wsdl:message>
+
+   <wsdl:message name="removeRequest">
+      <wsdl:part name="sc" type="inx:SessionCxt"/>
+      <wsdl:part name="id" type="xsd:int"/>
+   </wsdl:message>
+   <wsdl:message name="removeResponse">
+      <wsdl:part name="removeReturn" type="xsd:boolean"/>
+   </wsdl:message>
+  
+   <wsdl:message name="selectAllRequest">
+      <wsdl:part name="sc" type="inx:SessionCxt"/>
+      <wsdl:part name="recCtxRefId" type="xsd:string" />
+	  <wsdl:part name="attrs" type="inx:ArrayOf_xsd_int" />
+   </wsdl:message>
+   <wsdl:message name="selectAllResponse">
+      <wsdl:part name="selectAllReturn" type="impl:ResultSetData"/>
+   </wsdl:message>
+   
+   <wsdl:message name="selectAfterRequest">
+      <wsdl:part name="sc" type="inx:SessionCxt"/>
+      <wsdl:part name="searchDate" type="inx:TDatetime"/>
+      <wsdl:part name="recCtxRefId" type="xsd:string" />
+	  <wsdl:part name="attrs" type="inx:ArrayOf_xsd_int" />
+   </wsdl:message>
+   <wsdl:message name="selectAfterResponse">
+      <wsdl:part name="selectAfterReturn" type="impl:ResultSetData"/>
+   </wsdl:message>
+
+   <wsdl:message name="selectBeforeRequest">
+      <wsdl:part name="sc" type="inx:SessionCxt"/>
+      <wsdl:part name="searchDate" type="inx:TDatetime"/>
+      <wsdl:part name="recCtxRefId" type="xsd:string" />
+	  <wsdl:part name="attrs" type="inx:ArrayOf_xsd_int" />
+   </wsdl:message>
+   <wsdl:message name="selectBeforeResponse">
+      <wsdl:part name="selectBeforeReturn" type="impl:ResultSetData"/>
+   </wsdl:message>
+   
+   <wsdl:message name="selectBetweenRequest">
+      <wsdl:part name="sc" type="inx:SessionCxt"/>
+      <wsdl:part name="startDate" type="inx:TDatetime"/>
+      <wsdl:part name="endDate" type="inx:TDatetime"/>
+      <wsdl:part name="recCtxRefId" type="xsd:string" />
+	  <wsdl:part name="attrs" type="inx:ArrayOf_xsd_int" />
+   </wsdl:message>
+   <wsdl:message name="selectBetweenResponse">
+      <wsdl:part name="selectBetweenReturn" type="impl:ResultSetData"/>
+   </wsdl:message>  
+   
+   <wsdl:message name="fetchRequest">
+      <wsdl:part name="sc" type="inx:SessionCxt"/>
+      <wsdl:part name="remoteRefId" type="xsd:string"/>
+      <wsdl:part name="index" type="xsd:int"/>
+      <wsdl:part name="direction" type="xsd:int"/>
+   </wsdl:message>
+   <wsdl:message name="fetchResponse">
+      <wsdl:part name="fetchReturn" type="impl:ArrayOfInboxMessageData"/>
+   </wsdl:message>
+   
+   <wsdl:message name="removeSelectionRequest">
+      <wsdl:part name="sc" type="inx:SessionCxt"/>
+      <wsdl:part name="remoteRefId" type="xsd:string"/>
+      <wsdl:part name="indices" type="inx:ArrayOf_TInteger"/>
+   </wsdl:message>
+   <wsdl:message name="removeSelectionResponse">
+      <wsdl:part name="removeSelectionReturn" type="xsd:int"/>
+   </wsdl:message> 
+   
+   <wsdl:message name="createStreamRequest">
+       <wsdl:part name="sc" type="inx:SessionCxt"/>
+       <wsdl:part name="id" type="xsd:int"/>
+   </wsdl:message>
+   <wsdl:message name="createStreamResponse">
+       <wsdl:part name="createStreamReturn" type="xsd:string"/>
+   </wsdl:message>   
+   
+   <wsdl:message name="getSubjectRequest">
+       <wsdl:part name="sc" type="inx:SessionCxt"/>
+       <wsdl:part name="id" type="xsd:int"/>
+   </wsdl:message>
+   <wsdl:message name="getSubjectResponse">
+       <wsdl:part name="getSubjectReturn" type="xsd:string"/>
+   </wsdl:message>   
+ 
+   <wsdl:message name="getFlatTextRequest">
+       <wsdl:part name="sc" type="inx:SessionCxt"/>
+       <wsdl:part name="id" type="xsd:int"/>
+   </wsdl:message>
+   <wsdl:message name="getFlatTextResponse">
+       <wsdl:part name="getFlatTextReturn" type="xsd:string"/>
+   </wsdl:message>  
+
+   <wsdl:message name="getHeadersRequest">
+       <wsdl:part name="sc" type="inx:SessionCxt"/>
+       <wsdl:part name="id" type="xsd:int"/>
+   </wsdl:message>
+   <wsdl:message name="getHeadersResponse">
+       <wsdl:part name="getHeadersReturn" type="xsd:string"/>
+   </wsdl:message>  
+
+
+   <wsdl:portType name="InboxService">
+
+      <wsdl:operation name="get" parameterOrder="sc id">
+         <wsdl:input name="getRequest" message="impl:getRequest"/>
+         <wsdl:output name="getResponse" message="impl:getResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="remove" parameterOrder="sc id">
+         <wsdl:input name="removeRequest" message="impl:removeRequest"/>
+         <wsdl:output name="removeResponse" message="impl:removeResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="fetch" parameterOrder="sc remoteRefId index direction">
+         <wsdl:input name="fetchRequest" message="impl:fetchRequest"/>
+         <wsdl:output name="fetchResponse" message="impl:fetchResponse"/>
+      </wsdl:operation>
+      
+      <wsdl:operation name="selectAll" parameterOrder="sc recCtxRefId attrs">
+         <wsdl:input name="selectAllRequest" message="impl:selectAllRequest"/>
+         <wsdl:output name="selectAllResponse" message="impl:selectAllResponse"/>
+      </wsdl:operation>
+      
+      <wsdl:operation name="selectAfter" parameterOrder="sc searchDate recCtxRefId attrs">
+         <wsdl:input name="selectAfterRequest" message="impl:selectAfterRequest"/>
+         <wsdl:output name="selectAfterResponse" message="impl:selectAfterResponse"/>
+      </wsdl:operation>
+      
+      <wsdl:operation name="selectBefore" parameterOrder="sc searchDate recCtxRefId attrs">
+         <wsdl:input name="selectBeforeRequest" message="impl:selectBeforeRequest"/>
+         <wsdl:output name="selectBeforeResponse" message="impl:selectBeforeResponse"/>
+      </wsdl:operation>      
+
+      <wsdl:operation name="selectBetween" parameterOrder="sc startDate endDate recCtxRefId attrs">
+         <wsdl:input name="selectBetweenRequest" message="impl:selectBetweenRequest"/>
+         <wsdl:output name="selectBetweenResponse" message="impl:selectBetweenResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="removeSelection" parameterOrder="sc remoteRefId indices">
+         <wsdl:input name="removeSelectionRequest" message="impl:removeSelectionRequest"/>
+         <wsdl:output name="removeSelectionResponse" message="impl:removeSelectionResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="createStream" parameterOrder="sc id">
+         <wsdl:input name="createStreamRequest" message="impl:createStreamRequest"/>
+         <wsdl:output name="createStreamResponse" message="impl:createStreamResponse"/>
+      </wsdl:operation>
+      
+      <wsdl:operation name="getSubject" parameterOrder="sc id">
+         <wsdl:input name="getSubjectRequest" message="impl:getSubjectRequest"/>
+         <wsdl:output name="getSubjectResponse" message="impl:getSubjectResponse"/>
+      </wsdl:operation>  
+      
+      <wsdl:operation name="getFlatText" parameterOrder="sc id">
+         <wsdl:input name="getFlatTextRequest" message="impl:getFlatTextRequest"/>
+         <wsdl:output name="getFlatTextResponse" message="impl:getFlatTextResponse"/>
+      </wsdl:operation>            
+
+      <wsdl:operation name="getHeaders" parameterOrder="sc id">
+         <wsdl:input name="getHeadersRequest" message="impl:getHeadersRequest"/>
+         <wsdl:output name="getHeadersResponse" message="impl:getHeadersResponse"/>
+      </wsdl:operation>  
+
+   </wsdl:portType>
+
+   <wsdl:binding name="InboxServiceSoapBinding" type="impl:InboxService">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="get">
+      
+         <wsdlsoap:operation soapAction=""/>
+      
+         <wsdl:input name="getRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://inbox.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+      
+         <wsdl:output name="getResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://inbox.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+      
+      </wsdl:operation>
+
+      <wsdl:operation name="remove">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="removeRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://inbox.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="removeResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://inbox.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="fetch">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="fetchRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://inbox.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="fetchResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://inbox.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="selectAll">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="selectAllRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://inbox.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="selectAllResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://inbox.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+      </wsdl:operation>
+
+     <wsdl:operation name="selectAfter">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="selectAfterRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://inbox.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="selectAfterResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://inbox.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+     </wsdl:operation>
+
+     <wsdl:operation name="selectBefore">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="selectBeforeRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://inbox.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="selectBeforeResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://inbox.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+     </wsdl:operation>
+ 
+     <wsdl:operation name="selectBetween">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="selectBetweenRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://inbox.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="selectBetweenResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://inbox.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+     </wsdl:operation>    
+
+     <wsdl:operation name="removeSelection">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="removeSelectionRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://inbox.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="removeSelectionResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://inbox.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+     </wsdl:operation>
+
+     <wsdl:operation name="createStream">    
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="createStreamRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://inbox.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+         <wsdl:output name="createStreamResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://inbox.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+     </wsdl:operation>
+
+     <wsdl:operation name="getSubject">    
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="getSubjectRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://inbox.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+         <wsdl:output name="getSubjectResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://inbox.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+     </wsdl:operation>
+
+     <wsdl:operation name="getFlatText">    
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="getFlatTextRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://inbox.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+         <wsdl:output name="getFlatTextResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://inbox.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+     </wsdl:operation>
+      
+     <wsdl:operation name="getHeaders">    
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="getHeadersRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://inbox.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+         <wsdl:output name="getHeadersResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://inbox.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+     </wsdl:operation>
+           
+   </wsdl:binding>
+
+   <wsdl:service name="InboxServiceSoap">
+
+      <wsdl:port name="InboxService" binding="impl:InboxServiceSoapBinding">
+
+         <wsdlsoap:address location="http://localhost:80/inxmail/api/InboxService"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+   
+</wsdl:definitions>

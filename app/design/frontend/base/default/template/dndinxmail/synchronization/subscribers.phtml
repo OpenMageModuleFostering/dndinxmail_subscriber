@@ -1,0 +1,16 @@
+<script type="text/javascript">
+    //<![CDATA[
+    var result = '<?php echo $this->getAllPass(); ?>';
+    var subscribers = typeof JSON != 'undefined' ? JSON.parse(result) : eval('(' + result + ')');
+
+    window.onload = function() {
+        var DndInxmailSynchronize = new DndInxmail.Synchronize();
+        DndInxmailSynchronize.launchSubscribers(subscribers, <?php echo $this->getStoreToSynchronize(); ?>);
+    };
+    //]]>
+</script>
+<ul id="results">
+    <li id="percent"></li>
+    <li id="pass"></li>
+</ul>
+<ul id="errors"></ul>

@@ -1,0 +1,768 @@
+<?xml version="1.0"?><!--
+/**
+ * @category			Module System Config
+ * @package				DndInxmail_Subscriber
+ * @dev					Merlin
+ * @last_modified		06/05/2015
+ * @copyright			Copyright (c) 2012 Agence Dn'D
+ * @author				Agence Dn'D - Conseil en creation de site e-Commerce Magento : http://www.dnd.fr/
+ * @license				http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+
+<config>
+    <tabs>
+        <dndinxmail translate="label" module="dndinxmail_subscriber">
+            <label>Inxmail Subscriber</label>
+            <sort_order>100</sort_order>
+        </dndinxmail>
+    </tabs>
+    <sections>
+        <dndinxmail_subscriber_general module="dndinxmail_subscriber">
+            <label>General</label>
+            <tab>dndinxmail</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>10</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <api translate="label">
+                    <label>API</label>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <url translate="label">
+                            <label>API Url</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </url>
+                        <user translate="label">
+                            <label>API User</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </user>
+                        <password translate="label">
+                            <label>API Password</label>
+                            <frontend_type>password</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </password>
+                    </fields>
+                </api>
+                <general translate="label">
+                    <label>General</label>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <active>
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </active>
+                        <inxmail_list translate="label comment">
+                            <label>Inxmail List</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>dndinxmail_subscriber/adminhtml_system_config_source_inxmail_lists</source_model>
+                            <comment>Select your Inxmail list</comment>
+                            <sort_order>20</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </inxmail_list>
+                    </fields>
+                </general>
+                <syncrhonize_subscribers translate="label">
+                    <label>Subscribers synchronization</label>
+                    <sort_order>30</sort_order>
+                    <show_in_default>0</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <comment>Subscribers synchronization is only available on the store view configuration of your website.</comment>
+                    <fields>
+                        <synchronize_all translate="label comment">
+                            <label>Synchronize All Subscribers</label>
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>dndinxmail_subscriber/adminhtml_system_config_form_button_subscribers</frontend_model>
+                            <comment>Synchronize all Magento subscribers to Inxmail</comment>
+                            <sort_order>10</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </synchronize_all>
+                        <subscribers_per_pass translate="label comment">
+                            <label>Subscribers per pass</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </subscribers_per_pass>
+                    </fields>
+                </syncrhonize_subscribers>
+            </groups>
+        </dndinxmail_subscriber_general>
+        <dndinxmail_subscriber_mapping module="dndinxmail_subscriber">
+            <label>Mapping</label>
+            <tab>dndinxmail</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>20</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <mapping_customer>
+                    <label>Mapping Customer Fields</label>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <mapping>
+                            <label>Mapping</label>
+                            <frontend_model>dndinxmail_subscriber/adminhtml_system_config_form_field_payment</frontend_model>
+                            <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <button_label>Add mapping</button_label>
+                            <columns>
+                                <![CDATA[
+                                    <fields>
+                                        <attribute_code>
+                                            <type>select</type>
+                                            <label>Customer Attribute</label>
+                                            <source_model>dndinxmail_subscriber/adminhtml_system_config_source_customer_attributes</source_model>
+                                            <style>width:240px</style>
+                                        </attribute_code>
+                                        <inxmail_column>
+                                            <type>select</type>
+                                            <label>Inxmail Column</label>
+                                            <source_model>dndinxmail_subscriber/adminhtml_system_config_source_inxmail_groupedColumns</source_model>
+                                            <style>width:240px</style>
+                                        </inxmail_column>
+                                    </fields>
+                                    ]]>
+                            </columns>
+                        </mapping>
+                    </fields>
+                </mapping_customer>
+                <mapping_dynamics>
+                    <label>Mapping Dynamic Fields</label>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <first_order>
+                            <label>First Order</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>dndinxmail_subscriber/adminhtml_system_config_source_inxmail_columns_type_dateonly</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Type Date only</comment>
+                        </first_order>
+                        <last_order>
+                            <label>Last Order</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>dndinxmail_subscriber/adminhtml_system_config_source_inxmail_columns_type_dateonly</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Type Date only</comment>
+                        </last_order>
+                        <total_orders>
+                            <label>Total Orders</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>dndinxmail_subscriber/adminhtml_system_config_source_inxmail_columns_type_int</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Type Integer</comment>
+                        </total_orders>
+                        <avg_orders>
+                            <label>AVG Orders</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>dndinxmail_subscriber/adminhtml_system_config_source_inxmail_columns_type_float</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Type Float</comment>
+                        </avg_orders>
+                        <last_connection>
+                            <label>Last Connection</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>dndinxmail_subscriber/adminhtml_system_config_source_inxmail_columns_type_dateonly</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Type Date only</comment>
+                        </last_connection>
+                    </fields>
+                </mapping_dynamics>
+                <mapping_groups>
+                    <label>Mapping Customer Group</label>
+                    <sort_order>50</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <customer_group>
+                            <label>Customer Group</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>dndinxmail_subscriber/adminhtml_system_config_source_group</source_model>
+                            <backend_model>dndinxmail_subscriber/adminhtml_system_config_backend_customer_group</backend_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </customer_group>
+                        <customer_limit_specific_groups>
+                            <label>Specific groups customer limit</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </customer_limit_specific_groups>
+
+                        <customer_config_last_customers>
+                            <label>Last customers</label>
+                            <frontend_type>text</frontend_type>
+                            <comment>Get last customers since X days</comment>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </customer_config_last_customers>
+                        <customer_config_best_customers>
+                            <label>Best customers</label>
+                            <frontend_type>text</frontend_type>
+                            <comment>Get customers whose sum of all orders is superior to X</comment>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </customer_config_best_customers>
+                        <customer_config_abandonned_carts>
+                            <label>Abandonned carts</label>
+                            <frontend_type>text</frontend_type>
+                            <comment>Get abandonned carts' customer since X days</comment>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </customer_config_abandonned_carts>
+
+                        <customer_config_orders_options>
+                            <label>Orders configuration</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>dndinxmail_subscriber/adminhtml_system_config_source_orders</source_model>
+                            <comment>Configuration to get orders</comment>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </customer_config_orders_options>
+
+                        <customer_config_orders_options_single_date>
+                            <label>Orders configuration: Last X Days</label>
+                            <frontend_type>text</frontend_type>
+                            <comment>Get orders since X days</comment>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </customer_config_orders_options_single_date>
+                        <customer_config_orders_options_date_range_from>
+                            <label>Orders configuration: Date range From</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>dndinxmail_subscriber/adminhtml_system_config_date</frontend_model>
+                            <backend_model>dndinxmail_subscriber/adminhtml_system_config_backend_date</backend_model>
+                            <comment>Get orders of specific date range (from)</comment>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </customer_config_orders_options_date_range_from>
+                        <customer_config_orders_options_date_range_to>
+                            <label>Orders configuration: Date range to</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>dndinxmail_subscriber/adminhtml_system_config_date</frontend_model>
+                            <backend_model>dndinxmail_subscriber/adminhtml_system_config_backend_date</backend_model>
+                            <comment>Get orders of specific date range (to)</comment>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </customer_config_orders_options_date_range_to>
+
+                    </fields>
+                </mapping_groups>
+            </groups>
+        </dndinxmail_subscriber_mapping>
+        <dndinxmail_subscriber_datasource module="dndinxmail_subscriber">
+            <label>Datasource</label>
+            <tab>dndinxmail</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>30</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <feed_oneproduct translate="label">
+                    <label>Feed One Product</label>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <img_width translate="label">
+                            <label>Image Width</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </img_width>
+                        <img_height translate="label">
+                            <label>Image Height</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </img_height>
+                        <attributes translate="label">
+                            <label>Add Specific Attributes</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>dndinxmail_subscriber/adminhtml_system_config_source_attributes</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </attributes>
+                    </fields>
+                </feed_oneproduct>
+                <feed_new translate="label">
+                    <label>Feed New Products</label>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <img_width translate="label">
+                            <label>Image Width</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </img_width>
+                        <img_height translate="label">
+                            <label>Image Height</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </img_height>
+                        <attributes translate="label">
+                            <label>Add Specific Attributes</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>dndinxmail_subscriber/adminhtml_system_config_source_attributes</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </attributes>
+                        <nb translate="label">
+                            <label>Number Of Products In The Feed</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </nb>
+                    </fields>
+                </feed_new>
+                <feed_random translate="label">
+                    <label>Feed Random Products</label>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <img_width translate="label">
+                            <label>Image Width</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </img_width>
+                        <img_height translate="label">
+                            <label>Image Height</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </img_height>
+                        <attributes translate="label">
+                            <label>Add Specific Attributes</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>dndinxmail_subscriber/adminhtml_system_config_source_attributes</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </attributes>
+                        <nb translate="label">
+                            <label>Number Of Products In The Feed</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </nb>
+                    </fields>
+                </feed_random>
+                <feed_bestsell translate="label">
+                    <label>Feed BestSell Products</label>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <img_width translate="label">
+                            <label>Image Width</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </img_width>
+                        <img_height translate="label">
+                            <label>Image Height</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </img_height>
+                        <attributes translate="label">
+                            <label>Add Specific Attributes</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>dndinxmail_subscriber/adminhtml_system_config_source_attributes</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </attributes>
+                        <nb translate="label">
+                            <label>Number Of Products In The Feed</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </nb>
+                    </fields>
+                </feed_bestsell>
+                <feed_attribute translate="label">
+                    <label>Feed Products By Attribute</label>
+                    <sort_order>50</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <img_width translate="label">
+                            <label>Image Width</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </img_width>
+                        <img_height translate="label">
+                            <label>Image Height</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </img_height>
+                        <attributes translate="label">
+                            <label>Add Specific Attributes</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>dndinxmail_subscriber/adminhtml_system_config_source_attributes</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </attributes>
+                        <nb translate="label">
+                            <label>Number Of Products In The Feed</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </nb>
+                    </fields>
+                </feed_attribute>
+                <feed_category translate="label">
+                    <label>Feed Products By Category</label>
+                    <sort_order>60</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <img_width translate="label">
+                            <label>Image Width</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </img_width>
+                        <img_height translate="label">
+                            <label>Image Height</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </img_height>
+                        <attributes translate="label">
+                            <label>Add Specific Attributes</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>dndinxmail_subscriber/adminhtml_system_config_source_attributes</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </attributes>
+                        <nb translate="label">
+                            <label>Number Of Products In The Feed</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </nb>
+                    </fields>
+                </feed_category>
+                <feed_lastbought translate="label">
+                    <label>Feed Last Bought Products</label>
+                    <sort_order>70</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <img_width translate="label">
+                            <label>Image Width</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </img_width>
+                        <img_height translate="label">
+                            <label>Image Height</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </img_height>
+                        <attributes translate="label">
+                            <label>Add Specific Attributes</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>dndinxmail_subscriber/adminhtml_system_config_source_attributes</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </attributes>
+                        <nb translate="label">
+                            <label>Number Of Products In The Feed</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </nb>
+                    </fields>
+                </feed_lastbought>
+                <feed_related translate="label">
+                    <label>Feed Related Products</label>
+                    <sort_order>80</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <img_width translate="label">
+                            <label>Image Width</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </img_width>
+                        <img_height translate="label">
+                            <label>Image Height</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </img_height>
+                        <attributes translate="label">
+                            <label>Add Specific Attributes</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>dndinxmail_subscriber/adminhtml_system_config_source_attributes</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </attributes>
+                        <nb translate="label">
+                            <label>Number Of Products In The Feed</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </nb>
+                    </fields>
+                </feed_related>
+            </groups>
+        </dndinxmail_subscriber_datasource>
+        <dndinxmail_subscriber_crons module="dndinxmail_subscriber">
+            <label>Crons</label>
+            <tab>dndinxmail</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>40</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <crons_synchronize_unsubscribed>
+                    <label>Unsubscribed synchronization</label>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enabled>
+                        <time translate="label">
+                            <label>Start Time</label>
+                            <frontend_type>time</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </time>
+                        <frequency translate="label">
+                            <label>Frequency</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>dndinxmail_subscriber/adminhtml_system_config_source_cron_frequency</source_model>
+                            <backend_model>dndinxmail_subscriber/adminhtml_system_config_backend_cron</backend_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </frequency>
+                    </fields>
+                </crons_synchronize_unsubscribed>
+                <crons_synchronize_groups>
+                    <label>Customer groups synchronization</label>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enabled>
+                        <time translate="label">
+                            <label>Start Time</label>
+                            <frontend_type>time</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </time>
+                        <frequency translate="label">
+                            <label>Frequency</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>dndinxmail_subscriber/adminhtml_system_config_source_cron_frequency</source_model>
+                            <backend_model>dndinxmail_subscriber/adminhtml_system_config_backend_cron</backend_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </frequency>
+                        <synchronize_groups_manually translate="label comment">
+                            <label>Synchronize All Groups</label>
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>dndinxmail_subscriber/adminhtml_system_config_form_button_groups</frontend_model>
+                            <comment>Launch manually</comment>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </synchronize_groups_manually>
+                        <customers_per_pass translate="label comment">
+                            <label>Customers per pass</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </customers_per_pass>
+                    </fields>
+                </crons_synchronize_groups>
+            </groups>
+        </dndinxmail_subscriber_crons>
+    </sections>
+</config>

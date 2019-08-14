@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://resource.apiservice.xpro.inxmail.com" xmlns:impl="http://resource.apiservice.xpro.inxmail.com" xmlns:inx="http://apiservice.xpro.inxmail.com" xmlns:intf="http://resource.apiservice.xpro.inxmail.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+ <wsdl:types>
+  <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://apiservice.xpro.inxmail.com">
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   
+    <complexType name="TString">
+     <sequence>
+      <element name="value" type="xsd:string"/>
+     </sequence>
+    </complexType>
+ 
+    <complexType name="TBoolean">
+     <sequence>
+      <element name="value" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+    
+    <complexType name="TInteger">
+     <sequence>
+      <element name="value" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   
+    <complexType name="TDatetime">
+      <sequence>
+       <element name="value" type="xsd:dateTime"/>
+      </sequence>
+   </complexType>
+ 
+    <complexType name="ArrayOf_TString">
+       <complexContent>
+        <restriction base="soapenc:Array">
+         <attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TString[]"/>
+        </restriction>
+       </complexContent>
+    </complexType>
+ 
+    <complexType name="ArrayOf_TBoolean">
+       <complexContent>
+        <restriction base="soapenc:Array">
+         <attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TBoolean[]"/>
+        </restriction>
+       </complexContent>
+    </complexType>
+    
+    <complexType name="ArrayOf_TInteger">
+       <complexContent>
+        <restriction base="soapenc:Array">
+         <attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TInteger[]"/>
+        </restriction>
+       </complexContent>
+    </complexType>
+   
+    <complexType name="ArrayOf_TDatetime">
+       <complexContent>
+        <restriction base="soapenc:Array">
+         <attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TDatetime[]"/>
+        </restriction>
+       </complexContent>
+   </complexType>
+   
+  </schema>
+  
+  <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://resource.apiservice.xpro.inxmail.com">
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   
+   <complexType name="ResultSetData">
+    <sequence>
+     <element name="remoteRefId" type="xsd:string"/>
+     <element name="size" type="xsd:int"/>
+     <element name="data" nillable="true" type="impl:ArrayOfResourceData"/>
+    </sequence>
+   </complexType>
+   
+   <complexType name="ResourceData">
+    <sequence>
+     <element name="id" type="xsd:int"/>
+     <element name="name" type="xsd:string"/>
+     <element name="creationDatetime" nillable="true" type="inx:TDatetime"/>
+     <element name="size" type="xsd:long"/>
+     <element name="userId" type="xsd:int"/>
+     <element name="listContextId" type="xsd:int"/>
+     <element name="mailingId" type="xsd:int"/>
+     <element name="sharingType" type="xsd:int"/>
+     <element name="contentType" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   
+   <complexType name="ArrayOfResourceData">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:ResourceData[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   
+    <complexType name="UploadData">
+    <sequence>
+     <element name="remoteRefId" type="xsd:string"/>
+     <element name="maxChunkSize" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   
+  </schema>
+
+ </wsdl:types>
+
+   <wsdl:message name="getInputStreamRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="resourceId" type="xsd:int"/>
+   </wsdl:message>
+   <wsdl:message name="getInputStreamResponse">
+      <wsdl:part name="getInputStreamReturn" type="xsd:string"/>   
+   </wsdl:message>
+   
+   <wsdl:message name="getRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="id" type="xsd:int"/>
+   </wsdl:message>
+   <wsdl:message name="getResponse">
+      <wsdl:part name="getReturn" type="impl:ResourceData"/>
+   </wsdl:message>
+
+   <wsdl:message name="removeRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="id" type="xsd:int"/>
+   </wsdl:message>
+   <wsdl:message name="removeResponse">
+      <wsdl:part name="removeReturn" type="xsd:boolean"/>
+   </wsdl:message>
+   
+   <wsdl:message name="selectAllRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="orderAttribute" type="xsd:int"/>
+      <wsdl:part name="orderType" type="xsd:int"/>
+   </wsdl:message>
+   <wsdl:message name="selectAllResponse">
+      <wsdl:part name="selectAllReturn" type="impl:ResultSetData"/>
+   </wsdl:message>
+
+   <wsdl:message name="selectRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="mailingId" type="xsd:int"/>
+      <wsdl:part name="listContextId" type="xsd:int"/>
+      <wsdl:part name="orderAttribute" type="xsd:int"/>
+      <wsdl:part name="orderType" type="xsd:int"/>
+   </wsdl:message>
+   <wsdl:message name="selectResponse">
+      <wsdl:part name="selectReturn" type="impl:ResultSetData"/>
+   </wsdl:message>
+   
+   <wsdl:message name="fetchBOsRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="remoteRefId" type="xsd:string"/>
+      <wsdl:part name="index" type="xsd:int"/>
+      <wsdl:part name="direction" type="xsd:int"/>
+   </wsdl:message>
+   <wsdl:message name="fetchBOsResponse">
+      <wsdl:part name="fetchBOsReturn" type="impl:ArrayOfResourceData"/>
+   </wsdl:message>
+   
+   <wsdl:message name="removeBOsRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="remoteRefId" type="xsd:string"/>
+      <wsdl:part name="indices" type="inx:ArrayOf_TInteger"/>
+   </wsdl:message>
+   <wsdl:message name="removeBOsResponse">
+      <wsdl:part name="removeBOsReturn" type="xsd:int"/>
+   </wsdl:message>
+ 
+   <wsdl:message name="uploadRequest">
+       <wsdl:part name="sid" type="xsd:string"/>
+       <wsdl:part name="sharingType" type="xsd:int"/>
+       <wsdl:part name="boId" type="xsd:int"/>
+       <wsdl:part name="name" type="xsd:string"/>
+   </wsdl:message>
+   <wsdl:message name="uploadResponse">
+       <wsdl:part name="uploadReturn" type="impl:UploadData"/>
+   </wsdl:message>
+   
+   <wsdl:message name="commitUploadRequest">
+       <wsdl:part name="sid" type="xsd:string"/>
+       <wsdl:part name="remoteRefId" type="xsd:string"/>
+   </wsdl:message>
+   <wsdl:message name="commitUploadResponse">
+       <wsdl:part name="commitUploadReturn" type="impl:ResourceData"/>
+   </wsdl:message>
+   
+   
+   <wsdl:portType name="ResourceService">
+
+      <wsdl:operation name="getInputStream" parameterOrder="sid resourceId">
+         <wsdl:input name="getInputStreamRequest" message="impl:getInputStreamRequest"/>
+         <wsdl:output name="getInputStreamResponse" message="impl:getInputStreamResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="get" parameterOrder="sid id">
+         <wsdl:input name="getRequest" message="impl:getRequest"/>
+         <wsdl:output name="getResponse" message="impl:getResponse"/>
+      </wsdl:operation>
+     
+      <wsdl:operation name="remove" parameterOrder="sid id">
+         <wsdl:input name="removeRequest" message="impl:removeRequest"/>
+         <wsdl:output name="removeResponse" message="impl:removeResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="selectAll" parameterOrder="sid orderAttribute orderType">
+         <wsdl:input name="selectAllRequest" message="impl:selectAllRequest"/>
+         <wsdl:output name="selectAllResponse" message="impl:selectAllResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="select" parameterOrder="sid mailingId listContextId orderAttribute orderType">
+         <wsdl:input name="selectRequest" message="impl:selectRequest"/>
+         <wsdl:output name="selectResponse" message="impl:selectResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="removeBOs" parameterOrder="sid remoteRefId indices">
+         <wsdl:input name="removeBOsRequest" message="impl:removeBOsRequest"/>
+         <wsdl:output name="removeBOsResponse" message="impl:removeBOsResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="fetchBOs" parameterOrder="sid remoteRefId index direction">
+         <wsdl:input name="fetchBOsRequest" message="impl:fetchBOsRequest"/>
+         <wsdl:output name="fetchBOsResponse" message="impl:fetchBOsResponse"/>
+      </wsdl:operation>
+ 
+       <wsdl:operation name="upload" parameterOrder="sid sharingType boId name">
+          <wsdl:input name="uploadRequest" message="impl:uploadRequest"/>
+          <wsdl:output name="uploadResponse" message="impl:uploadResponse"/>
+       </wsdl:operation>
+
+      <wsdl:operation name="commitUpload" parameterOrder="sid remoteRefId">
+         <wsdl:input name="commitUploadRequest" message="impl:commitUploadRequest"/>
+         <wsdl:output name="commitUploadResponse" message="impl:commitUploadResponse"/>
+      </wsdl:operation>
+   
+   </wsdl:portType>
+
+   <wsdl:binding name="ResourceServiceSoapBinding" type="impl:ResourceService">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="getInputStream">    
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="getInputStreamRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://resource.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+         <wsdl:output name="getInputStreamResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://resource.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+      </wsdl:operation>
+      
+      <wsdl:operation name="get">    
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="getRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://resource.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+         <wsdl:output name="getResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://resource.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+      </wsdl:operation>
+
+      <wsdl:operation name="remove">
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="removeRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://resource.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+         <wsdl:output name="removeResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://resource.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+      </wsdl:operation>
+
+      <wsdl:operation name="selectAll">
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="selectAllRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://resource.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+         <wsdl:output name="selectAllResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://resource.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+      </wsdl:operation>
+
+      <wsdl:operation name="select">
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="selectRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://resource.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+         <wsdl:output name="selectResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://resource.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+      </wsdl:operation>
+
+      <wsdl:operation name="fetchBOs">
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="fetchBOsRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://resource.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+         <wsdl:output name="fetchBOsResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://resource.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+      </wsdl:operation>
+
+      <wsdl:operation name="removeBOs">
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="removeBOsRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://resource.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+         <wsdl:output name="removeBOsResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://resource.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+      </wsdl:operation>
+
+      <wsdl:operation name="upload">
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="uploadRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://resource.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+         <wsdl:output name="uploadResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://resource.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+      </wsdl:operation>
+
+      <wsdl:operation name="commitUpload">
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="commitUploadRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://resource.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+         <wsdl:output name="commitUploadResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://resource.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="ResourceServiceSoap">
+
+      <wsdl:port name="ResourceService" binding="impl:ResourceServiceSoapBinding">
+
+         <wsdlsoap:address location="http://localhost:80/inxmail/api/ResourceService"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+   
+</wsdl:definitions>

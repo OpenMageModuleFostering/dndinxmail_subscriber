@@ -1,0 +1,64 @@
+<div class="content-header">
+    <table cellspacing="0" class="grid-header">
+        <tr>
+            <td><h3><?php echo Mage::helper('dndinxmail_subscriber')->__('Create Inxmail column') ?></h3></td>
+            <td class="a-right">
+                <button onclick="editForm.submit()" class="scalable save" type="button">
+                    <span><?php echo Mage::helper('dndinxmail_subscriber')->__('Create') ?></span></button>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="entry-edit">
+    <form id="edit_form" name="edit_form" method="post" action="<?php echo $this->getUrl('*/*/create') ?>">
+        <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>"/>
+        <fieldset id="my-fieldset">
+            <table cellspacing="0" class="form-list">
+
+                <tr>
+                    <td class="label">
+                        <label for="fromdate"><?php echo Mage::helper('dndinxmail_subscriber')->__('Column name') ?>
+                            <span class="required">*</span></label>
+                    </td>
+                    <td class="value">
+                        <input class="input-text required-entry" name="column_name" id="column_name" value="" type="text">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label">
+                        <label for="fromdate"><?php echo Mage::helper('dndinxmail_subscriber')->__('Column length') ?></label>
+                    </td>
+                    <td class="value">
+                        <input class="input-text validate-number" name="column_length" id="column_length" value="80" type="text">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label">
+                        <label><?php echo Mage::helper('dndinxmail_subscriber')->__('Column type') ?></label>
+                    </td>
+                    <td class="value">
+                        <input name="column_type" value="col_text" type="radio" checked="checked"> <?php echo Mage::helper('dndinxmail_subscriber')->__('Text'); ?>
+                        <br/>
+                        <input name="column_type" value="col_date_time" type="radio"> <?php echo Mage::helper('dndinxmail_subscriber')->__('Date and time'); ?>
+                        <br/>
+                        <input name="column_type" value="col_date" type="radio"> <?php echo Mage::helper('dndinxmail_subscriber')->__('Date only'); ?>
+                        <br/>
+                        <input name="column_type" value="col_time" type="radio"> <?php echo Mage::helper('dndinxmail_subscriber')->__('Time only'); ?>
+                        <br/>
+                        <input name="column_type" value="col_int" type="radio"> <?php echo Mage::helper('dndinxmail_subscriber')->__('Integer'); ?>
+                        <br/>
+                        <input name="column_type" value="col_float" type="radio"> <?php echo Mage::helper('dndinxmail_subscriber')->__('Float'); ?>
+                        <br/>
+                        <input name="column_type" value="col_yesno" type="radio"> <?php echo Mage::helper('dndinxmail_subscriber')->__('Yes / No'); ?>
+                    </td>
+                </tr>
+
+            </table>
+        </fieldset>
+    </form>
+</div>
+<script type="text/javascript">
+    var editForm = new varienForm('edit_form');
+</script>

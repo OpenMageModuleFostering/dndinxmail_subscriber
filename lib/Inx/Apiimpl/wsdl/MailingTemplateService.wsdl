@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+	targetNamespace="http://mailingtemplate.apiservice.xpro.inxmail.com"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:impl="http://mailingtemplate.apiservice.xpro.inxmail.com"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:inx="http://apiservice.xpro.inxmail.com"
+	xmlns:apachesoap="http://xml.apache.org/xml-soap"
+	xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns="http://schemas.xmlsoap.org/wsdl/">
+
+	<wsdl:types>
+
+		<schema xmlns="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://mailingtemplate.apiservice.xpro.inxmail.com">
+			<import
+				namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+					<import namespace="http://apiservice.xpro.inxmail.com" />
+
+			<complexType name="ResultSetData">
+				<sequence>
+					<element name="remoteRefId" type="xsd:string" />
+					<element name="size" type="xsd:int" />
+					<element name="data" nillable="true"
+						type="impl:ArrayOfMailingTemplateData" />
+				</sequence>
+			</complexType>
+
+			<complexType name="ArrayOfMailingTemplateData">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType"
+							wsdl:arrayType="impl:MailingTemplateData[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="ExceptionDesc">
+				<sequence>
+					<element name="type" type="xsd:int" />
+					<element name="source" type="xsd:int" />
+					<element name="msg" type="xsd:string" />
+				</sequence>
+			</complexType>
+
+			<complexType name="MailingTemplateDataHolder">
+				<sequence>
+					<element name="value" nillable="true"
+						type="impl:MailingTemplateData" />
+					<element name="excDesc" nillable="true"
+						type="impl:ExceptionDesc" />
+				</sequence>
+			</complexType>
+
+			<complexType name="MailingTemplateData">
+				<sequence>
+					<element name="id" type="xsd:int" />
+					<element name="listContextId" type="xsd:int" />
+					<element name="name" nillable="true"
+						type="inx:TString" />
+					<element name="htmlTextContent" nillable="true"
+						type="inx:TString" />
+					<element name="plainTextContent" nillable="true"
+						type="inx:TString" />
+					<element name="mimeType" type="int" />
+				</sequence>
+			</complexType>
+		</schema>
+
+		<schema xmlns="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://apiservice.xpro.inxmail.com">
+			<import
+				namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+
+			<complexType name="ArrayOf_xsd_string">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType"
+							wsdl:arrayType="xsd:string[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="SessionCxt">
+				<sequence>
+					<element name="sid" type="xsd:string" />
+					<element name="relRefIds" nillable="true"
+						type="inx:ArrayOf_xsd_string" />
+				</sequence>
+			</complexType>
+
+			<complexType name="TString">
+				<sequence>
+					<element name="value" type="xsd:string" />
+				</sequence>
+			</complexType>
+
+			<complexType name="TBoolean">
+				<sequence>
+					<element name="value" type="xsd:boolean" />
+				</sequence>
+			</complexType>
+
+			<complexType name="TInteger">
+				<sequence>
+					<element name="value" type="xsd:int" />
+				</sequence>
+			</complexType>
+
+			<complexType name="TDatetime">
+				<sequence>
+					<element name="value" type="xsd:dateTime" />
+				</sequence>
+			</complexType>
+
+			<complexType name="ArrayOf_TString">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType"
+							wsdl:arrayType="inx:TString[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="ArrayOf_TBoolean">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType"
+							wsdl:arrayType="inx:TBoolean[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="ArrayOf_TInteger">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType"
+							wsdl:arrayType="inx:TInteger[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="ArrayOf_TDatetime">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType"
+							wsdl:arrayType="inx:TDatetime[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+		</schema>
+
+	</wsdl:types>
+
+	<wsdl:message name="getRequest">
+		<wsdl:part name="sc" type="inx:SessionCxt"></wsdl:part>
+		<wsdl:part name="id" type="xsd:int"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getResponse">
+		<wsdl:part name="getResponse" type="impl:MailingTemplateData"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="removeRequest">
+		<wsdl:part name="sc" type="inx:SessionCxt"></wsdl:part>
+		<wsdl:part name="id" type="xsd:int"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="removeResponse">
+		<wsdl:part name="removeResponse" type="xsd:boolean"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="updateRequest">
+		<wsdl:part name="sc" type="inx:SessionCxt"></wsdl:part>
+		<wsdl:part name="updData" type="impl:MailingTemplateData"></wsdl:part>
+		<wsdl:part name="changeFlags" type="inx:ArrayOf_TBoolean"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="updateResponse">
+		<wsdl:part name="readData" type="impl:MailingTemplateDataHolder"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="fetchRequest">
+		<wsdl:part name="sc" type="inx:SessionCxt"></wsdl:part>
+		<wsdl:part name="remoteRefId" type="xsd:string"></wsdl:part>
+		<wsdl:part name="index" type="xsd:int"></wsdl:part>
+		<wsdl:part name="direction" type="xsd:int"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="fetchResponse">
+		<wsdl:part name="fetchResponse"
+			type="impl:ArrayOfMailingTemplateData">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="removeSelectionRequest">
+		<wsdl:part name="sc" type="inx:SessionCxt"></wsdl:part>
+		<wsdl:part name="remoteRefId" type="xsd:string"></wsdl:part>
+		<wsdl:part name="indices" type="inx:ArrayOf_TInteger"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="removeSelectionResponse">
+		<wsdl:part name="removeSelectionResponse" type="xsd:int"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="selectRequest">
+		<wsdl:part name="sc" type="inx:SessionCxt"></wsdl:part>
+		<wsdl:part name="listContextId" type="xsd:int"></wsdl:part>
+		<wsdl:part name="orderAttribute" type="xsd:int"></wsdl:part>
+		<wsdl:part name="orderType" type="xsd:int"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="selectResponse">
+		<wsdl:part name="selectResponse" type="impl:ResultSetData"></wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="MailingTemplateService">
+		<wsdl:operation name="get">
+			<wsdl:input message="impl:getRequest"></wsdl:input>
+			<wsdl:output message="impl:getResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="remove">
+			<wsdl:input message="impl:removeRequest"></wsdl:input>
+			<wsdl:output message="impl:removeResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="fetch">
+			<wsdl:input message="impl:fetchRequest"></wsdl:input>
+			<wsdl:output message="impl:fetchResponse"></wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="update">
+			<wsdl:input message="impl:updateRequest"></wsdl:input>
+			<wsdl:output message="impl:updateResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="removeSelection">
+			<wsdl:input message="impl:removeSelectionRequest"></wsdl:input>
+			<wsdl:output message="impl:removeSelectionResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="select">
+			<wsdl:input message="impl:selectRequest"></wsdl:input>
+			<wsdl:output message="impl:selectResponse"></wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="MailingTemplateServiceSoapBinding"
+		type="impl:MailingTemplateService">
+		<soap:binding style="rpc"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="get">
+			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://mailingtemplate.apiservice.xpro.inxmail.com"
+					use="encoded" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://mailingtemplate.apiservice.xpro.inxmail.com"
+					use="encoded" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="fetch">
+			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://mailingtemplate.apiservice.xpro.inxmail.com"
+					use="encoded" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://mailingtemplate.apiservice.xpro.inxmail.com"
+					use="encoded" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="update">
+			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://mailingtemplate.apiservice.xpro.inxmail.com"
+					use="encoded" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://mailingtemplate.apiservice.xpro.inxmail.com"
+					use="encoded" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="remove">
+			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://mailingtemplate.apiservice.xpro.inxmail.com"
+					use="encoded" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://mailingtemplate.apiservice.xpro.inxmail.com"
+					use="encoded" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="removeSelection">
+			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://mailingtemplate.apiservice.xpro.inxmail.com"
+					use="encoded" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://mailingtemplate.apiservice.xpro.inxmail.com"
+					use="encoded" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="select">
+			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://mailingtemplate.apiservice.xpro.inxmail.com"
+					use="encoded" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://mailingtemplate.apiservice.xpro.inxmail.com"
+					use="encoded" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="MailingTemplateServiceSoap">
+		<wsdl:port binding="impl:MailingTemplateServiceSoapBinding"
+			name="MailingTemplateService">
+			<soap:address
+				location="http://localhost:80/inxmail/api/MailingTemplateService" />
+		</wsdl:port>
+	</wsdl:service>
+
+</wsdl:definitions>

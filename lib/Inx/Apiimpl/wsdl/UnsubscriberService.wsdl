@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://unsubscriber.apiservice.xpro.inxmail.com" 
+			xmlns:impl="http://recipient.apiservice.xpro.inxmail.com" 
+			xmlns:impl2="http://unsubscriber.apiservice.xpro.inxmail.com" 
+			xmlns:inx="http://apiservice.xpro.inxmail.com" 
+			xmlns:apachesoap="http://xml.apache.org/xml-soap" 
+			xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" 
+			xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" 
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+			xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+			xmlns="http://schemas.xmlsoap.org/wsdl/">
+ <wsdl:types>
+  
+  <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://apiservice.xpro.inxmail.com">
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   
+   
+   
+   <complexType name="TString">
+    <sequence>
+     <element name="value" type="xsd:string"/>
+    </sequence>
+   </complexType>
+
+   <complexType name="TBoolean">
+    <sequence>
+     <element name="value" type="xsd:boolean"/>
+    </sequence>
+   </complexType>
+   
+   <complexType name="TInteger">
+    <sequence>
+     <element name="value" type="xsd:int"/>
+    </sequence>
+   </complexType>
+  
+   <complexType name="TDouble">
+      <sequence>
+       <element name="value" type="xsd:double"/>
+      </sequence>
+   </complexType>
+   
+   <complexType name="TDatetime">
+         <sequence>
+          <element name="value" type="xsd:dateTime"/>
+         </sequence>
+   </complexType>
+   
+   <complexType name="TDate">
+         <sequence>
+          <element name="value" type="xsd:date"/>
+         </sequence>
+   </complexType>
+   
+   <complexType name="TTime">
+            <sequence>
+             <element name="value" type="xsd:time"/>
+            </sequence>
+   </complexType>
+   
+   <complexType name="ArrayOf_TString">
+      <complexContent>
+       <restriction base="soapenc:Array">
+        <attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TString[]"/>
+       </restriction>
+      </complexContent>
+   </complexType>
+
+   <complexType name="ArrayOf_TBoolean">
+      <complexContent>
+       <restriction base="soapenc:Array">
+        <attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TBoolean[]"/>
+       </restriction>
+      </complexContent>
+   </complexType>
+   
+   <complexType name="ArrayOf_TInteger">
+      <complexContent>
+       <restriction base="soapenc:Array">
+        <attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TInteger[]"/>
+       </restriction>
+      </complexContent>
+   </complexType>
+   
+   <complexType name="ArrayOf_TDouble">
+      <complexContent>
+       <restriction base="soapenc:Array">
+        <attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TDouble[]"/>
+       </restriction>
+      </complexContent>
+   </complexType>
+   
+   <complexType name="ArrayOf_TDatetime">
+      <complexContent>
+       <restriction base="soapenc:Array">
+        <attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TDatetime[]"/>
+       </restriction>
+      </complexContent>
+   </complexType>
+
+   <complexType name="ArrayOf_TDate">
+      <complexContent>
+       <restriction base="soapenc:Array">
+        <attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TDate[]"/>
+       </restriction>
+      </complexContent>
+   </complexType>
+
+   <complexType name="ArrayOf_TTime">
+      <complexContent>
+       <restriction base="soapenc:Array">
+        <attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TTime[]"/>
+       </restriction>
+      </complexContent>
+   </complexType>
+
+<!-- not supported in Delphi
+
+   <complexType name="ArrayOf_xsd_int">
+      <complexContent>
+       <restriction base="soapenc:Array">
+        <attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:int[]"/>
+       </restriction>
+      </complexContent>
+     </complexType>
+-->
+
+  </schema>
+  
+  
+   <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://recipient.apiservice.xpro.inxmail.com">
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+
+   <complexType name="SelectExcDesc">
+    <sequence>
+     <element name="type" type="xsd:int"/>
+     <element name="msg" type="xsd:string"/>
+    </sequence>
+  </complexType>
+  
+   <complexType name="RowSetData">
+    <sequence>
+     <element name="remoteRefId" type="xsd:string"/>
+     <element name="rowCount" type="xsd:int"/>
+     <element name="data" nillable="true" type="impl:ArrayOfRecipientData"/>
+     <element name="selectExcDesc" nillable="true" type="impl:SelectExcDesc"/>
+    </sequence>
+   </complexType>
+   
+   <complexType name="AttrUpdate">
+    <sequence>
+     <element name="id" type="xsd:int"/>
+     <element name="stringData" nillable="true" type="inx:TString"/>
+     <element name="booleanData" nillable="true" type="inx:TBoolean"/>
+     <element name="integerData" nillable="true" type="inx:TInteger"/>
+     <element name="doubleData" nillable="true" type="inx:TDouble"/>
+     <element name="dateData" nillable="true" type="inx:TDate"/>
+     <element name="timeData" nillable="true" type="inx:TTime"/>
+     <element name="datetimeData" nillable="true" type="inx:TDatetime"/>
+    </sequence>
+   </complexType>
+   
+   <complexType name="RecipientData">
+    <sequence>
+     <element name="id" type="xsd:int"/>
+     <element name="stringData" nillable="true" type="inx:ArrayOf_TString"/>
+     <element name="booleanData" nillable="true" type="inx:ArrayOf_TBoolean"/>
+     <element name="integerData" nillable="true" type="inx:ArrayOf_TInteger"/>
+     <element name="doubleData" nillable="true" type="inx:ArrayOf_TDouble"/>
+     <element name="dateData" nillable="true" type="inx:ArrayOf_TDate"/>
+     <element name="timeData" nillable="true" type="inx:ArrayOf_TTime"/>
+     <element name="datetimeData" nillable="true" type="inx:ArrayOf_TDatetime"/>
+    </sequence>
+   </complexType>
+   
+   <complexType name="ArrayOfRecipientData">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:RecipientData[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   
+   <complexType name="RecipientUpdate">
+    <sequence>
+     <element name="id" type="xsd:int"/>
+     <element name="stringData" nillable="true" type="inx:ArrayOf_TString"/>
+     <element name="booleanData" nillable="true" type="inx:ArrayOf_TBoolean"/>
+     <element name="integerData" nillable="true" type="inx:ArrayOf_TInteger"/>
+     <element name="doubleData" nillable="true" type="inx:ArrayOf_TDouble"/>
+     <element name="dateData" nillable="true" type="inx:ArrayOf_TDate"/>
+     <element name="timeData" nillable="true" type="inx:ArrayOf_TTime"/>
+     <element name="datetimeData" nillable="true" type="inx:ArrayOf_TDatetime"/>
+     <element name="attrIndices" nillable="true" type="inx:ArrayOf_TInteger"/>
+     <element name="typeArrayIndices" nillable="true" type="inx:ArrayOf_TInteger"/>
+    </sequence>
+   </complexType>
+ 
+   <complexType name="UpdExcDesc">
+    <sequence>
+     <element name="type" type="xsd:int"/>
+     <element name="source" type="xsd:int"/>
+     <element name="msg" type="xsd:string"/>
+    </sequence>
+   </complexType>
+
+   <complexType name="RecipientDataHolder">
+    <sequence>
+     <element name="value" nillable="true" type="impl:RecipientData"/>
+     <element name="updExcDesc" nillable="true" type="impl:UpdExcDesc"/>
+    </sequence>
+   </complexType>
+   
+   <complexType name="AttrData">
+    <sequence>
+     <element name="id" type="xsd:int"/>
+     <element name="name" nillable="true" type="xsd:string"/>
+     <element name="dataType" type="xsd:int"/>
+     <element name="maxStringLength" type="xsd:int"/>
+     <element name="attrType" type="xsd:int"/>
+     <element name="listContextId" type="xsd:int"/>
+     <element name="featureId" type="xsd:int"/>
+     <element name="arrayIndex" type="xsd:int"/>
+     <element name="typeArrayIndex" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   
+   <complexType name="ArrayOfAttrData">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:AttrData[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   
+   <complexType name="RecipientContextData">
+    <sequence>
+     <element name="remoteRefId" nillable="true" type="xsd:string"/>
+     <element name="keyUnique" type="xsd:boolean"/>
+     <element name="keyAttrId" type="xsd:int"/>
+     <element name="emailAttrId" type="xsd:int"/>
+     <element name="idAttrId" type="xsd:int"/>
+     
+     <element name="stringAttrCount" type="xsd:int"/>
+     <element name="booleanAttrCount" type="xsd:int"/>
+     <element name="integerAttrCount" type="xsd:int"/>
+     <element name="doubleAttrCount" type="xsd:int"/>
+     <element name="dateAttrCount" type="xsd:int"/>
+     <element name="timeAttrCount" type="xsd:int"/>
+     <element name="datetimeAttrCount" type="xsd:int"/>
+     
+     <element name="attrData" nillable="true" type="impl:ArrayOfAttrData"/>
+    </sequence>
+   </complexType>
+   
+  </schema>
+
+ </wsdl:types>
+
+   <wsdl:message name="deleteRecipientsRequest">
+
+      <wsdl:part name="sid" type="xsd:string"/>
+      
+      <wsdl:part name="remoteRefId" type="xsd:string"/>
+
+      <wsdl:part name="indexRanges" type="inx:ArrayOf_TInteger"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="updateRecipientResponse">
+
+      <wsdl:part name="updateRecipientReturn" type="impl:RecipientDataHolder"/>
+
+   </wsdl:message>
+   
+
+   <wsdl:message name="deleteRecipientsResponse">
+
+      <wsdl:part name="deleteRecipientsReturn" type="xsd:int"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="fetchRecipientsResponse">
+
+      <wsdl:part name="fetchRecipientsReturn" type="impl:ArrayOfRecipientData"/>
+
+   </wsdl:message>
+
+
+   <wsdl:message name="fetchRecipientsRequest">
+
+      <wsdl:part name="sid" type="xsd:string"/>
+
+      <wsdl:part name="remoteRefId" type="xsd:string"/>
+
+      <wsdl:part name="index" type="xsd:int"/>
+
+      <wsdl:part name="direction" type="xsd:int"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="updateRecipientRequest">
+
+      <wsdl:part name="sid" type="xsd:string"/>
+      
+      <wsdl:part name="remoteRefId" type="xsd:string"/>
+
+      <wsdl:part name="ru" type="impl:RecipientUpdate"/>
+
+   </wsdl:message>
+ 
+   
+    <wsdl:message name="selectUnsubscriberRequest">
+
+      <wsdl:part name="sid" type="xsd:string"/>
+      
+      <wsdl:part name="remoteRefId" type="xsd:string"/>
+
+      <wsdl:part name="listContextId" type="xsd:int"/>
+
+      <wsdl:part name="filterId" type="xsd:int"/>
+	
+      <wsdl:part name="filter" type="xsd:string"/>
+      
+      <wsdl:part name="orderAttrId" type="xsd:int"/>
+
+      <wsdl:part name="orderType" type="xsd:int"/>
+
+   </wsdl:message>
+   
+
+   <wsdl:message name="selectUnsubscriberResponse">
+
+      <wsdl:part name="selectTestrecipientsReturn" type="impl:RowSetData"/>
+
+   </wsdl:message>  
+      
+   <wsdl:message name="setAttributeValueRequest1">
+ 
+       <wsdl:part name="sid" type="xsd:string"/>
+ 
+       <wsdl:part name="remoteRefId" type="xsd:string"/>
+ 
+       <wsdl:part name="subscriptionDate" type="inx:TDatetime"/>
+ 
+    </wsdl:message>
+ 
+    <wsdl:message name="setAttributeValueResponse1">
+ 
+       <wsdl:part name="setAttributeValueReturn1" type="xsd:boolean"/>
+ 
+    </wsdl:message>
+ 
+    <wsdl:message name="setAttributeValueRequest2">
+ 
+       <wsdl:part name="sid" type="xsd:string"/>
+ 
+       <wsdl:part name="remoteRefId" type="xsd:string"/>
+ 
+       <wsdl:part name="subscriptionDate" type="inx:TDatetime"/>
+       
+       <wsdl:part name="indexRanges" type="inx:ArrayOf_TInteger"/>
+ 
+    </wsdl:message>
+ 
+    <wsdl:message name="setAttributeValueResponse2">
+ 
+       <wsdl:part name="setAttributeValueReturn2" type="xsd:boolean"/>
+ 
+    </wsdl:message>
+   
+   
+   <wsdl:portType name="UnsubscriberService">
+
+      
+      <wsdl:operation name="selectUnsubscriber" parameterOrder="sid remoteRefId listContextId filterId filter orderAttrId orderType">
+
+         <wsdl:input name="selectUnsubscriberRequest" message="impl2:selectUnsubscriberRequest"/>
+
+         <wsdl:output name="selectUnsubscriberResponse" message="impl2:selectUnsubscriberResponse"/>
+
+      </wsdl:operation>
+      
+      
+
+      <wsdl:operation name="fetchRecipients" parameterOrder="sid remoteRefId index direction">
+
+         <wsdl:input name="fetchRecipientsRequest" message="impl2:fetchRecipientsRequest"/>
+
+         <wsdl:output name="fetchRecipientsResponse" message="impl2:fetchRecipientsResponse"/>
+
+      </wsdl:operation>
+
+   
+      <wsdl:operation name="deleteRecipients" parameterOrder="sid remoteRefId indexRanges">
+
+         <wsdl:input name="deleteRecipientsRequest" message="impl2:deleteRecipientsRequest"/>
+
+         <wsdl:output name="deleteRecipientsResponse" message="impl2:deleteRecipientsResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="updateRecipient" parameterOrder="sid remoteRefId ru">
+
+         <wsdl:input name="updateRecipientRequest" message="impl2:updateRecipientRequest"/>
+
+         <wsdl:output name="updateRecipientResponse" message="impl2:updateRecipientResponse"/>
+
+      </wsdl:operation>
+  	 
+  	  <wsdl:operation name="setAttributeValue1" parameterOrder="sid remoteRefId subscriptionDate">
+
+         <wsdl:input name="setAttributeValueRequest1" message="impl2:setAttributeValueRequest1"/>
+
+         <wsdl:output name="setAttributeValueResponse1" message="impl2:setAttributeValueResponse1"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setAttributeValue2" parameterOrder="sid remoteRefId subscriptionDate indexRanges">
+
+         <wsdl:input name="setAttributeValueRequest2" message="impl2:setAttributeValueRequest2"/>
+
+         <wsdl:output name="setAttributeValueResponse2" message="impl2:setAttributeValueResponse2"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="UnsubscriberServiceSoapBinding" type="impl2:UnsubscriberService">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+
+      <wsdl:operation name="selectUnsubscriber">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="selectUnsubscriberRequest">
+
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://unsubscriber.apiservice.xpro.inxmail.com"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="selectUnsubscriberResponse">
+
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://unsubscriber.apiservice.xpro.inxmail.com"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+ 
+      <wsdl:operation name="fetchRecipients">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="fetchRecipientsRequest">
+
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://unsubscriber.apiservice.xpro.inxmail.com"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="fetchRecipientsResponse">
+
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://unsubscriber.apiservice.xpro.inxmail.com"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   
+      <wsdl:operation name="deleteRecipients">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="deleteRecipientsRequest">
+
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://unsubscriber.apiservice.xpro.inxmail.com"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="deleteRecipientsResponse">
+
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://unsubscriber.apiservice.xpro.inxmail.com"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="updateRecipient">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="updateRecipientRequest">
+
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://unsubscriber.apiservice.xpro.inxmail.com"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="updateRecipientResponse">
+
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://unsubscriber.apiservice.xpro.inxmail.com"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+  
+      <wsdl:operation name="setAttributeValue1">
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="setAttributeValueRequest1">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://unsubscriber.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+         <wsdl:output name="setAttributeValueResponse1">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://unsubscriber.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+      </wsdl:operation>
+
+      <wsdl:operation name="setAttributeValue2">
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="setAttributeValueRequest2">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://unsubscriber.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+         <wsdl:output name="setAttributeValueResponse2">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://unsubscriber.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+      </wsdl:operation>   
+
+   </wsdl:binding>
+
+   <wsdl:service name="UnsubscriberServiceSoap">
+
+      <wsdl:port name="UnsubscriberService" binding="impl2:UnsubscriberServiceSoapBinding">
+
+         <wsdlsoap:address location="http://localhost:80/inxmail/api/UnsubscriberService"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

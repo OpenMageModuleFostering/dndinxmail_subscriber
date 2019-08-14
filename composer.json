@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/DndInxmail_Subscriber",
+    "type": "magento-module",
+    "license": "OSL-v3.0",
+    "homepage": "",
+    "description": "Inxmail Professional extension for Magento EE",
+    "authors": [
+    {
+        "name": "Mattheo Geoffray",
+        "email": "mattheo.geoffray@dnd.fr"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}

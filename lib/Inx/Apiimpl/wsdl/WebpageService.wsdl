@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://webpage.apiservice.xpro.inxmail.com"
+	xmlns:impl="http://webpage.apiservice.xpro.inxmail.com" xmlns:inx="http://apiservice.xpro.inxmail.com"
+	xmlns:intf="http://webpage.apiservice.xpro.inxmail.com"
+	xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+	<wsdl:types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://apiservice.xpro.inxmail.com">
+			<import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+
+			<complexType name="ArrayOf_xsd_string">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:string[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+			
+			<complexType name="ArrayOf_xsd_int">
+				<complexContent>
+					<restriction base="soapenc:Array">
+							<attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:int[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="SessionCxt">
+				<sequence>
+					<element name="sid" type="xsd:string" />
+					<element name="relRefIds" nillable="true" type="inx:ArrayOf_xsd_string" />
+				</sequence>
+			</complexType>
+
+			<complexType name="TString">
+				<sequence>
+					<element name="value" type="xsd:string" />
+				</sequence>
+			</complexType>
+
+			<complexType name="TBoolean">
+				<sequence>
+					<element name="value" type="xsd:boolean" />
+				</sequence>
+			</complexType>
+
+			<complexType name="TInteger">
+				<sequence>
+					<element name="value" type="xsd:int" />
+				</sequence>
+			</complexType>
+
+			<complexType name="TDatetime">
+				<sequence>
+					<element name="value" type="xsd:dateTime" />
+				</sequence>
+			</complexType>
+
+			<complexType name="ArrayOf_TString">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TString[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="ArrayOf_TBoolean">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TBoolean[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="ArrayOf_TInteger">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TInteger[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="ArrayOf_TDatetime">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TDatetime[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+		</schema>
+
+		<schema xmlns="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://webpage.apiservice.xpro.inxmail.com">
+			<import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+
+			<complexType name="ResultSetData">
+			    <sequence>
+			     	<element name="remoteRefId" type="xsd:string"/>
+			     	<element name="size" type="xsd:int"/>
+			     	<element name="data" nillable="true" type="impl:ArrayOfWebpageData"/>
+			     	<element name="typedIndices" nillable="true" type="inx:ArrayOf_xsd_int" />
+			    </sequence>
+		    </complexType>
+
+			<complexType name="WebpageData">
+				<sequence>
+					<element name="id" type="xsd:int"/>
+					<element name="name" type="xsd:string"/>
+					<element name="serverUrl" nillable="true" type="xsd:string"/>
+					<element name="type" type="xsd:int"/>
+					<element name="subType" type="xsd:string"/>
+					<element name="creationDate" type="inx:TDatetime"/>
+				</sequence>
+			</complexType>
+			
+			<complexType name="ExceptionDesc">
+				<sequence>
+					<element name="type" type="xsd:int" />
+					<element name="source" type="xsd:int" />
+					<element name="msg" type="xsd:string" />
+				</sequence>
+			</complexType>
+
+			
+			<complexType name="ArrayOfWebpageData">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="impl:WebpageData[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+		</schema>
+	</wsdl:types>
+
+	<wsdl:message name="getRequest">
+		<wsdl:part name="sc" type="inx:SessionCxt" />
+		<wsdl:part name="id" type="xsd:int" />
+	</wsdl:message>
+	<wsdl:message name="getResponse">
+		<wsdl:part name="getReturn" type="impl:WebpageData" />
+	</wsdl:message>
+
+	<wsdl:message name="selectAllRequest">
+		<wsdl:part name="sc" type="inx:SessionCxt" />
+	</wsdl:message>
+	<wsdl:message name="selectAllResponse">
+		<wsdl:part name="selectAllReturn" type="impl:ResultSetData" />
+	</wsdl:message>
+
+	<wsdl:message name="selectBySubTypeRequest">
+		<wsdl:part name="sc" type="inx:SessionCxt" />
+		<wsdl:part name="subType" type="xsd:string"/>
+	</wsdl:message>
+	<wsdl:message name="selectBySubTypeResponse">
+		<wsdl:part name="selectBySubTypeReturn" type="impl:ResultSetData" />
+	</wsdl:message>
+
+	<wsdl:message name="selectAllJspsRequest">
+		<wsdl:part name="sc" type="inx:SessionCxt" />
+	</wsdl:message>
+	<wsdl:message name="selectAllJspsResponse">
+		<wsdl:part name="selectAllJspsReturn" type="impl:ResultSetData" />
+	</wsdl:message>
+
+	<wsdl:message name="selectAllFormsRequest">
+		<wsdl:part name="sc" type="inx:SessionCxt" />
+	</wsdl:message>
+	<wsdl:message name="selectAllFormsResponse">
+		<wsdl:part name="selectAllFormsReturn" type="impl:ResultSetData" />
+	</wsdl:message>
+	
+	<wsdl:message name="selectJspsBySubTypeRequest">
+		<wsdl:part name="sc" type="inx:SessionCxt" />
+		<wsdl:part name="subType" type="xsd:string"/>
+	</wsdl:message>
+	<wsdl:message name="selectJspsBySubTypeResponse">
+		<wsdl:part name="selectJspsBySubTypeReturn" type="impl:ResultSetData" />
+	</wsdl:message>
+
+	<wsdl:message name="selectFormsBySubTypeRequest">
+		<wsdl:part name="sc" type="inx:SessionCxt" />
+		<wsdl:part name="subType" type="xsd:string"/>
+	</wsdl:message>
+	<wsdl:message name="selectFormsBySubTypeResponse">
+		<wsdl:part name="selectFormsBySubTypeReturn" type="impl:ResultSetData" />
+	</wsdl:message>
+
+	<wsdl:message name="fetchRequest">
+		<wsdl:part name="sc" type="inx:SessionCxt" />
+		<wsdl:part name="remoteRefId" type="xsd:string" />
+		<wsdl:part name="index" type="xsd:int" />
+		<wsdl:part name="direction" type="xsd:int" />
+	</wsdl:message>
+	<wsdl:message name="fetchResponse">
+		<wsdl:part name="fetchReturn" type="impl:ArrayOfWebpageData" />
+	</wsdl:message>
+
+	<wsdl:portType name="WebpageService">
+		<wsdl:operation name="get" parameterOrder="sc id">
+			<wsdl:input name="getRequest" message="impl:getRequest" />
+			<wsdl:output name="getResponse" message="impl:getResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="selectAll" parameterOrder="sc">
+			<wsdl:input name="selectAllRequest" message="impl:selectAllRequest" />
+			<wsdl:output name="selectAllResponse" message="impl:selectAllResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="selectBySubType" parameterOrder="sc subType">
+			<wsdl:input name="selectBySubTypeRequest" message="impl:selectBySubTypeRequest" />
+			<wsdl:output name="selectBySubTypeResponse" message="impl:selectBySubTypeResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="selectAllJsps"
+			parameterOrder="sc">
+			<wsdl:input name="selectAllJspsRequest" message="impl:selectAllJspsRequest" />
+			<wsdl:output name="selectAllJspsResponse" message="impl:selectAllJspsResponse" />
+		</wsdl:operation>
+		
+		<wsdl:operation name="selectAllForms"
+			parameterOrder="sc">
+			<wsdl:input name="selectAllFormsRequest" message="impl:selectAllFormsRequest" />
+			<wsdl:output name="selectAllFormsResponse" message="impl:selectAllFormsResponse" />
+		</wsdl:operation>
+		
+		<wsdl:operation name="selectJspsBySubType"
+			parameterOrder="sc subType">
+			<wsdl:input name="selectJspsBySubTypeRequest" message="impl:selectJspsBySubTypeRequest" />
+			<wsdl:output name="selectJspsBySubTypeResponse" message="impl:selectJspsBySubTypeResponse" />
+		</wsdl:operation>
+		
+		<wsdl:operation name="selectFormsBySubType"
+			parameterOrder="sc subType">
+			<wsdl:input name="selectFormsBySubTypeRequest" message="impl:selectFormsBySubTypeRequest" />
+			<wsdl:output name="selectFormsBySubTypeResponse" message="impl:selectFormsBySubTypeResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="fetch" parameterOrder="sc remoteRefId index direction">
+			<wsdl:input name="fetchRequest" message="impl:fetchRequest" />
+			<wsdl:output name="fetchResponse" message="impl:fetchResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="WebpageServiceSoapBinding" type="impl:WebpageService">
+
+		<wsdlsoap:binding style="rpc"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		
+		<wsdl:operation name="get">
+
+			<wsdlsoap:operation soapAction="" />
+
+			<wsdl:input name="getRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://webpage.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+
+			<wsdl:output name="getResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://webpage.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+
+		</wsdl:operation>		
+
+		<wsdl:operation name="fetch">
+
+			<wsdlsoap:operation soapAction="" />
+
+			<wsdl:input name="fetchRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://webpage.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+
+			<wsdl:output name="fetchResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://webpage.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+
+		</wsdl:operation>
+
+		
+
+		<wsdl:operation name="selectAll">
+
+			<wsdlsoap:operation soapAction="" />
+
+			<wsdl:input name="selectAllRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://webpage.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+
+			<wsdl:output name="selectAllResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://webpage.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+
+		</wsdl:operation>
+		
+		<wsdl:operation name="selectBySubType">
+
+			<wsdlsoap:operation soapAction="" />
+
+			<wsdl:input name="selectBySubTypeRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://webpage.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+
+			<wsdl:output name="selectBySubTypeResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://webpage.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+
+		</wsdl:operation>
+		
+		<wsdl:operation name="selectAllJsps">
+
+			<wsdlsoap:operation soapAction="" />
+
+			<wsdl:input name="selectAllJspsRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://webpage.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+
+			<wsdl:output name="selectAllJspsResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://webpage.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+
+		</wsdl:operation>
+		
+		<wsdl:operation name="selectAllForms">
+
+			<wsdlsoap:operation soapAction="" />
+
+			<wsdl:input name="selectAllFormsRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://webpage.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+
+			<wsdl:output name="selectAllFormsResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://webpage.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+
+		</wsdl:operation>
+		
+		<wsdl:operation name="selectJspsBySubType">
+
+			<wsdlsoap:operation soapAction="" />
+
+			<wsdl:input name="selectJspsBySubTypeRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://webpage.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+
+			<wsdl:output name="selectJspsBySubTypeResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://webpage.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+
+		</wsdl:operation>
+		
+		<wsdl:operation name="selectFormsBySubType">
+
+			<wsdlsoap:operation soapAction="" />
+
+			<wsdl:input name="selectFormsBySubTypeRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://webpage.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+
+			<wsdl:output name="selectFormsBySubTypeResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://webpage.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+
+		</wsdl:operation>
+
+	</wsdl:binding>
+
+	<wsdl:service name="WebpageServiceSoap">
+
+		<wsdl:port name="WebpageService" binding="impl:WebpageServiceSoapBinding">
+
+			<wsdlsoap:address location="http://localhost:80/inxmail/api/WebpageService" />
+
+		</wsdl:port>
+
+	</wsdl:service>
+
+</wsdl:definitions>

@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://plugin.apiservice.xpro.inxmail.com"
+	xmlns:impl="http://plugin.apiservice.xpro.inxmail.com" xmlns:inx="http://apiservice.xpro.inxmail.com"
+	xmlns:intf="http://plugin.apiservice.xpro.inxmail.com"
+	xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+	<wsdl:types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://apiservice.xpro.inxmail.com">
+			<import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+
+			<complexType name="ArrayOf_xsd_string">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:string[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+		</schema>
+
+		<schema xmlns="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://plugin.apiservice.xpro.inxmail.com">
+			<import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+
+
+			<complexType name="UploadData">
+				<sequence>
+					<element name="remoteRefId" type="xsd:string" />
+					<element name="maxChunkSize" type="xsd:int" />
+				</sequence>
+			</complexType>
+
+		</schema>
+
+	</wsdl:types>
+
+	<wsdl:message name="getInputStreamRequest">
+		<wsdl:part name="sid" type="xsd:string" />
+		<wsdl:part name="secretId" type="xsd:string" />
+		<wsdl:part name="key" type="xsd:string" />
+	</wsdl:message>
+	<wsdl:message name="getInputStreamResponse">
+		<wsdl:part name="getInputStreamReturn" type="xsd:string" />
+	</wsdl:message>
+
+	<wsdl:message name="getRequest">
+		<wsdl:part name="sid" type="xsd:string" />
+		<wsdl:part name="secretId" type="xsd:string" />
+	</wsdl:message>
+	<wsdl:message name="getResponse">
+		<wsdl:part name="getReturn" type="inx:ArrayOf_xsd_string" />
+	</wsdl:message>
+
+	<wsdl:message name="removeRequest">
+		<wsdl:part name="sid" type="xsd:string" />
+		<wsdl:part name="secretId" type="xsd:string" />
+		<wsdl:part name="key" type="xsd:string" />
+	</wsdl:message>
+	<wsdl:message name="removeResponse">
+		<wsdl:part name="removeReturn" type="xsd:boolean" />
+	</wsdl:message>
+
+	<wsdl:message name="removeAllRequest">
+		<wsdl:part name="sid" type="xsd:string" />
+		<wsdl:part name="secretId" type="xsd:string" />
+	</wsdl:message>
+	<wsdl:message name="removeAllResponse">
+		<wsdl:part name="removeAllReturn" type="xsd:boolean" />
+	</wsdl:message>
+
+
+	<wsdl:message name="uploadRequest">
+		<wsdl:part name="sid" type="xsd:string" />
+		<wsdl:part name="secretId" type="xsd:string" />
+		<wsdl:part name="key" type="xsd:string" />
+	</wsdl:message>
+	<wsdl:message name="uploadResponse">
+		<wsdl:part name="uploadReturn" type="impl:UploadData" />
+	</wsdl:message>
+
+	<wsdl:message name="commitUploadRequest">
+		<wsdl:part name="sid" type="xsd:string" />
+		<wsdl:part name="remoteRefId" type="xsd:string" />
+	</wsdl:message>
+	<wsdl:message name="commitUploadResponse">
+		<wsdl:part name="commitUploadReturn" type="xsd:boolean" />
+	</wsdl:message>
+
+
+	<wsdl:portType name="PluginService">
+
+		<wsdl:operation name="getInputStream" parameterOrder="sid secretId key">
+			<wsdl:input name="getInputStreamRequest" message="impl:getInputStreamRequest" />
+			<wsdl:output name="getInputStreamResponse" message="impl:getInputStreamResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="get" parameterOrder="sid secretId">
+			<wsdl:input name="getRequest" message="impl:getRequest" />
+			<wsdl:output name="getResponse" message="impl:getResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="remove" parameterOrder="sid secretId key">
+			<wsdl:input name="removeRequest" message="impl:removeRequest" />
+			<wsdl:output name="removeResponse" message="impl:removeResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="removeAll" parameterOrder="sid secretId">
+			<wsdl:input name="removeAllRequest" message="impl:removeAllRequest" />
+			<wsdl:output name="removeAllResponse" message="impl:removeAllResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="upload" parameterOrder="sid secretId key">
+			<wsdl:input name="uploadRequest" message="impl:uploadRequest" />
+			<wsdl:output name="uploadResponse" message="impl:uploadResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="commitUpload" parameterOrder="sid remoteRefId">
+			<wsdl:input name="commitUploadRequest" message="impl:commitUploadRequest" />
+			<wsdl:output name="commitUploadResponse" message="impl:commitUploadResponse" />
+		</wsdl:operation>
+
+	</wsdl:portType>
+
+	<wsdl:binding name="PluginServiceSoapBinding" type="impl:PluginService">
+
+		<wsdlsoap:binding style="rpc"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+
+		<wsdl:operation name="getInputStream">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="getInputStreamRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://resource.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+			<wsdl:output name="getInputStreamResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://resource.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="get">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="getRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://resource.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+			<wsdl:output name="getResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://resource.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="remove">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="removeRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://resource.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+			<wsdl:output name="removeResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://resource.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="removeAll">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="removeAllRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://resource.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+			<wsdl:output name="removeAllResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://resource.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="upload">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="uploadRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://resource.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+			<wsdl:output name="uploadResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://resource.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="commitUpload">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="commitUploadRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://resource.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+			<wsdl:output name="commitUploadResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://resource.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+		</wsdl:operation>
+
+	</wsdl:binding>
+
+	<wsdl:service name="PluginServiceSoap">
+
+		<wsdl:port name="PluginService" binding="impl:PluginServiceSoapBinding">
+
+			<wsdlsoap:address location="http://localhost:80/inxmail/api/PluginService" />
+
+		</wsdl:port>
+
+	</wsdl:service>
+
+</wsdl:definitions>

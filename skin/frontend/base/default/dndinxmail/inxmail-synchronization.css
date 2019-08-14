@@ -1,0 +1,11 @@
+body{ background: #ffffff; }
+.synchronize-block-content { display:block; overflow:hidden; width:520px; margin:0 auto; }
+.synchronize-block-content .logo-inxmail { display:block; overflow:hidden; background:url('images/inxmail-logo.png') no-repeat scroll center center transparent; height:100px;  }
+.synchronize-block-content .title { font-family: 'Arial', sans-serif; font-weight:bold; margin:0; color:#433a00; height:36px; line-height:36px; font-size:14px; text-align:center; display:block; overflow:hidden; background:url('images/bkg-inxmail-sync-bar.png') no-repeat scroll 0 0 transparent; }
+.synchronize-block-content .data-block { display:block; overflow:hidden; background:#F5F5F5; padding:15px 0; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; }
+.synchronize-block-content .data-block #loader-sync { margin:10px 0 0 0; display:block; overflow:hidden; background:url('images/ajax-loader.gif') no-repeat scroll center center transparent; height:40px; }
+.synchronize-block-content #results { display:block; overflow:hidden; text-align:center; }
+.synchronize-block-content #results #percent { font-family: 'Arial', sans-serif; font-weight:bold; color:#000; font-size:46px; }
+.synchronize-block-content #results #pass { font-family: 'Arial', sans-serif; font-style:italic; color:#e2700c; font-size:12px; }
+.synchronize-block-content #current-group { margin:15px 0 0; text-transform:uppercase; display:block; overflow:hidden; text-align:center; font-family: 'Arial', sans-serif; font-style:normal; font-weight:bold; color:#000; font-size:12px; }
+.synchronize-block-content #errors { color: #c62c2f; }

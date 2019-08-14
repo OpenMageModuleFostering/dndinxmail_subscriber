@@ -1,0 +1,1408 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+	targetNamespace="http://dataaccess.apiservice.xpro.inxmail.com"
+	xmlns:impl="http://dataaccess.apiservice.xpro.inxmail.com"
+	xmlns:inx="http://apiservice.xpro.inxmail.com"
+	xmlns:intf="http://dataaccess.apiservice.xpro.inxmail.com"
+	xmlns:apachesoap="http://xml.apache.org/xml-soap"
+	xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns="http://schemas.xmlsoap.org/wsdl/">
+	<wsdl:types>
+
+		<schema xmlns="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://apiservice.xpro.inxmail.com">
+			<import
+				namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+
+			<complexType name="ArrayOf_xsd_int">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType"
+							wsdl:arrayType="xsd:int[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="ArrayOf_xsd_string">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType"
+							wsdl:arrayType="xsd:string[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="SessionCxt">
+				<sequence>
+					<element name="sid" type="xsd:string" />
+					<element name="relRefIds" nillable="true"
+						type="inx:ArrayOf_xsd_string" />
+				</sequence>
+			</complexType>
+
+			<complexType name="TString">
+				<sequence>
+					<element name="value" type="xsd:string" />
+				</sequence>
+			</complexType>
+
+			<complexType name="TBoolean">
+				<sequence>
+					<element name="value" type="xsd:boolean" />
+				</sequence>
+			</complexType>
+
+			<complexType name="TInteger">
+				<sequence>
+					<element name="value" type="xsd:int" />
+				</sequence>
+			</complexType>
+
+			<complexType name="TDouble">
+				<sequence>
+					<element name="value" type="xsd:double" />
+				</sequence>
+			</complexType>
+
+			<complexType name="TDatetime">
+				<sequence>
+					<element name="value" type="xsd:dateTime" />
+				</sequence>
+			</complexType>
+
+			<complexType name="TDate">
+				<sequence>
+					<element name="value" type="xsd:date" />
+				</sequence>
+			</complexType>
+
+			<complexType name="TTime">
+				<sequence>
+					<element name="value" type="xsd:time" />
+				</sequence>
+			</complexType>
+
+			<complexType name="ArrayOf_TString">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType"
+							wsdl:arrayType="inx:TString[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="ArrayOf_TBoolean">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType"
+							wsdl:arrayType="inx:TBoolean[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="ArrayOf_TInteger">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType"
+							wsdl:arrayType="inx:TInteger[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="ArrayOf_TDouble">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType"
+							wsdl:arrayType="inx:TDouble[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="ArrayOf_TDatetime">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType"
+							wsdl:arrayType="inx:TDatetime[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="ArrayOf_TDate">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType"
+							wsdl:arrayType="inx:TDate[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="ArrayOf_TTime">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType"
+							wsdl:arrayType="inx:TTime[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<!-- not supported in Delphi
+				
+				<complexType name="ArrayOf_xsd_int">
+				<complexContent>
+				<restriction base="soapenc:Array">
+				<attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:int[]"/>
+				</restriction>
+				</complexContent>
+				</complexType>
+			-->
+
+		</schema>
+
+		<schema xmlns="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://dataaccess.apiservice.xpro.inxmail.com">
+			<import
+				namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+
+			<complexType name="LinkDTO">
+				<sequence>
+					<element name="linkId" type="xsd:int" />
+					<element name="linkName" nillable="true"
+						type="inx:TString" />
+					<element name="linkUrl" nillable="true"
+						type="inx:TString" />
+					<element name="linkType" type="xsd:int" />
+					<element name="actionId" type="xsd:int" />
+					<element name="mailing" type="xsd:int" />
+				</sequence>
+			</complexType>
+            <complexType name="ExceptionDesc">
+	            <sequence>
+		             <element name="type" type="xsd:int"/>
+		             <element name="source" type="xsd:int"/>
+		             <element name="msg" type="xsd:string"/>
+	            </sequence>
+           </complexType>
+			<complexType name="LinkRowSetData">
+				<sequence>
+					<element name="remoteRefId" type="xsd:string" />
+					<element name="rowCount" type="xsd:int" />
+					<element name="data" nillable="true"
+						type="impl:ArrayOfLinkDTO" />
+				</sequence>
+			</complexType>
+           
+            <complexType name="ExtendedLinkRowSetData">
+              <sequence>
+               <element name="data" nillable="true" type="impl:LinkRowSetData"/>
+               <element name="excDesc" nillable="true" type="impl:ExceptionDesc"/>
+              </sequence>
+           </complexType>
+		     
+		           
+			<complexType name="ArrayOfLinkDTO">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType"
+							wsdl:arrayType="impl:LinkDTO[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+
+			<complexType name="ClickDTO">
+				<sequence>
+					<element name="clickId" type="xsd:int" />
+					<element name="clickTimestamp" nillable="true"
+						type="inx:TDatetime" />
+					<element name="remoteHost" nillable="true"
+						type="inx:TString" />
+					<element name="userAgent" nillable="true"
+						type="inx:TString" />
+					<element name="linkId" type="xsd:int" />
+					<element name="recipientId" type="xsd:int" />
+					<element name="recipientState" type="xsd:int" />
+					<element name="stringData" nillable="true"
+						type="inx:ArrayOf_TString" />
+					<element name="booleanData" nillable="true"
+						type="inx:ArrayOf_TBoolean" />
+					<element name="integerData" nillable="true"
+						type="inx:ArrayOf_TInteger" />
+					<element name="doubleData" nillable="true"
+						type="inx:ArrayOf_TDouble" />
+					<element name="dateData" nillable="true"
+						type="inx:ArrayOf_TDate" />
+					<element name="timeData" nillable="true"
+						type="inx:ArrayOf_TTime" />
+					<element name="datetimeData" nillable="true"
+						type="inx:ArrayOf_TDatetime" />
+				</sequence>
+			</complexType>
+
+			<complexType name="ClickRowSetData">
+				<sequence>
+					<element name="remoteRefId" type="xsd:string" />
+					<element name="rowCount" type="xsd:int" />
+					<element name="typedIndices" nillable="true"
+						type="inx:ArrayOf_xsd_int" />
+					<element name="data" nillable="true"
+						type="impl:ArrayOfClickDTO" />
+				</sequence>
+			</complexType>
+
+			<complexType name="ArrayOfClickDTO">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType"
+							wsdl:arrayType="impl:ClickDTO[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+
+
+		</schema>
+	</wsdl:types>
+
+	<wsdl:message name="selectLinkByMailingRequest">
+
+		<wsdl:part name="sc" type="inx:SessionCxt" />
+
+		<wsdl:part name="mailingId" type="xsd:int" />
+
+	</wsdl:message>
+
+	<wsdl:message name="selectLinkByMailingResponse">
+
+		<wsdl:part name="selectByMailingReturn"
+			type="impl:LinkRowSetData" />
+
+	</wsdl:message>
+
+	<wsdl:message name="selectLinkByLinkRequest">
+
+		<wsdl:part name="sc" type="inx:SessionCxt" />
+
+		<wsdl:part name="linkId" type="xsd:int" />
+
+	</wsdl:message>
+
+	<wsdl:message name="selectLinkByLinkResponse">
+
+		<wsdl:part name="selectByLinkReturn" type="impl:LinkRowSetData" />
+
+	</wsdl:message>
+
+    <wsdl:message name="selectLinkByRecipientRequest">
+
+        <wsdl:part name="sc" type="inx:SessionCxt" />
+
+        <wsdl:part name="recipient" type="xsd:int" />
+
+    </wsdl:message>
+
+    <wsdl:message name="selectLinkByRecipientResponse">
+
+        <wsdl:part name="selectByRecipientReturn"
+            type="impl:LinkRowSetData" />
+
+    </wsdl:message>
+    
+    <wsdl:message name="selectLinkByLinkNameRequest">
+
+        <wsdl:part name="sc" type="inx:SessionCxt" />
+
+        <wsdl:part name="linkname" type="xsd:string" />
+
+    </wsdl:message>
+
+    <wsdl:message name="selectLinkByLinkNameResponse">
+
+        <wsdl:part name="selectByLinkNameReturn"
+            type="impl:ExtendedLinkRowSetData" />
+
+    </wsdl:message>
+
+	<wsdl:message name="selectNewLinkByMailingRequest">
+
+		<wsdl:part name="sc" type="inx:SessionCxt" />
+
+		<wsdl:part name="mailingId" type="xsd:int" />
+
+	</wsdl:message>
+
+	<wsdl:message name="selectNewLinkByMailingResponse">
+
+		<wsdl:part name="selectByMailingReturn"
+			type="impl:LinkRowSetData" />
+
+	</wsdl:message>
+
+	<wsdl:message name="selectNewLinkByLinkRequest">
+
+		<wsdl:part name="sc" type="inx:SessionCxt" />
+
+		<wsdl:part name="linkId" type="xsd:int" />
+
+	</wsdl:message>
+
+	<wsdl:message name="selectNewLinkByLinkResponse">
+
+		<wsdl:part name="selectByLinkReturn" type="impl:LinkRowSetData" />
+
+	</wsdl:message>
+
+	<wsdl:message name="selectNewLinkByRecipientRequest">
+
+		<wsdl:part name="sc" type="inx:SessionCxt" />
+
+		<wsdl:part name="recipient" type="xsd:int" />
+
+	</wsdl:message>
+
+	<wsdl:message name="selectNewLinkByRecipientResponse">
+
+		<wsdl:part name="selectByRecipientReturn"
+			type="impl:LinkRowSetData" />
+
+	</wsdl:message>
+
+	<wsdl:message name="fetchLinkRequest">
+		<wsdl:part name="sc" type="inx:SessionCxt" />
+		<wsdl:part name="remoteRefId" type="xsd:string" />
+		<wsdl:part name="index" type="xsd:int" />
+		<wsdl:part name="direction" type="xsd:int" />
+	</wsdl:message>
+	<wsdl:message name="fetchLinkResponse">
+		<wsdl:part name="fetchLinkReturn" type="impl:ArrayOfLinkDTO" />
+	</wsdl:message>
+
+	<wsdl:message name="selectClickByMailingRequest">
+
+		<wsdl:part name="sc" type="inx:SessionCxt" />
+
+		<wsdl:part name="mailingId" type="xsd:int" />
+
+		<wsdl:part name="recCtxRefId" type="xsd:string" />
+
+		<wsdl:part name="attrs" type="inx:ArrayOf_xsd_int" />
+
+	</wsdl:message>
+
+	<wsdl:message name="selectClickByMailingResponse">
+
+		<wsdl:part name="selectClickByMailingReturn"
+			type="impl:ClickRowSetData" />
+
+	</wsdl:message>
+	
+	<wsdl:message name="selectClickByMailingBetweenRequest">
+
+		<wsdl:part name="sc" type="inx:SessionCxt" />
+
+		<wsdl:part name="mailingId" type="xsd:int" />
+		
+		<wsdl:part name="startDate" type="inx:TDatetime"/>
+		
+		<wsdl:part name="endDate" type="inx:TDatetime"/>
+
+		<wsdl:part name="recCtxRefId" type="xsd:string" />
+
+		<wsdl:part name="attrs" type="inx:ArrayOf_xsd_int" />
+
+	</wsdl:message>
+
+	<wsdl:message name="selectClickByMailingBetweenResponse">
+
+		<wsdl:part name="selectClickByMailingReturn"
+			type="impl:ClickRowSetData" />
+
+	</wsdl:message>
+	
+	
+	<wsdl:message name="selectClickByMailingBeforeRequest">
+
+		<wsdl:part name="sc" type="inx:SessionCxt" />
+
+		<wsdl:part name="mailingId" type="xsd:int" />
+		
+		<wsdl:part name="searchDate" type="inx:TDatetime"/>
+
+		<wsdl:part name="recCtxRefId" type="xsd:string" />
+
+		<wsdl:part name="attrs" type="inx:ArrayOf_xsd_int" />
+
+	</wsdl:message>
+
+	<wsdl:message name="selectClickByMailingBeforeResponse">
+
+		<wsdl:part name="selectClickByMailingReturn"
+			type="impl:ClickRowSetData" />
+
+	</wsdl:message>
+
+	<wsdl:message name="selectClickByMailingAfterRequest">
+
+		<wsdl:part name="sc" type="inx:SessionCxt" />
+
+		<wsdl:part name="mailingId" type="xsd:int" />
+		
+		<wsdl:part name="searchDate" type="inx:TDatetime"/>
+
+		<wsdl:part name="recCtxRefId" type="xsd:string" />
+
+		<wsdl:part name="attrs" type="inx:ArrayOf_xsd_int" />
+
+	</wsdl:message>
+
+	<wsdl:message name="selectClickByMailingAfterResponse">
+
+		<wsdl:part name="selectClickByMailingReturn"
+			type="impl:ClickRowSetData" />
+
+	</wsdl:message>	
+	
+
+	<wsdl:message name="selectClickByLinkRequest">
+
+		<wsdl:part name="sc" type="inx:SessionCxt" />
+
+		<wsdl:part name="linkId" type="xsd:int" />
+
+		<wsdl:part name="recCtxRefId" type="xsd:string" />
+
+		<wsdl:part name="attrs" type="inx:ArrayOf_xsd_int" />
+
+	</wsdl:message>
+
+	<wsdl:message name="selectClickByLinkResponse">
+
+		<wsdl:part name="selectClickByLinkReturn"
+			type="impl:ClickRowSetData" />
+
+	</wsdl:message>
+	
+	
+	<wsdl:message name="selectClickByLinkBetweenRequest">
+
+		<wsdl:part name="sc" type="inx:SessionCxt" />
+
+		<wsdl:part name="linkId" type="xsd:int" />
+		
+		<wsdl:part name="startDate" type="inx:TDatetime"/>
+		
+		<wsdl:part name="endDate" type="inx:TDatetime"/>
+
+		<wsdl:part name="recCtxRefId" type="xsd:string" />
+
+		<wsdl:part name="attrs" type="inx:ArrayOf_xsd_int" />
+
+	</wsdl:message>
+
+	<wsdl:message name="selectClickByLinkBetweenResponse">
+
+		<wsdl:part name="selectClickByLinkReturn"
+			type="impl:ClickRowSetData" />
+
+	</wsdl:message>
+	
+	
+	<wsdl:message name="selectClickByLinkBeforeRequest">
+
+		<wsdl:part name="sc" type="inx:SessionCxt" />
+
+		<wsdl:part name="linkId" type="xsd:int" />
+		
+		<wsdl:part name="searchDate" type="inx:TDatetime"/>
+		
+		<wsdl:part name="recCtxRefId" type="xsd:string" />
+
+		<wsdl:part name="attrs" type="inx:ArrayOf_xsd_int" />
+
+	</wsdl:message>
+
+	<wsdl:message name="selectClickByLinkBeforeResponse">
+
+		<wsdl:part name="selectClickByLinkReturn"
+			type="impl:ClickRowSetData" />
+
+	</wsdl:message>
+	
+
+	<wsdl:message name="selectClickByLinkAfterRequest">
+
+		<wsdl:part name="sc" type="inx:SessionCxt" />
+
+		<wsdl:part name="linkId" type="xsd:int" />
+		
+		<wsdl:part name="searchDate" type="inx:TDatetime"/>
+		
+		<wsdl:part name="recCtxRefId" type="xsd:string" />
+
+		<wsdl:part name="attrs" type="inx:ArrayOf_xsd_int" />
+
+	</wsdl:message>
+
+	<wsdl:message name="selectClickByLinkAfterResponse">
+
+		<wsdl:part name="selectClickByLinkReturn"
+			type="impl:ClickRowSetData" />
+
+	</wsdl:message>
+
+
+    <wsdl:message name="selectClickByRecipientRequest">
+
+        <wsdl:part name="sc" type="inx:SessionCxt" />
+
+        <wsdl:part name="recipient" type="xsd:int" />
+
+        <wsdl:part name="recCtxRefId" type="xsd:string" />
+
+        <wsdl:part name="attrs" type="inx:ArrayOf_xsd_int" />
+
+    </wsdl:message>
+
+    <wsdl:message name="selectClickByRecipientResponse">
+
+        <wsdl:part name="selectClickByRecipientReturn"
+            type="impl:ClickRowSetData" />
+
+    </wsdl:message>
+    
+    
+    <wsdl:message name="selectClickByRecipientBetweenRequest">
+
+        <wsdl:part name="sc" type="inx:SessionCxt" />
+
+        <wsdl:part name="recipient" type="xsd:int" />
+
+		<wsdl:part name="startDate" type="inx:TDatetime"/>
+		
+		<wsdl:part name="endDate" type="inx:TDatetime"/>
+
+        <wsdl:part name="recCtxRefId" type="xsd:string" />
+
+        <wsdl:part name="attrs" type="inx:ArrayOf_xsd_int" />
+
+    </wsdl:message>
+
+    <wsdl:message name="selectClickByRecipientBetweenResponse">
+
+        <wsdl:part name="selectClickByRecipientReturn"
+            type="impl:ClickRowSetData" />
+
+    </wsdl:message>
+    
+        <wsdl:message name="selectClickByRecipientBeforeRequest">
+
+        <wsdl:part name="sc" type="inx:SessionCxt" />
+
+        <wsdl:part name="recipient" type="xsd:int" />
+
+		<wsdl:part name="searchDate" type="inx:TDatetime"/>
+		
+        <wsdl:part name="recCtxRefId" type="xsd:string" />
+
+        <wsdl:part name="attrs" type="inx:ArrayOf_xsd_int" />
+
+    </wsdl:message>
+
+    <wsdl:message name="selectClickByRecipientBeforeResponse">
+
+        <wsdl:part name="selectClickByRecipientReturn"
+            type="impl:ClickRowSetData" />
+
+    </wsdl:message>
+    
+    <wsdl:message name="selectClickByRecipientAfterRequest">
+
+        <wsdl:part name="sc" type="inx:SessionCxt" />
+
+        <wsdl:part name="recipient" type="xsd:int" />
+
+		<wsdl:part name="searchDate" type="inx:TDatetime"/>
+		
+        <wsdl:part name="recCtxRefId" type="xsd:string" />
+
+        <wsdl:part name="attrs" type="inx:ArrayOf_xsd_int" />
+
+    </wsdl:message>
+
+    <wsdl:message name="selectClickByRecipientAfterResponse">
+
+        <wsdl:part name="selectClickByRecipientReturn"
+            type="impl:ClickRowSetData" />
+
+    </wsdl:message>
+
+
+	<wsdl:message name="selectClickByRecipientMailingRequest">
+
+		<wsdl:part name="sc" type="inx:SessionCxt" />
+
+		<wsdl:part name="recipient" type="xsd:int" />
+
+		<wsdl:part name="mailingId" type="xsd:int" />
+
+		<wsdl:part name="recCtxRefId" type="xsd:string" />
+
+		<wsdl:part name="attrs" type="inx:ArrayOf_xsd_int" />
+
+	</wsdl:message>
+
+	<wsdl:message name="selectClickByRecipientMailingResponse">
+
+		<wsdl:part name="selectClickByRecipientMailingReturn"
+			type="impl:ClickRowSetData" />
+
+	</wsdl:message>
+	
+	
+	<wsdl:message name="selectClickByRecipientMailingBetweenRequest">
+
+		<wsdl:part name="sc" type="inx:SessionCxt" />
+
+		<wsdl:part name="recipient" type="xsd:int" />
+
+		<wsdl:part name="mailingId" type="xsd:int" />
+		
+		<wsdl:part name="startDate" type="inx:TDatetime"/>
+		
+		<wsdl:part name="endDate" type="inx:TDatetime"/>
+
+		<wsdl:part name="recCtxRefId" type="xsd:string" />
+
+		<wsdl:part name="attrs" type="inx:ArrayOf_xsd_int" />
+
+	</wsdl:message>
+
+	<wsdl:message name="selectClickByRecipientMailingBetweenResponse">
+
+		<wsdl:part name="selectClickByRecipientMailingReturn"
+			type="impl:ClickRowSetData" />
+
+	</wsdl:message>
+	
+	
+	<wsdl:message name="selectClickByRecipientMailingBeforeRequest">
+
+		<wsdl:part name="sc" type="inx:SessionCxt" />
+
+		<wsdl:part name="recipient" type="xsd:int" />
+
+		<wsdl:part name="mailingId" type="xsd:int" />
+		
+		<wsdl:part name="searchDate" type="inx:TDatetime"/>
+		
+		<wsdl:part name="recCtxRefId" type="xsd:string" />
+
+		<wsdl:part name="attrs" type="inx:ArrayOf_xsd_int" />
+
+	</wsdl:message>
+
+	<wsdl:message name="selectClickByRecipientMailingBeforeResponse">
+
+		<wsdl:part name="selectClickByRecipientMailingReturn"
+			type="impl:ClickRowSetData" />
+
+	</wsdl:message>
+	
+	
+	<wsdl:message name="selectClickByRecipientMailingAfterRequest">
+
+		<wsdl:part name="sc" type="inx:SessionCxt" />
+
+		<wsdl:part name="recipient" type="xsd:int" />
+
+		<wsdl:part name="mailingId" type="xsd:int" />
+		
+		<wsdl:part name="searchDate" type="inx:TDatetime"/>
+		
+		<wsdl:part name="recCtxRefId" type="xsd:string" />
+
+		<wsdl:part name="attrs" type="inx:ArrayOf_xsd_int" />
+
+	</wsdl:message>
+
+	<wsdl:message name="selectClickByRecipientMailingAfterResponse">
+
+		<wsdl:part name="selectClickByRecipientMailingReturn"
+			type="impl:ClickRowSetData" />
+
+	</wsdl:message>
+
+	<wsdl:message name="fetchClickRequest">
+		<wsdl:part name="sc" type="inx:SessionCxt" />
+		<wsdl:part name="remoteRefId" type="xsd:string" />
+		<wsdl:part name="index" type="xsd:int" />
+		<wsdl:part name="direction" type="xsd:int" />
+	</wsdl:message>
+	<wsdl:message name="fetchClickResponse">
+		<wsdl:part name="fetchClickReturn" type="impl:ArrayOfClickDTO" />
+	</wsdl:message>
+
+
+
+	<wsdl:portType name="DataAccessService">
+
+		<wsdl:operation name="selectLinkByMailingRequest"
+			parameterOrder="sc mailingId">
+
+			<wsdl:input name="selectLinkByMailingRequest"
+				message="impl:selectLinkByMailingRequest" />
+
+			<wsdl:output name="selectLinkByMailingResponse"
+				message="impl:selectLinkByMailingResponse" />
+
+		</wsdl:operation>
+
+		<wsdl:operation name="selectLinkByLinkRequest"
+			parameterOrder="sc linkId">
+
+			<wsdl:input name="selectLinkByLinkRequest"
+				message="impl:selectLinkByLinkRequest" />
+
+			<wsdl:output name="selectLinkByLinkResponse"
+				message="impl:selectLinkByLinkResponse" />
+
+		</wsdl:operation>
+
+        <wsdl:operation name="selectLinkByRecipientRequest"
+            parameterOrder="sc recipient">
+
+            <wsdl:input name="selectLinkByRecipientRequest"
+                message="impl:selectLinkByRecipientRequest" />
+
+            <wsdl:output name="selectLinkByRecipientResponse"
+                message="impl:selectLinkByRecipientResponse" />
+
+        </wsdl:operation>
+        
+        <wsdl:operation name="selectLinkByLinkNameRequest"
+            parameterOrder="sc linkname">
+
+            <wsdl:input name="selectLinkByLinkNameRequest"
+                message="impl:selectLinkByLinkNameRequest" />
+
+            <wsdl:output name="selectLinkByLinkNameResponse"
+                message="impl:selectLinkByLinkNameResponse" />
+
+        </wsdl:operation>
+
+		<wsdl:operation name="selectNewLinkByMailingRequest"
+			parameterOrder="sc mailingId">
+
+			<wsdl:input name="selectNewLinkByMailingRequest"
+				message="impl:selectNewLinkByMailingRequest" />
+
+			<wsdl:output name="selectNewLinkByMailingResponse"
+				message="impl:selectNewLinkByMailingResponse" />
+
+		</wsdl:operation>
+
+		<wsdl:operation name="selectNewLinkByLinkRequest"
+			parameterOrder="sc linkId">
+
+			<wsdl:input name="selectNewLinkByLinkRequest"
+				message="impl:selectNewLinkByLinkRequest" />
+
+			<wsdl:output name="selectNewLinkByLinkResponse"
+				message="impl:selectNewLinkByLinkResponse" />
+
+		</wsdl:operation>
+
+		<wsdl:operation name="selectNewLinkByRecipientRequest"
+			parameterOrder="sc recipient">
+
+			<wsdl:input name="selectNewLinkByRecipientRequest"
+				message="impl:selectNewLinkByRecipientRequest" />
+
+			<wsdl:output name="selectNewLinkByRecipientResponse"
+				message="impl:selectNewLinkByRecipientResponse" />
+
+		</wsdl:operation>
+
+		<wsdl:operation name="selectClickByMailingRequest"
+			parameterOrder="sc mailingId recCtxRefId attrs">
+
+			<wsdl:input name="selectClickByMailingRequest"
+				message="impl:selectClickByMailingRequest" />
+
+			<wsdl:output name="selectClickByMailingResponse"
+				message="impl:selectClickByMailingResponse" />
+
+		</wsdl:operation>
+
+		<wsdl:operation name="selectClickByLinkRequest"
+			parameterOrder="sc linkId recCtxRefId attrs">
+
+			<wsdl:input name="selectClickByLinkRequest"
+				message="impl:selectClickByLinkRequest" />
+
+			<wsdl:output name="selectClickByLinkResponse"
+				message="impl:selectClickByLinkResponse" />
+
+		</wsdl:operation>
+
+		<wsdl:operation name="selectClickByRecipientRequest"
+			parameterOrder="sc recipient recCtxRefId attrs">
+
+			<wsdl:input name="selectClickByRecipientRequest"
+				message="impl:selectClickByRecipientRequest" />
+
+			<wsdl:output name="selectClickByRecipientResponse"
+				message="impl:selectClickByRecipientResponse" />
+
+		</wsdl:operation>
+
+
+		<wsdl:operation name="selectClickByRecipientMailingRequest"
+			parameterOrder="sc recipient mailingId recCtxRefId attrs">
+
+			<wsdl:input name="selectClickByRecipientMailingRequest"
+				message="impl:selectClickByRecipientMailingRequest" />
+
+			<wsdl:output name="selectClickByRecipientMailingResponse"
+				message="impl:selectClickByRecipientMailingResponse" />
+
+		</wsdl:operation>
+		
+		
+		<wsdl:operation name="selectClickByMailingBetweenRequest"
+			parameterOrder="sc mailingId startDate endDate recCtxRefId attrs">
+
+			<wsdl:input name="selectClickByMailingBetweenRequest"
+				message="impl:selectClickByMailingBetweenRequest" />
+
+			<wsdl:output name="selectClickByMailingBetweenResponse"
+				message="impl:selectClickByMailingBetweenResponse" />
+
+		</wsdl:operation>
+		
+		<wsdl:operation name="selectClickByMailingBeforeRequest"
+			parameterOrder="sc mailingId searchDate recCtxRefId attrs">
+
+			<wsdl:input name="selectClickByMailingBeforeRequest"
+				message="impl:selectClickByMailingBeforeRequest" />
+
+			<wsdl:output name="selectClickByMailingBeforeResponse"
+				message="impl:selectClickByMailingBeforeResponse" />
+
+		</wsdl:operation>		
+		
+		<wsdl:operation name="selectClickByMailingAfterRequest"
+			parameterOrder="sc mailingId searchDate recCtxRefId attrs">
+
+			<wsdl:input name="selectClickByMailingAfterRequest"
+				message="impl:selectClickByMailingAfterRequest" />
+
+			<wsdl:output name="selectClickByMailingAfterResponse"
+				message="impl:selectClickByMailingAfterResponse" />
+
+		</wsdl:operation>
+
+		<wsdl:operation name="selectClickByLinkBetweenRequest"
+			parameterOrder="sc linkId startDate endDate recCtxRefId attrs">
+
+			<wsdl:input name="selectClickByLinkBetweenRequest"
+				message="impl:selectClickByLinkBetweenRequest" />
+
+			<wsdl:output name="selectClickByLinkBetweenResponse"
+				message="impl:selectClickByLinkBetweenResponse" />
+
+		</wsdl:operation>
+		
+		<wsdl:operation name="selectClickByLinkBeforeRequest"
+			parameterOrder="sc linkId searchDate recCtxRefId attrs">
+
+			<wsdl:input name="selectClickByLinkBeforeRequest"
+				message="impl:selectClickByLinkBeforeRequest" />
+
+			<wsdl:output name="selectClickByLinkBeforeResponse"
+				message="impl:selectClickByLinkBeforeResponse" />
+
+		</wsdl:operation>	
+		
+		<wsdl:operation name="selectClickByLinkAfterRequest"
+			parameterOrder="sc linkId searchDate recCtxRefId attrs">
+
+			<wsdl:input name="selectClickByLinkAfterRequest"
+				message="impl:selectClickByLinkAfterRequest" />
+
+			<wsdl:output name="selectClickByLinkAfterResponse"
+				message="impl:selectClickByLinkAfterResponse" />
+
+		</wsdl:operation>			
+		
+
+		<wsdl:operation name="selectClickByRecipientBetweenRequest"
+			parameterOrder="sc recipient startDate endDate recCtxRefId attrs">
+
+			<wsdl:input name="selectClickByRecipientBetweenRequest"
+				message="impl:selectClickByRecipientBetweenRequest" />
+
+			<wsdl:output name="selectClickByRecipientBetweenResponse"
+				message="impl:selectClickByRecipientBetweenResponse" />
+
+		</wsdl:operation>
+		
+		<wsdl:operation name="selectClickByRecipientBeforeRequest"
+			parameterOrder="sc recipient searchDate recCtxRefId attrs">
+
+			<wsdl:input name="selectClickByRecipientBeforeRequest"
+				message="impl:selectClickByRecipientBeforeRequest" />
+
+			<wsdl:output name="selectClickByRecipientBeforeResponse"
+				message="impl:selectClickByRecipientBeforeResponse" />
+
+		</wsdl:operation>
+		
+		<wsdl:operation name="selectClickByRecipientAfterRequest"
+			parameterOrder="sc recipient searchDate recCtxRefId attrs">
+
+			<wsdl:input name="selectClickByRecipientAfterRequest"
+				message="impl:selectClickByRecipientAfterRequest" />
+
+			<wsdl:output name="selectClickByRecipientAfterResponse"
+				message="impl:selectClickByRecipientAfterResponse" />
+
+		</wsdl:operation>
+
+
+		<wsdl:operation name="selectClickByRecipientMailingBetweenRequest"
+			parameterOrder="sc recipient mailingId startDate endDate recCtxRefId attrs">
+
+			<wsdl:input name="selectClickByRecipientMailingBetweenRequest"
+				message="impl:selectClickByRecipientMailingBetweenRequest" />
+
+			<wsdl:output name="selectClickByRecipientMailingBetweenResponse"
+				message="impl:selectClickByRecipientMailingBetweenResponse" />
+
+		</wsdl:operation>
+		
+
+		<wsdl:operation name="selectClickByRecipientMailingBeforeRequest"
+			parameterOrder="sc recipient mailingId searchDate recCtxRefId attrs">
+
+			<wsdl:input name="selectClickByRecipientMailingBeforeRequest"
+				message="impl:selectClickByRecipientMailingBeforeRequest" />
+
+			<wsdl:output name="selectClickByRecipientMailingBeforeResponse"
+				message="impl:selectClickByRecipientMailingBeforeResponse" />
+
+		</wsdl:operation>		
+		
+		<wsdl:operation name="selectClickByRecipientMailingAfterRequest"
+			parameterOrder="sc recipient mailingId searchDate recCtxRefId attrs">
+
+			<wsdl:input name="selectClickByRecipientMailingAfterRequest"
+				message="impl:selectClickByRecipientMailingAfterRequest" />
+
+			<wsdl:output name="selectClickByRecipientMailingAfterResponse"
+				message="impl:selectClickByRecipientMailingAfterResponse" />
+
+		</wsdl:operation>		
+		
+
+		<wsdl:operation name="fetchClick"
+			parameterOrder="sc remoteRefId index direction">
+			<wsdl:input name="fetchClickRequest"
+				message="impl:fetchClickRequest" />
+			<wsdl:output name="fetchClickResponse"
+				message="impl:fetchClickResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="fetchLink"
+			parameterOrder="sc remoteRefId index direction">
+			<wsdl:input name="fetchLinkRequest"
+				message="impl:fetchLinkRequest" />
+			<wsdl:output name="fetchLinkResponse"
+				message="impl:fetchLinkResponse" />
+		</wsdl:operation>
+
+	</wsdl:portType>
+
+	<wsdl:binding name="DataAccessServiceSoapBinding"
+		type="impl:DataAccessService">
+
+		<wsdlsoap:binding style="rpc"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+
+		<wsdl:operation name="selectClickByMailingRequest">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="selectClickByMailingRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+			<wsdl:output name="selectClickByMailingResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="selectClickByLinkRequest">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="selectClickByLinkRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+			<wsdl:output name="selectClickByLinkResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+		</wsdl:operation>
+
+        <wsdl:operation name="selectClickByRecipientRequest">
+            <wsdlsoap:operation soapAction="" />
+            <wsdl:input name="selectClickByRecipientRequest">
+                <wsdlsoap:body use="encoded"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+            </wsdl:input>
+            <wsdl:output name="selectClickByRecipientResponse">
+                <wsdlsoap:body use="encoded"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+            </wsdl:output>
+        </wsdl:operation>
+        
+ 
+
+		<wsdl:operation name="selectClickByRecipientMailingRequest">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="selectClickByRecipientMailingRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+			<wsdl:output name="selectClickByRecipientMailingResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+		</wsdl:operation>
+		
+		
+		<wsdl:operation name="selectClickByMailingBetweenRequest">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="selectClickByMailingBetweenRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+			<wsdl:output name="selectClickByMailingBetweenResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+		</wsdl:operation>
+		
+		<wsdl:operation name="selectClickByMailingBeforeRequest">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="selectClickByMailingBeforeRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+			<wsdl:output name="selectClickByMailingBeforeResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+		</wsdl:operation>		
+
+		<wsdl:operation name="selectClickByMailingAfterRequest">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="selectClickByMailingAfterRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+			<wsdl:output name="selectClickByMailingAfterResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="selectClickByLinkBetweenRequest">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="selectClickByLinkBetweenRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+			<wsdl:output name="selectClickByLinkBetweenResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="selectClickByLinkBeforeRequest">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="selectClickByLinkBeforeRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+			<wsdl:output name="selectClickByLinkBeforeResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+		</wsdl:operation>
+		
+		<wsdl:operation name="selectClickByLinkAfterRequest">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="selectClickByLinkAfterRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+			<wsdl:output name="selectClickByLinkAfterResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+		</wsdl:operation>
+
+        <wsdl:operation name="selectClickByRecipientBetweenRequest">
+            <wsdlsoap:operation soapAction="" />
+            <wsdl:input name="selectClickByRecipientBetweenRequest">
+                <wsdlsoap:body use="encoded"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+            </wsdl:input>
+            <wsdl:output name="selectClickByRecipientBetweenResponse">
+                <wsdlsoap:body use="encoded"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="selectClickByRecipientBeforeRequest">
+            <wsdlsoap:operation soapAction="" />
+            <wsdl:input name="selectClickByRecipientBeforeRequest">
+                <wsdlsoap:body use="encoded"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+            </wsdl:input>
+            <wsdl:output name="selectClickByRecipientBeforeResponse">
+                <wsdlsoap:body use="encoded"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="selectClickByRecipientAfterRequest">
+            <wsdlsoap:operation soapAction="" />
+            <wsdl:input name="selectClickByRecipientAfterRequest">
+                <wsdlsoap:body use="encoded"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+            </wsdl:input>
+            <wsdl:output name="selectClickByRecipientAfterResponse">
+                <wsdlsoap:body use="encoded"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+            </wsdl:output>
+        </wsdl:operation>
+
+		<wsdl:operation name="selectClickByRecipientMailingBetweenRequest">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="selectClickByRecipientMailingBetweenRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+			<wsdl:output name="selectClickByRecipientMailingBetweenResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+		</wsdl:operation>
+		
+		<wsdl:operation name="selectClickByRecipientMailingBeforeRequest">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="selectClickByRecipientMailingBeforeRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+			<wsdl:output name="selectClickByRecipientMailingBeforeResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+		</wsdl:operation>	
+		
+		<wsdl:operation name="selectClickByRecipientMailingAfterRequest">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="selectClickByRecipientMailingAfterRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+			<wsdl:output name="selectClickByRecipientMailingAfterResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+		</wsdl:operation>				
+		
+
+
+		<wsdl:operation name="fetchClick">
+
+			<wsdlsoap:operation soapAction="" />
+
+			<wsdl:input name="fetchClickRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+
+			<wsdl:output name="fetchClickResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+
+		</wsdl:operation>
+		<wsdl:operation name="selectLinkByMailingRequest">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="selectLinkByMailingRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+			<wsdl:output name="selectLinkByMailingResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="selectLinkByLinkRequest">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="selectLinkByLinkRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+			<wsdl:output name="selectLinkByLinkResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+		</wsdl:operation>
+
+        <wsdl:operation name="selectLinkByRecipientRequest">
+            <wsdlsoap:operation soapAction="" />
+            <wsdl:input name="selectLinkByRecipientRequest">
+                <wsdlsoap:body use="encoded"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+            </wsdl:input>
+            <wsdl:output name="selectLinkByRecipientResponse">
+                <wsdlsoap:body use="encoded"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+            </wsdl:output>
+        </wsdl:operation>
+        
+        
+        <wsdl:operation name="selectLinkByLinkNameRequest">
+            <wsdlsoap:operation soapAction="" />
+            <wsdl:input name="selectLinkByLinkNameRequest">
+                <wsdlsoap:body use="encoded"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+            </wsdl:input>
+            <wsdl:output name="selectLinkByLinkNameResponse">
+                <wsdlsoap:body use="encoded"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+            </wsdl:output>
+        </wsdl:operation>
+
+		<wsdl:operation name="selectNewLinkByMailingRequest">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="selectNewLinkByMailingRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+			<wsdl:output name="selectNewLinkByMailingResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="selectNewLinkByLinkRequest">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="selectNewLinkByLinkRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+			<wsdl:output name="selectNewLinkByLinkResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="selectNewLinkByRecipientRequest">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input name="selectNewLinkByRecipientRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+			<wsdl:output name="selectNewLinkByRecipientResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="fetchLink">
+
+			<wsdlsoap:operation soapAction="" />
+
+			<wsdl:input name="fetchLinkRequest">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:input>
+
+			<wsdl:output name="fetchLinkResponse">
+				<wsdlsoap:body use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://dataaccess.apiservice.xpro.inxmail.com" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="DataAccessServiceSoap">
+
+		<wsdl:port name="DataAccessService"
+			binding="impl:DataAccessServiceSoapBinding">
+
+			<wsdlsoap:address
+				location="http://localhost:80/inxmail/api/DataAccessService" />
+
+		</wsdl:port>
+
+	</wsdl:service>
+
+</wsdl:definitions>

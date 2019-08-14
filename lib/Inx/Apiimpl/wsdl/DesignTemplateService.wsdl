@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+	xmlns:impl="http://designtemplate.apiservice.xpro.inxmail.com"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://designtemplate.apiservice.xpro.inxmail.com"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:apachesoap="http://xml.apache.org/xml-soap"
+	xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:inx="http://apiservice.xpro.inxmail.com"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns="http://schemas.xmlsoap.org/wsdl/">
+
+	<wsdl:types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://apiservice.xpro.inxmail.com">
+			<import
+				namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+
+			<complexType name="ArrayOf_xsd_string">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType"
+							wsdl:arrayType="xsd:string[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="SessionCxt">
+				<sequence>
+					<element name="sid" type="xsd:string" />
+					<element name="relRefIds" nillable="true"
+						type="inx:ArrayOf_xsd_string" />
+				</sequence>
+			</complexType>
+
+			<complexType name="TString">
+				<sequence>
+					<element name="value" type="xsd:string" />
+				</sequence>
+			</complexType>
+
+			<complexType name="TBoolean">
+				<sequence>
+					<element name="value" type="xsd:boolean" />
+				</sequence>
+			</complexType>
+
+			<complexType name="TInteger">
+				<sequence>
+					<element name="value" type="xsd:int" />
+				</sequence>
+			</complexType>
+
+			<complexType name="TDatetime">
+				<sequence>
+					<element name="value" type="xsd:dateTime" />
+				</sequence>
+			</complexType>
+
+			<complexType name="ArrayOf_TString">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType"
+							wsdl:arrayType="inx:TString[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="ArrayOf_TBoolean">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType"
+							wsdl:arrayType="inx:TBoolean[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="ArrayOf_TInteger">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType"
+							wsdl:arrayType="inx:TInteger[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="ArrayOf_TDatetime">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType"
+							wsdl:arrayType="inx:TDatetime[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+		</schema>
+
+		<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://designtemplate.apiservice.xpro.inxmail.com">
+			<import
+				namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+			<import namespace="http://apiservice.xpro.inxmail.com" />
+
+			<complexType name="ResultSetData">
+				<sequence>
+					<element name="remoteRefId" type="xsd:string" />
+					<element name="size" type="xsd:int" />
+					<element name="data" nillable="true"
+						type="impl:ArrayOfDesignCollectionInformation" />
+				</sequence>
+			</complexType>
+
+
+			<complexType name="DesignCollectionInformationData">
+				<sequence>
+					<element name="id" type="int" />
+					<xsd:element name="listContextId" type="int"></xsd:element>
+					<element name="name" type="inx:TString" />
+					<element name="vendor" type="inx:TString"></element>
+					<element name="vendor_url" type="inx:TString"></element>
+					<element name="version" type="inx:TString"></element>
+					<element name="last_save_date" type="inx:TDatetime" />
+					<element name="templates"
+						type="impl:ArrayOfTemplateInformations" />
+				</sequence>
+			</complexType>
+
+			<complexType name="TemplateInformationData">
+				<sequence>
+					<element name="id" type="int" />
+					<element name="name" type="string" />
+					<element name="text_styles"
+						type="inx:ArrayOf_xsd_string">
+					</element>
+					<element name="html_styles"
+						type="inx:ArrayOf_xsd_string">
+					</element>
+				</sequence>
+			</complexType>
+
+			<complexType name="ArrayOfDesignCollectionInformation">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType"
+							wsdl:arrayType="impl:DesignCollectionInformationData[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="ArrayOfTemplateInformations">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType"
+							wsdl:arrayType="impl:TemplateInformationData[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+
+			<complexType name="UploadData">
+				<sequence>
+					<element name="remoteRefId" type="string" />
+					<element name="maxChunkSize" type="int" />
+				</sequence>
+			</complexType>
+			<xsd:complexType name="ErrorsAndWarnings">
+				<xsd:sequence>
+					<xsd:element name="hasErrorsOrWarnings"
+						type="boolean">
+					</xsd:element>
+					<xsd:element name="type" type="int"></xsd:element>
+					<xsd:element name="warning"
+						type="inx:ArrayOf_xsd_string">
+					</xsd:element>
+					<xsd:element name="error"
+						type="inx:ArrayOf_xsd_string">
+					</xsd:element>
+					<xsd:element name="fatal"
+						type="inx:ArrayOf_xsd_string">
+					</xsd:element>
+					<xsd:element name="returnValue"
+						type="impl:DesignCollectionInformationData" nillable="true">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="createITCUploadRequest">		<wsdl:part name="sc" type="inx:SessionCxt"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="createITCUploadResponse">
+		<wsdl:part name="uploadReturn" type="impl:UploadData"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="selectRequest">
+		<wsdl:part name="sc" type="inx:SessionCxt"></wsdl:part>
+		<wsdl:part name="listContextId" type="xsd:int"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="selectResponse">
+		<wsdl:part name="selectResponse" type="impl:ResultSetData">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="importITCRequest">
+		<wsdl:part name="sc" type="inx:SessionCxt"></wsdl:part>
+		<wsdl:part name="remoteRefId" type="xsd:string"></wsdl:part>
+		<wsdl:part name="listContextId" type="xsd:int"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="importITCResponse">
+		<wsdl:part name="importITCResponse"
+			type="impl:ErrorsAndWarnings">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="removeRequest">
+		<wsdl:part name="sc" type="inx:SessionCxt"></wsdl:part>
+		<wsdl:part name="id" type="xsd:int"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="removeResponse">
+		<wsdl:part name="removeResponse" type="xsd:boolean"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="fetchRequest">
+		<wsdl:part name="sc" type="inx:SessionCxt"></wsdl:part>
+		<wsdl:part name="remoteRefId" type="xsd:string"></wsdl:part>
+		<wsdl:part name="index" type="xsd:int"></wsdl:part>
+		<wsdl:part name="direction" type="xsd:int"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="fetchResponse">
+		<wsdl:part name="fetchResponse"
+			type="impl:ArrayOfDesignCollectionInformation">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="removeSelectionRequest">
+		<wsdl:part name="sc" type="inx:SessionCxt"></wsdl:part>
+		<wsdl:part name="remoteRefId" type="xsd:string"></wsdl:part>
+		<wsdl:part name="indices" type="inx:ArrayOf_TInteger"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="removeSelectionResponse">
+		<wsdl:part name="removeSelectionResponse" type="xsd:int"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getRequest">
+		<wsdl:part name="sc" type="inx:SessionCxt"></wsdl:part>
+		<wsdl:part name="id" type="xsd:int"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getResponse">
+		<wsdl:part name="getResponse"
+			type="impl:DesignCollectionInformationData">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="createPreviewImageStreamRequest">
+		<wsdl:part name="sc" type="inx:SessionCxt"></wsdl:part>
+		<wsdl:part name="templateId" type="xsd:int"></wsdl:part>
+		<wsdl:part name="styleName" type="xsd:string"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="createPreviewImageStreamResponse">
+		<wsdl:part name="remoteRefId" type="xsd:string"></wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="DesignTemplateService">
+
+		<wsdl:operation name="createITCUpload">
+			<wsdl:input message="impl:createITCUploadRequest"></wsdl:input>
+			<wsdl:output message="impl:createITCUploadResponse"></wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="select">
+			<wsdl:input message="impl:selectRequest"></wsdl:input>
+			<wsdl:output message="impl:selectResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="importITC">
+			<wsdl:input message="impl:importITCRequest"></wsdl:input>
+			<wsdl:output message="impl:importITCResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="remove">
+			<wsdl:input message="impl:removeRequest"></wsdl:input>
+			<wsdl:output message="impl:removeResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="fetch">
+			<wsdl:input message="impl:fetchRequest"></wsdl:input>
+			<wsdl:output message="impl:fetchResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="removeSelection">
+			<wsdl:input message="impl:removeSelectionRequest"></wsdl:input>
+			<wsdl:output message="impl:removeSelectionResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="get">
+			<wsdl:input message="impl:getRequest"></wsdl:input>
+			<wsdl:output message="impl:getResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="createPreviewImageStream">
+			<wsdl:input
+				message="impl:createPreviewImageStreamRequest">
+			</wsdl:input>
+			<wsdl:output
+				message="impl:createPreviewImageStreamResponse">
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="DesignTemplateServiceSoapBinding"
+		type="impl:DesignTemplateService">
+		<soap:binding style="rpc"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="createITCUpload">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input>
+				<wsdlsoap:body use="encoded"
+					namespace="http://designtemplate.apiservice.xpro.inxmail.com"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</wsdl:input>
+			<wsdl:output>
+				<wsdlsoap:body use="encoded"
+					namespace="http://designtemplate.apiservice.xpro.inxmail.com"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="select">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input>
+				<wsdlsoap:body use="encoded"
+					namespace="http://designtemplate.apiservice.xpro.inxmail.com"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</wsdl:input>
+			<wsdl:output>
+				<wsdlsoap:body use="encoded"
+					namespace="http://designtemplate.apiservice.xpro.inxmail.com"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="importITC">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input>
+				<wsdlsoap:body use="encoded"
+					namespace="http://designtemplate.apiservice.xpro.inxmail.com"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</wsdl:input>
+			<wsdl:output>
+				<wsdlsoap:body use="encoded"
+					namespace="http://designtemplate.apiservice.xpro.inxmail.com"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="remove">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input>
+				<wsdlsoap:body use="encoded"
+					namespace="http://designtemplate.apiservice.xpro.inxmail.com"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</wsdl:input>
+			<wsdl:output>
+				<wsdlsoap:body use="encoded"
+					namespace="http://designtemplate.apiservice.xpro.inxmail.com"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="fetch">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input>
+				<wsdlsoap:body use="encoded"
+					namespace="http://designtemplate.apiservice.xpro.inxmail.com"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</wsdl:input>
+			<wsdl:output>
+				<wsdlsoap:body use="encoded"
+					namespace="http://designtemplate.apiservice.xpro.inxmail.com"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="removeSelection">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input>
+				<wsdlsoap:body use="encoded"
+					namespace="http://designtemplate.apiservice.xpro.inxmail.com"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</wsdl:input>
+			<wsdl:output>
+				<wsdlsoap:body use="encoded"
+					namespace="http://designtemplate.apiservice.xpro.inxmail.com"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="get">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input>
+				<wsdlsoap:body use="encoded"
+					namespace="http://designtemplate.apiservice.xpro.inxmail.com"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</wsdl:input>
+			<wsdl:output>
+				<wsdlsoap:body use="encoded"
+					namespace="http://designtemplate.apiservice.xpro.inxmail.com"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="createPreviewImageStream">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input>
+				<wsdlsoap:body use="encoded"
+					namespace="http://designtemplate.apiservice.xpro.inxmail.com"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</wsdl:input>
+			<wsdl:output>
+				<wsdlsoap:body use="encoded"
+					namespace="http://designtemplate.apiservice.xpro.inxmail.com"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="DesignTemplateServiceSoap">
+		<wsdl:port binding="impl:DesignTemplateServiceSoapBinding"
+			name="DesignTemplateService">
+			<soap:address
+				location="http://localhost:80/inxmail/api/DesignTemplateService" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

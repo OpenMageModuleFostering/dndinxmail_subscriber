@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://list.apiservice.xpro.inxmail.com" xmlns:impl="http://list.apiservice.xpro.inxmail.com" xmlns:inx="http://apiservice.xpro.inxmail.com" xmlns:intf="http://list.apiservice.xpro.inxmail.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+ <wsdl:types>
+  <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://apiservice.xpro.inxmail.com">
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   
+    <complexType name="TString">
+     <sequence>
+      <element name="value" type="xsd:string"/>
+     </sequence>
+    </complexType>
+ 
+    <complexType name="TBoolean">
+     <sequence>
+      <element name="value" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+    
+    <complexType name="TInteger">
+     <sequence>
+      <element name="value" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   
+    <complexType name="TDatetime">
+      <sequence>
+       <element name="value" type="xsd:dateTime"/>
+      </sequence>
+   </complexType>
+ 
+    <complexType name="ArrayOf_TString">
+       <complexContent>
+        <restriction base="soapenc:Array">
+         <attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TString[]"/>
+        </restriction>
+       </complexContent>
+    </complexType>
+ 
+    <complexType name="ArrayOf_TBoolean">
+       <complexContent>
+        <restriction base="soapenc:Array">
+         <attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TBoolean[]"/>
+        </restriction>
+       </complexContent>
+    </complexType>
+    
+    <complexType name="ArrayOf_TInteger">
+       <complexContent>
+        <restriction base="soapenc:Array">
+         <attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TInteger[]"/>
+        </restriction>
+       </complexContent>
+    </complexType>
+   
+    <complexType name="ArrayOf_TDatetime">
+       <complexContent>
+        <restriction base="soapenc:Array">
+         <attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TDatetime[]"/>
+        </restriction>
+       </complexContent>
+   </complexType>
+   
+  </schema>
+  
+  <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://list.apiservice.xpro.inxmail.com">
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   
+   <complexType name="ResultSetData">
+    <sequence>
+     <element name="remoteRefId" type="xsd:string"/>
+     <element name="size" type="xsd:int"/>
+     <element name="data" nillable="true" type="impl:ArrayOfListData"/>
+    </sequence>
+   </complexType>
+   
+   <complexType name="ListData">
+    <sequence>
+     <element name="id" type="xsd:int"/>
+     <element name="listType" type="xsd:int"/>
+     <element name="name" type="xsd:string"/>
+     <element name="description" nillable="true" type="inx:TString"/>
+     <element name="creationDatetime" nillable="true" type="inx:TDatetime"/>
+     <element name="filterStmt" nillable="true" type="inx:TString"/>
+     <element name="featureIds" nillable="true" type="inx:ArrayOf_TInteger"/>
+     <element name="featureEnabled" nillable="true" type="inx:ArrayOf_TBoolean"/>
+    </sequence>
+   </complexType>
+   
+   <complexType name="ArrayOfListData">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:ListData[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>  
+      
+   <complexType name="ExceptionDesc">
+    <sequence>
+     <element name="type" type="xsd:int"/>
+     <element name="source" type="xsd:int"/>
+     <element name="msg" type="xsd:string"/>
+    </sequence>
+   </complexType>
+
+   <complexType name="ListDataHolder">
+    <sequence>
+     <element name="value" nillable="true" type="impl:ListData"/>  
+     <element name="excDesc" nillable="true" type="impl:ExceptionDesc"/>
+    </sequence>
+   </complexType>
+     
+   <complexType name="FeatureResult">
+    <sequence>
+     <element name="listData" nillable="true" type="impl:ListData"/>  
+     <element name="result" type="xsd:boolean"/>  
+     <element name="excDesc" nillable="true" type="impl:ExceptionDesc"/>
+    </sequence>
+   </complexType>
+   
+   <complexType name="ListSizeDTO">
+    <sequence>
+     <element name="size" type="xsd:int" />
+     <element name="creationDatetime" type="inx:TDatetime" />
+     <element name="excDesc" nillable="true" type="impl:ExceptionDesc"/>
+    </sequence>
+   </complexType>
+   
+  </schema>
+ </wsdl:types>
+
+
+   <wsdl:message name="findByNameRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="name" type="xsd:string"/>
+   </wsdl:message>
+   <wsdl:message name="findByNameResponse">
+      <wsdl:part name="findByNameReturn" type="impl:ListData"/>
+   </wsdl:message>
+
+   <wsdl:message name="getRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="id" type="xsd:int"/>
+   </wsdl:message>
+   <wsdl:message name="getResponse">
+      <wsdl:part name="getReturn" type="impl:ListData"/>
+   </wsdl:message>
+
+   <wsdl:message name="removeRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="id" type="xsd:int"/>
+   </wsdl:message>
+   <wsdl:message name="removeResponse">
+      <wsdl:part name="removeReturn" type="xsd:boolean"/>
+   </wsdl:message>
+  
+   <wsdl:message name="selectAllRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+   </wsdl:message>
+   <wsdl:message name="selectAllResponse">
+      <wsdl:part name="selectAllReturn" type="impl:ResultSetData"/>
+   </wsdl:message>
+   
+   <wsdl:message name="fetchRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="remoteRefId" type="xsd:string"/>
+      <wsdl:part name="index" type="xsd:int"/>
+      <wsdl:part name="direction" type="xsd:int"/>
+   </wsdl:message>
+   <wsdl:message name="fetchResponse">
+      <wsdl:part name="fetchReturn" type="impl:ArrayOfListData"/>
+   </wsdl:message>
+
+   <wsdl:message name="updateRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="updData" type="impl:ListData"/>
+      <wsdl:part name="changeFlags" type="inx:ArrayOf_TBoolean"/>
+   </wsdl:message>
+   <wsdl:message name="updateResponse">
+      <wsdl:part name="readData" type="impl:ListDataHolder"/>   
+   </wsdl:message>
+   
+   <wsdl:message name="removeSelectionRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="remoteRefId" type="xsd:string"/>
+      <wsdl:part name="indices" type="inx:ArrayOf_TInteger"/>
+   </wsdl:message>
+   <wsdl:message name="removeSelectionResponse">
+      <wsdl:part name="removeSelectionReturn" type="xsd:int"/>
+   </wsdl:message> 
+ 
+    <wsdl:message name="setFeatureEnabledRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="listContextId" type="xsd:int"/>
+      <wsdl:part name="featureId" type="xsd:int"/>
+      <wsdl:part name="enabled" type="xsd:boolean"/>
+   </wsdl:message>
+   <wsdl:message name="setFeatureEnabledResponse">
+      <wsdl:part name="setFeatureEnabledReturn" type="impl:FeatureResult"/>
+   </wsdl:message>
+   
+   
+   <wsdl:message name="getListSizeRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="listContextId" type="xsd:int"/>
+      <wsdl:part name="computeNow" type="xsd:boolean"/>
+   </wsdl:message>
+   <wsdl:message name="getListSizeResponse">
+      <wsdl:part name="getListSizeReturn" type="impl:ListSizeDTO"/>
+   </wsdl:message>
+ 
+   <wsdl:portType name="ListService">
+
+      <wsdl:operation name="get" parameterOrder="sid id">
+         <wsdl:input name="getRequest" message="impl:getRequest"/>
+         <wsdl:output name="getResponse" message="impl:getResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="remove" parameterOrder="sid id">
+         <wsdl:input name="removeRequest" message="impl:removeRequest"/>
+         <wsdl:output name="removeResponse" message="impl:removeResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="update" parameterOrder="sid updData changeFlags">
+         <wsdl:input name="updateRequest" message="impl:updateRequest"/>
+         <wsdl:output name="updateResponse" message="impl:updateResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="findByName" parameterOrder="sid name">
+         <wsdl:input name="findByNameRequest" message="impl:findByNameRequest"/>
+         <wsdl:output name="findByNameResponse" message="impl:findByNameResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="fetch" parameterOrder="sid remoteRefId index direction">
+         <wsdl:input name="fetchRequest" message="impl:fetchRequest"/>
+         <wsdl:output name="fetchResponse" message="impl:fetchResponse"/>
+      </wsdl:operation>
+      
+      <wsdl:operation name="selectAll" parameterOrder="sid">
+         <wsdl:input name="selectAllRequest" message="impl:selectAllRequest"/>
+         <wsdl:output name="selectAllResponse" message="impl:selectAllResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="removeSelection" parameterOrder="sid remoteRefId indices">
+         <wsdl:input name="removeSelectionRequest" message="impl:removeSelectionRequest"/>
+         <wsdl:output name="removeSelectionResponse" message="impl:removeSelectionResponse"/>
+      </wsdl:operation>
+      
+      <wsdl:operation name="setFeatureEnabled" parameterOrder="sid listContextId featureId enabled">
+         <wsdl:input name="setFeatureEnabledRequest" message="impl:setFeatureEnabledRequest"/>
+         <wsdl:output name="setFeatureEnabledResponse" message="impl:setFeatureEnabledResponse"/>
+      </wsdl:operation>
+      
+       <wsdl:operation name="getListSizeRequest"
+            parameterOrder="sid listContextId computeNow">
+            <wsdl:input name="getListSizeRequest"
+                message="impl:getListSizeRequest" />
+            <wsdl:output name="getListSizeResponse"
+                message="impl:getListSizeResponse" />
+        </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="ListServiceSoapBinding" type="impl:ListService">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="get">
+      
+         <wsdlsoap:operation soapAction=""/>
+      
+         <wsdl:input name="getRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://list.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+      
+         <wsdl:output name="getResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://list.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+      
+      </wsdl:operation>
+
+      <wsdl:operation name="update">
+      
+         <wsdlsoap:operation soapAction=""/>
+      
+         <wsdl:input name="updateRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://list.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+      
+         <wsdl:output name="updateResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://list.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+      
+      </wsdl:operation>
+
+      <wsdl:operation name="remove">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="removeRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://list.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="removeResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://list.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+      </wsdl:operation>
+      
+      <wsdl:operation name="findByName">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="findByNameRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://list.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="findByNameResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://list.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="fetch">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="fetchRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://list.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="fetchResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://list.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="selectAll">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="selectAllRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://list.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="selectAllResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://list.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="removeSelection">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="removeSelectionRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://list.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="removeSelectionResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://list.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+      </wsdl:operation>
+      
+      <wsdl:operation name="setFeatureEnabled">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="setFeatureEnabledRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://list.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="setFeatureEnabledResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://list.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+         
+      </wsdl:operation>
+      
+      <wsdl:operation name="getListSizeRequest">
+            <wsdlsoap:operation soapAction="" />
+            <wsdl:input name="getListSizeRequest">
+                <wsdlsoap:body use="encoded"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    namespace="http://list.apiservice.xpro.inxmail.com" />
+            </wsdl:input>
+            <wsdl:output name="getListSizeResponse">
+                <wsdlsoap:body use="encoded"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    namespace="http://list.apiservice.xpro.inxmail.com" />
+            </wsdl:output>
+        </wsdl:operation>
+      
+   </wsdl:binding>
+
+   <wsdl:service name="ListServiceSoap">
+
+      <wsdl:port name="ListService" binding="impl:ListServiceSoapBinding">
+
+         <wsdlsoap:address location="http://localhost:80/inxmail/api/ListService"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+   
+</wsdl:definitions>

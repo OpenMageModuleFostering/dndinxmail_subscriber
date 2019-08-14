@@ -1,0 +1,12 @@
+<?php $messages = $this->getMessages(); ?>
+<?php if (count($messages)): ?>
+    <div class="notification-global">
+        <?php echo $this->__('INXMAIL: Errors in mapping:'); ?>
+        <div class="f-right"><a href="<?php echo $this->getUrl('adminhtml/inxmailNotification/removeNotification'); ?>"><?php echo $this->__('Remove'); ?></a></div>
+        <ul>
+        <?php foreach ($messages as $message): ?>
+            <li><?php echo $message; ?></li>
+        <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>

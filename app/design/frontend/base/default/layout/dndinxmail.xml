@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+
+<layout>
+
+    <synchronize>
+        <block type="page/html" name="root" output="toHtml" template="dndinxmail/page/synchronize.phtml">
+
+            <block type="page/html_head" name="head" as="head">
+                <action method="addJs">
+                    <script>prototype/prototype.js</script>
+                </action>
+                <action method="addJs">
+                    <name>dndinxmail/synchronize.js</name>
+                </action>
+                <action method="addJs">
+                    <script>mage/translate.js</script>
+                </action>
+                <action method="addCss">
+                    <stylesheet>css/styles.css</stylesheet>
+                </action>
+                <action method="addCss">
+                    <stylesheet>dndinxmail/inxmail-synchronization.css</stylesheet>
+                </action>
+            </block>
+
+            <block type="core/text_list" name="content" as="content" translate="label">
+                <label>Main Content Area</label>
+            </block>
+
+        </block>
+
+    </synchronize>
+
+    <messages>
+        <block type="page/html" name="root" output="toHtml" template="dndinxmail/page/messages.phtml">
+
+            <block type="page/html_head" name="head" as="head">
+                <action method="addJs">
+                    <script>mage/translate.js</script>
+                </action>
+                <action method="addCss">
+                    <stylesheet>css/styles.css</stylesheet>
+                </action>
+                <action method="addCss">
+                    <stylesheet>dndinxmail/inxmail-synchronization.css</stylesheet>
+                </action>
+            </block>
+
+            <block type="core/messages" name="global_messages" as="global_messages" />
+            <block type="core/messages" name="messages" as="messages" />
+
+        </block>
+
+    </messages>
+
+</layout>

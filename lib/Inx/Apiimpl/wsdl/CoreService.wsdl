@@ -1,0 +1,1383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://core.apiservice.xpro.inxmail.com" xmlns:impl="http://core.apiservice.xpro.inxmail.com" xmlns:inx="http://apiservice.xpro.inxmail.com" xmlns:intf="http://core.apiservice.xpro.inxmail.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+ <wsdl:types>
+
+  <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://apiservice.xpro.inxmail.com">
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   
+   <complexType name="TString">
+    <sequence>
+     <element name="value" type="xsd:string"/>
+    </sequence>
+   </complexType>
+
+   <complexType name="TBoolean">
+    <sequence>
+     <element name="value" type="xsd:boolean"/>
+    </sequence>
+   </complexType>
+   
+   <complexType name="TInteger">
+    <sequence>
+     <element name="value" type="xsd:int"/>
+    </sequence>
+   </complexType>
+  
+   <complexType name="TDouble">
+     <sequence>
+       <element name="value" type="xsd:double"/>
+     </sequence>
+   </complexType>
+   
+   <complexType name="TDatetime">
+     <sequence>
+       <element name="value" type="xsd:dateTime"/>
+     </sequence>
+   </complexType>
+   
+   <complexType name="TDate">
+     <sequence>
+       <element name="value" type="xsd:date"/>
+     </sequence>
+   </complexType>
+   
+   <complexType name="TTime">
+     <sequence>
+       <element name="value" type="xsd:time"/>
+     </sequence>
+   </complexType>
+
+   <complexType name="TMap">
+     <sequence>
+       <element name="strKeys" nillable="true" type="impl:ArrayOf_xsd_string"/>
+       <element name="strValues" nillable="true" type="inx:ArrayOf_TString"/>
+       <element name="boolKeys" nillable="true" type="impl:ArrayOf_xsd_string"/>
+       <element name="boolValues" nillable="true" type="inx:ArrayOf_TBoolean"/>
+       <element name="intKeys" nillable="true" type="impl:ArrayOf_xsd_string"/>
+       <element name="intValues" nillable="true" type="inx:ArrayOf_TInteger"/>
+       <element name="doubleKeys" nillable="true" type="impl:ArrayOf_xsd_string"/>
+       <element name="doubleValues" nillable="true" type="inx:ArrayOf_TDouble"/>
+       <element name="datetimeKeys" nillable="true" type="impl:ArrayOf_xsd_string"/>
+       <element name="datetimeValues" nillable="true" type="inx:ArrayOf_TDatetime"/>
+       <element name="dateKeys" nillable="true" type="impl:ArrayOf_xsd_string"/>
+       <element name="dateValues" nillable="true" type="inx:ArrayOf_TDate"/>
+       <element name="timeKeys" nillable="true" type="impl:ArrayOf_xsd_string"/>
+       <element name="timeValues" nillable="true" type="inx:ArrayOf_TTime"/>    
+     </sequence>
+   </complexType>
+   
+   <complexType name="ArrayOf_TString">
+      <complexContent>
+       <restriction base="soapenc:Array">
+        <attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TString[]"/>
+       </restriction>
+      </complexContent>
+   </complexType>
+
+   <complexType name="ArrayOf_TBoolean">
+      <complexContent>
+       <restriction base="soapenc:Array">
+        <attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TBoolean[]"/>
+       </restriction>
+      </complexContent>
+   </complexType>
+   
+   <complexType name="ArrayOf_TInteger">
+      <complexContent>
+       <restriction base="soapenc:Array">
+        <attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TInteger[]"/>
+       </restriction>
+      </complexContent>
+   </complexType>
+   
+   <complexType name="ArrayOf_TDouble">
+      <complexContent>
+       <restriction base="soapenc:Array">
+        <attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TDouble[]"/>
+       </restriction>
+      </complexContent>
+   </complexType>
+   
+   <complexType name="ArrayOf_TDatetime">
+      <complexContent>
+       <restriction base="soapenc:Array">
+        <attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TDatetime[]"/>
+       </restriction>
+      </complexContent>
+   </complexType>
+
+   <complexType name="ArrayOf_TDate">
+      <complexContent>
+       <restriction base="soapenc:Array">
+        <attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TDate[]"/>
+       </restriction>
+      </complexContent>
+   </complexType>
+
+   <complexType name="ArrayOf_TTime">
+      <complexContent>
+       <restriction base="soapenc:Array">
+        <attribute ref="soapenc:arrayType" wsdl:arrayType="inx:TTime[]"/>
+       </restriction>
+      </complexContent>
+   </complexType>
+   
+            <complexType name="SessionCxt">
+                <sequence>
+                    <element name="sid" type="xsd:string" />
+                    <element name="relRefIds" nillable="true"
+                        type="inx:ArrayOf_xsd_string" />
+                </sequence>
+            </complexType>   
+            <complexType name="ArrayOf_xsd_int">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType"
+                            wsdl:arrayType="xsd:int[]" />
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="ArrayOf_xsd_string">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType"
+                            wsdl:arrayType="xsd:string[]" />
+                    </restriction>
+                </complexContent>
+            </complexType>   
+  </schema>  
+    
+  <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://core.apiservice.xpro.inxmail.com">
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+  
+            <complexType name="SubscriptionEntryDTO">
+                <sequence>
+                    <element name="entryId" type="xsd:int" />
+                    <element name="type" type="xsd:int" />
+                    <element name="listId" type="xsd:int"/>
+                    <element name="logMsg" type="xsd:string"/>
+                    <element name="email" type="xsd:string"/>
+                    <element name="logDate" type="inx:TDatetime"/>
+                    <element name="recipientId" type="xsd:int" />
+                    <element name="recipientState" type="xsd:int" />
+                    <element name="stringData" nillable="true"
+                        type="inx:ArrayOf_TString" />
+                    <element name="booleanData" nillable="true"
+                        type="inx:ArrayOf_TBoolean" />
+                    <element name="integerData" nillable="true"
+                        type="inx:ArrayOf_TInteger" />
+                    <element name="doubleData" nillable="true"
+                        type="inx:ArrayOf_TDouble" />
+                    <element name="dateData" nillable="true"
+                        type="inx:ArrayOf_TDate" />
+                    <element name="timeData" nillable="true"
+                        type="inx:ArrayOf_TTime" />
+                    <element name="datetimeData" nillable="true"
+                        type="inx:ArrayOf_TDatetime" />
+                </sequence>
+            </complexType>
+
+            <complexType name="SubscriptionEntryRowSetData">
+                <sequence>
+                    <element name="remoteRefId" type="xsd:string" />
+                    <element name="rowCount" type="xsd:int" />
+                    <element name="typedIndices" nillable="true"
+                        type="inx:ArrayOf_xsd_int" />
+                    <element name="data" nillable="true"
+                        type="impl:ArrayOfSubscriptionEntryDTO" />
+                </sequence>
+            </complexType>
+
+            <complexType name="ArrayOfSubscriptionEntryDTO">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType"
+                            wsdl:arrayType="impl:SubscriptionEntryDTO[]" />
+                    </restriction>
+                </complexContent>
+            </complexType>
+  
+      
+   <complexType name="ExceptionDesc">
+    <sequence>
+     <element name="type" type="xsd:int"/>
+     <element name="msg" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   
+   <complexType name="ByteReadResult">
+    <sequence>
+     <element name="b" nillable="true" type="xsd:base64Binary"/>
+     <element name="closed" type="xsd:boolean"/>
+     <element name="excDesc" nillable="true" type="impl:ExceptionDesc"/>
+    </sequence>
+   </complexType>
+
+   <complexType name="ArrayOf_xsd_string">
+     <complexContent>
+        <restriction base="soapenc:Array">
+         <attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:string[]"/>
+        </restriction>
+     </complexContent>
+   </complexType>
+
+   <complexType name="VoidHolder">
+    <sequence>
+     <element name="excDesc" nillable="true" type="impl:ExceptionDesc"/>
+    </sequence>
+   </complexType>
+
+   <complexType name="LoginData">
+    <sequence>
+     <element name="sessionId" type="xsd:string"/>
+     <element name="propKeys" type="impl:ArrayOf_xsd_string"/>
+     <element name="propValues" type="inx:ArrayOf_TInteger"/>
+     <element name="excDesc" nillable="true" type="impl:ExceptionDesc"/>
+    </sequence>
+   </complexType>
+   
+   <complexType name="IntHolder">
+    <sequence>
+     <element name="value" type="xsd:int"/>
+     <element name="excDesc" nillable="true" type="impl:ExceptionDesc"/>
+    </sequence>
+   </complexType>
+
+   <complexType name="BoolHolder">
+    <sequence>
+     <element name="value" type="xsd:boolean"/>
+     <element name="excDesc" nillable="true" type="impl:ExceptionDesc"/>
+    </sequence>
+   </complexType>
+   
+   <complexType name="ServerTimeDTO">
+    <sequence>
+     <element name="dateTime" type="inx:TDatetime"/>
+     <element name="gmtOffset" type="xsd:int"/>
+     <element name="dstOffset" type="xsd:int"/>
+     <element name="timeZone" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   
+   <complexType name="UserDTO">
+    <sequence>
+     <element name="username" type="xsd:string"/>
+     <element name="realname" type="xsd:string"/>
+     <element name="description" type="xsd:string"/>
+     <element name="email" type="xsd:string"/>
+     <element name="creationdate" type="xsd:dateTime"/>     
+    </sequence>
+   </complexType>
+   
+  </schema>
+ </wsdl:types>
+ 
+    <wsdl:message name="selectSubscriptionLogEntriesRequest">
+        <wsdl:part name="sc" type="inx:SessionCxt" />
+        <wsdl:part name="listId" type="xsd:int" />
+        <wsdl:part name="startDate" type="inx:TDatetime" />
+        <wsdl:part name="endDate" type="inx:TDatetime" />
+        <wsdl:part name="recCtxRefId" type="xsd:string" />
+        <wsdl:part name="attrs" type="inx:ArrayOf_xsd_int" />
+    </wsdl:message>
+    <wsdl:message name="selectSubscriptionLogEntriesResponse">
+        <wsdl:part name="selectSubscriptionLogEntriesReturn"
+            type="impl:SubscriptionEntryRowSetData" />
+    </wsdl:message>
+ 
+    <wsdl:message name="fetchSubscriptionLogRequest">
+        <wsdl:part name="sc" type="inx:SessionCxt" />
+        <wsdl:part name="remoteRefId" type="xsd:string" />
+        <wsdl:part name="index" type="xsd:int" />
+        <wsdl:part name="direction" type="xsd:int" />
+    </wsdl:message>
+    <wsdl:message name="fetchSubscriptionLogResponse">
+        <wsdl:part name="fetchSubscriptionLogReturn" type="impl:ArrayOfSubscriptionEntryDTO" />
+    </wsdl:message>
+ 
+ 
+ 
+   <wsdl:message name="newInitSecureLoginRequest">
+      <wsdl:part name="username" type="xsd:string"/>
+      <wsdl:part name="apiVersion" type="xsd:string"/>      
+   </wsdl:message>
+   <wsdl:message name="newSecureLoginRequest">   
+      <wsdl:part name="loginId" type="xsd:string"/>
+      <wsdl:part name="username" type="xsd:string"/>
+      <wsdl:part name="password" type="xsd:string"/>
+   </wsdl:message>
+   <wsdl:message name="newPluginSecureLoginRequest">   
+      <wsdl:part name="pluginSecretId" type="xsd:string"/>
+      <wsdl:part name="loginId" type="xsd:string"/>
+      <wsdl:part name="username" type="xsd:string"/>
+      <wsdl:part name="password" type="xsd:string"/>
+   </wsdl:message>
+   
+   <wsdl:message name="initSecureLoginRequest">
+      <wsdl:part name="algorithm" type="xsd:string"/>
+      <wsdl:part name="params" type="impl:ArrayOf_xsd_string"/>
+      <wsdl:part name="apiVersion" type="xsd:string"/>      
+   </wsdl:message>
+   
+   <wsdl:message name="initSecureLoginResponse">
+      <wsdl:part name="initSecureLoginReturn" type="impl:ArrayOf_xsd_string"/> 
+   </wsdl:message>
+
+   <wsdl:message name="secureLoginRequest">   
+      <wsdl:part name="loginId" type="xsd:string"/>
+      <wsdl:part name="username" type="xsd:string"/>
+      <wsdl:part name="password" type="xsd:string"/>
+   </wsdl:message>
+   
+   <wsdl:message name="secureLoginResponse">   
+   	<wsdl:part name="secureLoginReturn" type="impl:LoginData"/>   
+   </wsdl:message>
+
+   <wsdl:message name="createAttributeRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="attrName" type="xsd:string"/>
+      <wsdl:part name="dataType" type="xsd:int"/>
+      <wsdl:part name="maxStringLenth" type="xsd:int"/>      
+   </wsdl:message>
+   <wsdl:message name="createAttributeResponse">
+      <wsdl:part name="createAttributeReturn" type="impl:IntHolder"/> 
+   </wsdl:message>
+
+   <wsdl:message name="renameAttributeRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="attrId" type="xsd:int"/>
+      <wsdl:part name="attrName" type="xsd:string"/> 
+   </wsdl:message>
+   <wsdl:message name="renameAttributeResponse">
+      <wsdl:part name="renameAttributeReturn" type="impl:BoolHolder"/>
+   </wsdl:message>
+
+   <wsdl:message name="removeAttributeRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="attrId" type="xsd:int"/>      
+   </wsdl:message>
+   <wsdl:message name="removeAttributeResponse">
+      <wsdl:part name="removeAttributeReturn" type="xsd:boolean"/> 
+   </wsdl:message>
+   
+   <wsdl:message name="isAttributeVisibleInListRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="attrId" type="xsd:int"/>
+      <wsdl:part name="listId" type="xsd:int"/>
+   </wsdl:message>
+   <wsdl:message name="isAttributeVisibleInListResponse">
+      <wsdl:part name="isAttributeVisibleInListReturn" type="xsd:boolean"/>
+   </wsdl:message>
+   
+   <wsdl:message name="areAttributesVisibleInListRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="attributes" type="inx:ArrayOf_TInteger"/>
+      <wsdl:part name="listId" type="xsd:int"/>
+   </wsdl:message>
+   <wsdl:message name="areAttributesVisibleInListResponse">
+      <wsdl:part name="areAttributesVisibleInListReturn" type="inx:TMap"/>
+   </wsdl:message>
+   
+   <wsdl:message name="setAttributeListVisibilityRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="attrId" type="xsd:int"/>
+      <wsdl:part name="listId" type="xsd:int"/>
+      <wsdl:part name="visible" type="xsd:boolean"/>
+   </wsdl:message>
+   <wsdl:message name="setAttributeListVisibilityResponse">
+   </wsdl:message>
+   
+   <wsdl:message name="setAttributesListVisibilityRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="attributes" type="inx:ArrayOf_TInteger"/>
+      <wsdl:part name="listId" type="xsd:int"/>
+      <wsdl:part name="visible" type="xsd:boolean"/>
+   </wsdl:message>
+   <wsdl:message name="setAttributesListVisibilityResponse">
+   </wsdl:message>
+   
+   <wsdl:message name="setGlobalAttributeVisibilityRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="attrId" type="xsd:int"/>
+      <wsdl:part name="visible" type="xsd:boolean"/>
+   </wsdl:message>
+   <wsdl:message name="setGlobalAttributeVisibilityResponse">
+   </wsdl:message>
+   
+   <wsdl:message name="setGlobalAttributesVisibilityRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="attributes" type="inx:ArrayOf_TInteger"/>
+      <wsdl:part name="visible" type="xsd:boolean"/>
+   </wsdl:message>
+   <wsdl:message name="setGlobalAttributesVisibilityResponse">
+   </wsdl:message>
+
+   <wsdl:message name="logoutRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+   </wsdl:message>
+   <wsdl:message name="logoutResponse">
+   </wsdl:message>
+
+   <wsdl:message name="loginRequest">
+      <wsdl:part name="username" type="xsd:string"/>
+      <wsdl:part name="password" type="xsd:string"/>
+      <wsdl:part name="apiVersion" type="xsd:string"/>
+   </wsdl:message>
+   <wsdl:message name="loginResponse">
+      <wsdl:part name="loginReturn" type="impl:LoginData"/>
+   </wsdl:message>
+   
+   <wsdl:message name="pluginLoginRequest">
+      <wsdl:part name="pluginSecretId" type="xsd:string"/>
+      <wsdl:part name="username" type="xsd:string"/>
+      <wsdl:part name="password" type="xsd:string"/>
+      <wsdl:part name="apiVersion" type="xsd:string"/>
+   </wsdl:message>
+   <wsdl:message name="pluginLoginResponse">
+      <wsdl:part name="loginReturn" type="impl:LoginData"/>
+   </wsdl:message>   
+
+   <wsdl:message name="loginWithTokenRequest">
+      <wsdl:part name="loginToken" type="xsd:string"/>
+      <wsdl:part name="apiVersion" type="xsd:string"/>
+   </wsdl:message>
+   <wsdl:message name="loginWithTokenResponse">
+      <wsdl:part name="loginWithTokenReturn" type="impl:LoginData"/>
+   </wsdl:message>
+   
+   <wsdl:message name="releaseRefRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="releasedRefIds" type="impl:ArrayOf_xsd_string"/>
+   </wsdl:message>
+   <wsdl:message name="releaseRefResponse">
+   </wsdl:message>
+
+   <wsdl:message name="readInputStreamRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="remoteRefId" type="xsd:string"/>
+   </wsdl:message>
+   <wsdl:message name="readInputStreamResponse">
+      <wsdl:part name="readInputStreamReturn" type="impl:ByteReadResult"/>
+   </wsdl:message>
+
+   <wsdl:message name="writeOutputStreamRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="remoteRefId" type="xsd:string"/>
+      <wsdl:part name="b" type="xsd:base64Binary"/>
+   </wsdl:message>
+   <wsdl:message name="writeOutputStreamResponse">
+      <wsdl:part name="ex" type="impl:VoidHolder"/>
+   </wsdl:message>
+
+   <wsdl:message name="closeInputStreamRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="remoteRefId" type="xsd:string"/>
+   </wsdl:message>
+   <wsdl:message name="closeInputStreamResponse">
+      <wsdl:part name="ex" type="impl:VoidHolder"/>
+   </wsdl:message>
+   
+   <wsdl:message name="closeOutputStreamRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="remoteRefId" type="xsd:string"/>
+   </wsdl:message>
+   <wsdl:message name="closeOutputStreamResponse">
+      <wsdl:part name="ex" type="impl:VoidHolder"/>
+   </wsdl:message>   
+  
+   <wsdl:message name="setFeatureEnabledRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="listContextId" type="xsd:int"/>
+      <wsdl:part name="featureId" type="xsd:int"/>
+      <wsdl:part name="enabled" type="xsd:boolean"/>
+   </wsdl:message>
+   <wsdl:message name="setFeatureEnabledResponse">
+      <wsdl:part name="setFeatureEnabledReturn" type="impl:BoolHolder"/>
+   </wsdl:message>
+
+   <wsdl:message name="processSubscriptionRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="listContextId" type="xsd:int"/>
+      <wsdl:part name="email" type="xsd:string"/>  
+   </wsdl:message> 
+   <wsdl:message name="processSubscriptionResponse">
+      <wsdl:part name="processSubscriptionReturn" type="impl:IntHolder"/>
+   </wsdl:message>
+
+   <wsdl:message name="processUnsubscriptionRequest"> 
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="listContextId" type="xsd:int"/>
+      <wsdl:part name="email" type="xsd:string"/>
+   </wsdl:message>
+   <wsdl:message name="processUnsubscriptionResponse">
+      <wsdl:part name="processUnsubscriptionReturn" type="impl:IntHolder"/>    
+   </wsdl:message>
+
+   <wsdl:message name="processSubUnsubscriptionRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="subscribe" type="xsd:boolean"/>
+      <wsdl:part name="sourceId" type="xsd:string"/>
+      <wsdl:part name="remoteAddr" type="xsd:string"/>
+      <wsdl:part name="listContextId" type="xsd:int"/>
+      <wsdl:part name="email" type="xsd:string"/>
+      <wsdl:part name="attrs" type="inx:TMap"/>
+   </wsdl:message> 
+   <wsdl:message name="processSubUnsubscriptionResponse">
+      <wsdl:part name="processSubUnsubscriptionReturn" type="impl:IntHolder"/>
+   </wsdl:message>
+   
+   <wsdl:message name="processSubUnsubscriptionRequest2">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="subscribe" type="xsd:boolean"/>
+      <wsdl:part name="sourceId" type="xsd:string"/>
+      <wsdl:part name="remoteAddr" type="xsd:string"/>
+      <wsdl:part name="listContextId" type="xsd:int"/>
+      <wsdl:part name="email" type="xsd:string"/>
+      <wsdl:part name="attrs" type="inx:TMap"/>
+      <wsdl:part name="mailingId" type="xsd:int"/>
+   </wsdl:message> 
+   <wsdl:message name="processSubUnsubscriptionResponse2">
+      <wsdl:part name="processSubUnsubscriptionReturn2" type="impl:IntHolder"/>
+   </wsdl:message>
+   
+   <wsdl:message name="processSubUnsubscriptionRequest3">
+      <wsdl:part name="sid" type="xsd:string"/>
+      <wsdl:part name="subscribe" type="xsd:boolean"/>
+      <wsdl:part name="sourceId" type="xsd:string"/>
+      <wsdl:part name="remoteAddr" type="xsd:string"/>
+      <wsdl:part name="listContextId" type="xsd:int"/>
+      <wsdl:part name="email" type="xsd:string"/>
+      <wsdl:part name="attrs" type="inx:TMap"/>
+      <wsdl:part name="mailingRef" type="xsd:string"/>
+   </wsdl:message> 
+   <wsdl:message name="processSubUnsubscriptionResponse3">
+      <wsdl:part name="processSubUnsubscriptionReturn3" type="impl:IntHolder"/>
+   </wsdl:message>
+
+   <wsdl:message name="getUserRightsRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+   </wsdl:message>
+   <wsdl:message name="getUserRightsResponse">
+      <wsdl:part name="getUserRightsReturn" type="inx:ArrayOf_TString"/>
+   </wsdl:message>
+
+   <wsdl:message name="tellAFriendRequest">
+	<wsdl:part name="sid" type="xsd:string"/>
+	<wsdl:part name="listContextId" type="xsd:int"/>
+	<wsdl:part name="mailingId" type="xsd:int"/>
+	<wsdl:part name="recipientId" type="xsd:int"/>
+	<wsdl:part name="takeProfile" type="xsd:boolean"/>
+	<wsdl:part name="email" type="xsd:string"/>
+	<wsdl:part name="textIntro" type="xsd:string"/>
+	<wsdl:part name="htmlIntro" type="xsd:string"/>	
+   </wsdl:message>
+   
+   <wsdl:message name="tellAFriendResponse">
+      <wsdl:part name="tellAFriendReturn" type="impl:IntHolder"/>
+   </wsdl:message>
+   
+   <wsdl:message name="getServerTimeRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+   </wsdl:message>
+   <wsdl:message name="getServerTimeResponse">
+      <wsdl:part name="serverTime" type="impl:ServerTimeDTO"/>
+   </wsdl:message>
+   
+   <wsdl:message name="whoAmIRequest">
+      <wsdl:part name="sid" type="xsd:string"/>
+   </wsdl:message>
+   <wsdl:message name="whoAmIResponse">
+      <wsdl:part name="whoami" type="impl:UserDTO"/>
+   </wsdl:message>
+   
+   
+   <wsdl:message name="isPluginInstalledRequest">
+      <wsdl:part name="pluginSecretId" type="xsd:string"/>      
+   </wsdl:message>
+   
+   <wsdl:message name="isPluginInstalledResponse">
+      <wsdl:part name="isPluginInstalledReturn" type="xsd:boolean"/> 
+   </wsdl:message>
+   
+   <wsdl:message name="isPluginActiveRequest">
+      <wsdl:part name="pluginSecretId" type="xsd:string"/>
+      <wsdl:part name="listContextId" type="xsd:int"/>      
+   </wsdl:message>
+   
+   <wsdl:message name="isPluginActiveResponse">
+      <wsdl:part name="isPluginActiveReturn" type="xsd:boolean"/> 
+   </wsdl:message>
+   
+   <wsdl:message name="getListContextIdsWherePluginActiveRequest">
+      <wsdl:part name="pluginSecretId" type="xsd:string"/>
+     </wsdl:message>
+   
+   <wsdl:message name="getListContextIdsWherePluginActiveResponse">
+      <wsdl:part name="getListContextIdsWherePluginActiveReturn" type="inx:ArrayOf_xsd_int"/> 
+   </wsdl:message>
+   
+   
+   
+   <wsdl:portType name="CoreService">
+ 
+       <wsdl:operation name="selectSubscriptionLogEntries"
+            parameterOrder="sc listId startDate endDate recCtxRefId attrs">
+            <wsdl:input name="selectSubscriptionLogEntriesRequest"
+                message="impl:selectSubscriptionLogEntriesRequest" />
+            <wsdl:output name="selectSubscriptionLogEntriesResponse"
+                message="impl:selectSubscriptionLogEntriesResponse" />
+        </wsdl:operation>
+        <wsdl:operation name="fetchSubscriptionLog"
+            parameterOrder="sc remoteRefId index direction">
+            <wsdl:input name="fetchSubscriptionLogRequest"
+                message="impl:fetchSubscriptionLogRequest" />
+            <wsdl:output name="fetchSubscriptionLogResponse"
+                message="impl:fetchSubscriptionLogResponse" />
+        </wsdl:operation>   
+   
+   
+   
+   
+      <wsdl:operation name="newInitSecureLogin" parameterOrder="username apiVersion">
+         <wsdl:input name="newInitSecureLoginRequest" message="impl:newInitSecureLoginRequest"/>
+         <wsdl:output name="initSecureLoginResponse" message="impl:initSecureLoginResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="newSecureLogin" parameterOrder="loginId username password">
+         <wsdl:input name="newSecureLoginRequest" message="impl:newSecureLoginRequest"/>
+         <wsdl:output name="secureLoginResponse" message="impl:secureLoginResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="newPluginSecureLogin" parameterOrder="pluginSecretId loginId username password">
+         <wsdl:input name="newPluginSecureLoginRequest" message="impl:newPluginSecureLoginRequest"/>
+         <wsdl:output name="secureLoginResponse" message="impl:secureLoginResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="initSecureLogin" parameterOrder="algorithm params apiVersion">
+         <wsdl:input name="initSecureLoginRequest" message="impl:initSecureLoginRequest"/>
+         <wsdl:output name="initSecureLoginResponse" message="impl:initSecureLoginResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="secureLogin" parameterOrder="loginId username password">
+         <wsdl:input name="secureLoginRequest" message="impl:secureLoginRequest"/>
+         <wsdl:output name="secureLoginResponse" message="impl:secureLoginResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="processSubUnsubscription" parameterOrder="sid subscribe sourceId remoteAddr listContextId email attrs">
+         <wsdl:input name="processSubUnsubscriptionRequest" message="impl:processSubUnsubscriptionRequest"/>
+         <wsdl:output name="processSubUnsubscriptionResponse" message="impl:processSubUnsubscriptionResponse"/>
+      </wsdl:operation>
+      
+      <wsdl:operation name="processSubUnsubscription2" parameterOrder="sid subscribe sourceId remoteAddr listContextId email attrs mailingId">
+         <wsdl:input name="processSubUnsubscriptionRequest2" message="impl:processSubUnsubscriptionRequest2"/>
+         <wsdl:output name="processSubUnsubscriptionResponse2" message="impl:processSubUnsubscriptionResponse2"/>
+      </wsdl:operation>
+      
+      <wsdl:operation name="processSubUnsubscription3" parameterOrder="sid subscribe sourceId remoteAddr listContextId email attrs mailingRef">
+         <wsdl:input name="processSubUnsubscriptionRequest3" message="impl:processSubUnsubscriptionRequest3"/>
+         <wsdl:output name="processSubUnsubscriptionResponse3" message="impl:processSubUnsubscriptionResponse3"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="processSubscription" parameterOrder="sid listContextId email">
+         <wsdl:input name="processSubscriptionRequest" message="impl:processSubscriptionRequest"/>
+         <wsdl:output name="processSubscriptionResponse" message="impl:processSubscriptionResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="processUnsubscription" parameterOrder="sid listContextId email">
+         <wsdl:input name="processUnsubscriptionRequest" message="impl:processUnsubscriptionRequest"/>
+         <wsdl:output name="processUnsubscriptionResponse" message="impl:processUnsubscriptionResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="getUserRights" parameterOrder="sid">
+         <wsdl:input name="getUserRightsRequest" message="impl:getUserRightsRequest"/>
+         <wsdl:output name="getUserRightsResponse" message="impl:getUserRightsResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="setFeatureEnabled" parameterOrder="sid listContextId featureId enabled">
+         <wsdl:input name="setFeatureEnabledRequest" message="impl:setFeatureEnabledRequest"/>
+         <wsdl:output name="setFeatureEnabledResponse" message="impl:setFeatureEnabledResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="createAttribute" parameterOrder="sid attrName dataType maxStringLenth">
+         <wsdl:input name="createAttributeRequest" message="impl:createAttributeRequest"/>
+         <wsdl:output name="createAttributeResponse" message="impl:createAttributeResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="renameAttribute" parameterOrder="sid attrId attrName">
+         <wsdl:input name="renameAttributeRequest" message="impl:renameAttributeRequest"/>
+         <wsdl:output name="renameAttributeResponse" message="impl:renameAttributeResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="removeAttribute" parameterOrder="sid attrId">
+         <wsdl:input name="removeAttributeRequest" message="impl:removeAttributeRequest"/>
+         <wsdl:output name="removeAttributeResponse" message="impl:removeAttributeResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="isAttributeVisibleInList" parameterOrder="sid attrId listId">
+         <wsdl:input name="isAttributeVisibleInListRequest" message="impl:isAttributeVisibleInListRequest"></wsdl:input>
+         <wsdl:output name="isAttributeVisibleInListResponse" message="impl:isAttributeVisibleInListResponse"></wsdl:output>
+      </wsdl:operation>
+      
+      <wsdl:operation name="areAttributesVisibleInList" parameterOrder="sid attributes listId">
+         <wsdl:input name="areAttributesVisibleInListRequest" message="impl:areAttributesVisibleInListRequest"></wsdl:input>
+         <wsdl:output name="areAttributesVisibleInListResponse" message="impl:areAttributesVisibleInListResponse"></wsdl:output>
+      </wsdl:operation>
+      
+      <wsdl:operation name="setAttributeListVisibility" parameterOrder="sid attrId listId visible">
+         <wsdl:input name="setAttributeListVisibilityRequest" message="impl:setAttributeListVisibilityRequest"/>
+         <wsdl:output name="setAttributeListVisibilityResponse" message="impl:setAttributeListVisibilityResponse"/>
+      </wsdl:operation>
+      
+      <wsdl:operation name="setAttributesListVisibility" parameterOrder="sid attributes listId visible">
+         <wsdl:input name="setAttributesListVisibilityRequest" message="impl:setAttributesListVisibilityRequest"/>
+         <wsdl:output name="setAttributesListVisibilityResponse" message="impl:setAttributesListVisibilityResponse"/>
+      </wsdl:operation>
+      
+      <wsdl:operation name="setGlobalAttributeVisibility" parameterOrder="sid attrId visible">
+         <wsdl:input name="setGlobalAttributeVisibilityRequest" message="impl:setGlobalAttributeVisibilityRequest"/>
+         <wsdl:output name="setGlobalAttributeVisibilityResponse" message="impl:setGlobalAttributeVisibilityResponse"/>
+      </wsdl:operation>
+      
+      <wsdl:operation name="setGlobalAttributesVisibility" parameterOrder="sid attributes visible">
+         <wsdl:input name="setGlobalAttributesVisibilityRequest" message="impl:setGlobalAttributesVisibilityRequest"/>
+         <wsdl:output name="setGlobalAttributesVisibilityResponse" message="impl:setGlobalAttributesVisibilityResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="login" parameterOrder="username password apiVersion">
+         <wsdl:input name="loginRequest" message="impl:loginRequest"/>
+         <wsdl:output name="loginResponse" message="impl:loginResponse"/>
+      </wsdl:operation>
+      
+      <wsdl:operation name="pluginLogin" parameterOrder="pluginSecretId username password apiVersion">
+         <wsdl:input name="pluginLoginRequest" message="impl:pluginLoginRequest"/>
+         <wsdl:output name="pluginLoginResponse" message="impl:pluginLoginResponse"/>
+      </wsdl:operation>      
+      
+      <wsdl:operation name="loginWithToken" parameterOrder="loginToken apiVersion">
+         <wsdl:input name="loginWithTokenRequest" message="impl:loginWithTokenRequest"/>
+         <wsdl:output name="loginWithTokenResponse" message="impl:loginWithTokenResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="releaseRef" parameterOrder="sid releasedRefIds">
+         <wsdl:input name="releaseRefRequest" message="impl:releaseRefRequest"/>
+         <wsdl:output name="releaseRefResponse" message="impl:releaseRefResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="logout" parameterOrder="sid">
+         <wsdl:input name="logoutRequest" message="impl:logoutRequest"/>
+         <wsdl:output name="logoutResponse" message="impl:logoutResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="writeOutputStream" parameterOrder="sid remoteRefId b">
+         <wsdl:input name="writeOutputStreamRequest" message="impl:writeOutputStreamRequest"/>
+         <wsdl:output name="writeOutputStreamResponse" message="impl:writeOutputStreamResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="closeOutputStream" parameterOrder="sid remoteRefId">
+         <wsdl:input name="closeOutputStreamRequest" message="impl:closeOutputStreamRequest"/>
+         <wsdl:output name="closeOutputStreamResponse" message="impl:closeOutputStreamResponse"/>
+      </wsdl:operation>
+      
+      <wsdl:operation name="readInputStream" parameterOrder="sid remoteRefId">
+         <wsdl:input name="readInputStreamRequest" message="impl:readInputStreamRequest"/>
+         <wsdl:output name="readInputStreamResponse" message="impl:readInputStreamResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="closeInputStream" parameterOrder="sid remoteRefId">
+         <wsdl:input name="closeInputStreamRequest" message="impl:closeInputStreamRequest"/>
+         <wsdl:output name="closeInputStreamResponse" message="impl:closeInputStreamResponse"/>
+      </wsdl:operation>
+
+	  <wsdl:operation name="tellAFriend" parameterOrder="sid listContextId mailingId recipientId takeProfile email textIntro htmlIntro">
+         <wsdl:input name="tellAFriendRequest" message="impl:tellAFriendRequest"/>
+         <wsdl:output name="tellAFriendResponse" message="impl:tellAFriendResponse"/>
+	  </wsdl:operation>
+	  
+	  <wsdl:operation name="getServerTime" parameterOrder="sid">
+         <wsdl:input name="getServerTimeRequest" message="impl:getServerTimeRequest"/>
+         <wsdl:output name="getServerTimeResponse" message="impl:getServerTimeResponse"/>
+      </wsdl:operation>
+      
+      <wsdl:operation name="whoAmI" parameterOrder="sid">
+         <wsdl:input name="whoAmIRequest" message="impl:whoAmIRequest"/>
+         <wsdl:output name="whoAmIResponse" message="impl:whoAmIResponse"/>
+      </wsdl:operation>
+      
+      <wsdl:operation name="isPluginInstalled" parameterOrder="pluginSecretId">
+         <wsdl:input name="isPluginInstalledRequest" message="impl:isPluginInstalledRequest"/>
+         <wsdl:output name="isPluginInstalledResponse" message="impl:isPluginInstalledResponse"/>
+      </wsdl:operation>
+      
+      <wsdl:operation name="isPluginActive" parameterOrder="pluginSecretId listContextId">
+         <wsdl:input name="isPluginActiveRequest" message="impl:isPluginActiveRequest"/>
+         <wsdl:output name="isPluginActiveResponse" message="impl:isPluginActiveResponse"/>
+      </wsdl:operation>
+            
+      <wsdl:operation name="getListContextIdsWherePluginActive" parameterOrder="pluginSecretId">
+         <wsdl:input name="getListContextIdsWherePluginActiveRequest" message="impl:getListContextIdsWherePluginActiveRequest"/>
+         <wsdl:output name="getListContextIdsWherePluginActiveResponse" message="impl:getListContextIdsWherePluginActiveResponse"/>
+      </wsdl:operation>
+	  
+   </wsdl:portType>
+
+   <wsdl:binding name="CoreServiceSoapBinding" type="impl:CoreService">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+      
+      
+        <wsdl:operation name="selectSubscriptionLogEntries">
+            <wsdlsoap:operation soapAction="" />
+            <wsdl:input name="selectSubscriptionLogEntriesRequest">
+                <wsdlsoap:body use="encoded"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    namespace="http://core.apiservice.xpro.inxmail.com" />
+            </wsdl:input>
+            <wsdl:output name="selectSubscriptionLogEntriesResponse">
+                <wsdlsoap:body use="encoded"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    namespace="http://core.apiservice.xpro.inxmail.com" />
+            </wsdl:output>
+        </wsdl:operation>
+
+
+        <wsdl:operation name="fetchSubscriptionLog">
+
+            <wsdlsoap:operation soapAction="" />
+
+            <wsdl:input name="fetchSubscriptionLogRequest">
+                <wsdlsoap:body use="encoded"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    namespace="http://core.apiservice.xpro.inxmail.com" />
+            </wsdl:input>
+
+            <wsdl:output name="fetchSubscriptionLogResponse">
+                <wsdlsoap:body use="encoded"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                    namespace="http://core.apiservice.xpro.inxmail.com" />
+            </wsdl:output>
+
+        </wsdl:operation>      
+      
+      
+      
+      <wsdl:operation name="newInitSecureLogin">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="newInitSecureLoginRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="initSecureLoginResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="newSecureLogin">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="newSecureLoginRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="secureLoginResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+      </wsdl:operation>
+      
+      <wsdl:operation name="newPluginSecureLogin">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="newPluginSecureLoginRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="secureLoginResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+      </wsdl:operation>                  
+
+      <wsdl:operation name="initSecureLogin">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="initSecureLoginRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="initSecureLoginResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="secureLogin">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="secureLoginRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="secureLoginResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+      </wsdl:operation>
+      
+      <wsdl:operation name="getUserRights">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getUserRightsRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="getUserRightsResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+      </wsdl:operation>
+ 
+      <wsdl:operation name="processSubUnsubscription">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="processSubUnsubscriptionRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="processSubUnsubscriptionResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+      </wsdl:operation>
+      
+      <wsdl:operation name="processSubUnsubscription2">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="processSubUnsubscriptionRequest2">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="processSubUnsubscriptionResponse2">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+      </wsdl:operation>
+      
+      <wsdl:operation name="processSubUnsubscription3">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="processSubUnsubscriptionRequest3">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="processSubUnsubscriptionResponse3">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+      </wsdl:operation>
+      
+      <wsdl:operation name="processSubscription">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="processSubscriptionRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="processSubscriptionResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="processUnsubscription">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="processUnsubscriptionRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="processUnsubscriptionResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setFeatureEnabled">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="setFeatureEnabledRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="setFeatureEnabledResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+         
+      </wsdl:operation>
+      
+      <wsdl:operation name="createAttribute">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="createAttributeRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="createAttributeResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+         
+      </wsdl:operation>
+ 
+       <wsdl:operation name="renameAttribute">
+ 
+          <wsdlsoap:operation soapAction=""/>
+ 
+          <wsdl:input name="renameAttributeRequest">
+             <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/> 
+          </wsdl:input>
+ 
+          <wsdl:output name="renameAttributeResponse">
+             <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+          </wsdl:output>
+         
+       </wsdl:operation>
+
+      <wsdl:operation name="removeAttribute">
+      
+         <wsdlsoap:operation soapAction=""/>
+      
+         <wsdl:input name="removeAttributeRequest">      
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>      
+         </wsdl:input>
+      
+         <wsdl:output name="removeAttributeResponse">     
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>      
+         </wsdl:output>
+      
+      </wsdl:operation>
+      
+      <wsdl:operation name="isAttributeVisibleInList">
+      
+         <wsdlsoap:operation soapAction=""/>
+         
+         <wsdl:input name="isAttributeVisibleInListRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+         
+         <wsdl:output name="isAttributeVisibleInListResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+         
+      </wsdl:operation>
+      
+      <wsdl:operation name="areAttributesVisibleInList">
+      
+         <wsdlsoap:operation soapAction=""/>
+         
+         <wsdl:input name="areAttributesVisibleInListRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+         
+         <wsdl:output name="areAttributesVisibleInListResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+         
+      </wsdl:operation>
+      
+      <wsdl:operation name="setAttributeListVisibility">
+      
+         <wsdlsoap:operation soapAction=""/>
+      
+         <wsdl:input name="setAttributeListVisibilityRequest">      
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>      
+         </wsdl:input>
+      
+         <wsdl:output name="setAttributeListVisibilityResponse">     
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>      
+         </wsdl:output>
+      
+      </wsdl:operation>
+      
+      <wsdl:operation name="setAttributesListVisibility">
+      
+         <wsdlsoap:operation soapAction=""/>
+      
+         <wsdl:input name="setAttributesListVisibilityRequest">      
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>      
+         </wsdl:input>
+      
+         <wsdl:output name="setAttributesListVisibilityResponse">     
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>      
+         </wsdl:output>
+      
+      </wsdl:operation>
+      
+      <wsdl:operation name="setGlobalAttributeVisibility">
+      
+         <wsdlsoap:operation soapAction=""/>
+      
+         <wsdl:input name="setGlobalAttributeVisibilityRequest">      
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>      
+         </wsdl:input>
+      
+         <wsdl:output name="setGlobalAttributeVisibilityResponse">     
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>      
+         </wsdl:output>
+      
+      </wsdl:operation>
+      
+      <wsdl:operation name="setGlobalAttributesVisibility">
+      
+         <wsdlsoap:operation soapAction=""/>
+      
+         <wsdl:input name="setGlobalAttributesVisibilityRequest">      
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>      
+         </wsdl:input>
+      
+         <wsdl:output name="setGlobalAttributesVisibilityResponse">     
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>      
+         </wsdl:output>
+      
+      </wsdl:operation>
+           
+      <wsdl:operation name="login">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="loginRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="loginResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+      </wsdl:operation>
+      
+      <wsdl:operation name="pluginLogin">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="pluginLoginRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="pluginLoginResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+      </wsdl:operation>      
+      
+      <wsdl:operation name="loginWithToken">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="loginWithTokenRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="loginWithTokenResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+      </wsdl:operation>
+      
+
+      <wsdl:operation name="releaseRef">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="releaseRefRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="releaseRefResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="logout">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="logoutRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="logoutResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="writeOutputStream">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="writeOutputStreamRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="writeOutputStreamResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="readInputStream">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="readInputStreamRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="readInputStreamResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="closeInputStream">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="closeInputStreamRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="closeInputStreamResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="closeOutputStream">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="closeOutputStreamRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="closeOutputStreamResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+      </wsdl:operation>
+
+     <wsdl:operation name="tellAFriend">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="tellAFriendRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="tellAFriendResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+      </wsdl:operation>
+      
+      
+      <wsdl:operation name="getServerTime">
+      
+         <wsdlsoap:operation soapAction=""/>
+      
+         <wsdl:input name="getServerTimeRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+      
+         <wsdl:output name="getServerTimeResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+      
+      </wsdl:operation>      
+  
+        <wsdl:operation name="whoAmI">
+      
+         <wsdlsoap:operation soapAction=""/>
+      
+         <wsdl:input name="whoAmIRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+      
+         <wsdl:output name="whoAmIResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+      
+      </wsdl:operation>  
+  
+  
+      
+      <wsdl:operation name="isPluginInstalled">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="isPluginInstalledRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="isPluginInstalledResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+      </wsdl:operation> 
+      <wsdl:operation name="isPluginActive">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="isPluginActiveRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="isPluginActiveResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+      </wsdl:operation>       
+
+      <wsdl:operation name="getListContextIdsWherePluginActive">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getListContextIdsWherePluginActiveRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:input>
+
+         <wsdl:output name="getListContextIdsWherePluginActiveResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://core.apiservice.xpro.inxmail.com"/>
+         </wsdl:output>
+
+      </wsdl:operation>       
+            
+      
+   </wsdl:binding>
+
+   <wsdl:service name="CoreServiceSoap">
+
+      <wsdl:port name="CoreService" binding="impl:CoreServiceSoapBinding">
+
+         <wsdlsoap:address location="http://localhost:80/inxmail/api/CoreService"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
