@@ -1,7 +1,7 @@
 {
-    "name": "OpenMageModuleFostering\/DndInxmail_Subscriber",
+    "name": "openmage-module-fostering\/dndinxmail_subscriber",
     "type": "magento-module",
-    "license": "OSL-v3.0",
+    "license": "OSL-3.0",
     "homepage": "",
     "description": "Inxmail Professional extension for Magento EE",
     "authors": [
